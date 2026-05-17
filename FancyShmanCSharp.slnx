@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Games/">
+    <Project Path="Games/Cube/Cube.csproj" />
+    <Project Path="Games/Snake/Snake.csproj" />
+    <Project Path="Games/SpaceInvaders/SpaceInvaders.csproj" />
+  </Folder>
+  <Project Path="FSCSharp/FSCSharp.csproj" />
+</Solution>
