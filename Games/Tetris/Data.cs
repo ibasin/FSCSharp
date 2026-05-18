@@ -8,7 +8,7 @@ public static class Data
     #region Constructors
     static Data()
     {
-        Shapes = new Color?[NumOfShapes, 4, 4, 4];
+        Shapes = new Color?[NumOfShapes, Enum.GetNames(typeof(Go)).Length, 4, 4];
         InitShapesToNull();
 
         int shape = -1;
@@ -209,7 +209,7 @@ public static class Data
             {
                 for (var x = 0; x < Shapes.GetLength(2); x++)
                 {
-                    for (var y = 0; x < Shapes.GetLength(2); y++)
+                    for (var y = 0; y < Shapes.GetLength(3); y++)
                     {
                         Shapes[shape, orientation, x, y] = null;
                     }

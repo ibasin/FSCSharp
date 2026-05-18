@@ -9,7 +9,7 @@ public class TetrisGame : Game<TetrisGame>
     public TetrisGame() : base("Tetris", WidthInSquares * SquareSide, HeightInSquares * SquareSide, Color.Black)
     {
         GameObjects.Add(new ScoreKeeper());
-
+        GameObjects.Add(new FallingShape());
     }
     #endregion
 
@@ -19,8 +19,8 @@ public class TetrisGame : Game<TetrisGame>
 
     #region Settings
     public const int WidthInSquares = 20;
-    public const int HeightInSquares = 80;
+    public const int HeightInSquares = 40;
 
-    public const int SquareSide = 10;
+    public const int SquareSide = 30;
     #endregion
 }
