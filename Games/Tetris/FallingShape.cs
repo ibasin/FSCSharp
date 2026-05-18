@@ -20,6 +20,36 @@ public class FallingShape : TangibleGameObject
     #region Overrides
     public override void Update(float delta)
     {
+        var key = Game.KeyboardManager.PeekKey();
+        if (key != KeyboardKey.Null)
+        {
+            Game.KeyboardManager.ReadKey();
+            if (Raylib.IsKeyPressed(KeyboardKey.Left))
+            {
+                Location = Location.Move(Go.Left, TetrisGame.SquareSide);
+                //if (IsCollidingWithSomething()) Location = Location.Move(Go.Right, TetrisGame.SquareSide);
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.Right))
+            {
+                Location = Location.Move(Go.Right, TetrisGame.SquareSide);
+                //if (IsCollidingWithSomething()) Location = Location.Move(Go.Left, TetrisGame.SquareSide);
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.Up))
+            {
+                Orientation--;
+                //if (IsCollidingWithSomething()) Orientation++;
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.Down))
+            {
+                Orientation++;
+                //if (IsCollidingWithSomething()) Orientation--;
+            }
+            //if (key == KeyboardKey.Space)
+            //{
+            //    while (!ToDelete) MoveDown();
+            //    return;
+            //}
+        }
         Location = Location.Move(Go.Down, delta * 200);
     }
 
@@ -44,7 +74,26 @@ public class FallingShape : TangibleGameObject
 
     #region Properties
     public Vector2 Location { get; set; }
-    public int Shape { get; }
-    public int Orientation { get; protected set; }
+
+    public int Shape
+    {
+        get;
+        set
+        {
+            if (value < 0) value = Data.NumOfShapes - 1;
+            if (value >= Data.NumOfShapes) value = 0;
+            field = value;
+        }
+    }
+    public int Orientation
+    {
+        get;
+        set
+        {
+            if (value < 0) value = 4 - 1;
+            if (value >= 4) value = 0;
+            field = value;
+        }
+    }
     #endregion
 }
