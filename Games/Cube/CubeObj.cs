@@ -16,13 +16,12 @@ public class CubeObj : TangibleGameObject
     #region Overrides
     public override void Update(float delta)
     {
-        var key = Game.KeyboardManager.ReadKey();
-        if (key == KeyboardKey.Left) Location -= Vector3.UnitX;
-        if (key == KeyboardKey.Right) Location += Vector3.UnitX;
-        if (key == KeyboardKey.Up) Location += Vector3.UnitZ;
-        if (key == KeyboardKey.Down) Location -= Vector3.UnitZ;
-        if (key == KeyboardKey.Equal) Location -= Vector3.UnitY;
-        if (key == KeyboardKey.Minus) Location += Vector3.UnitY;
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left)) Location -= Vector3.UnitX;
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right)) Location += Vector3.UnitX;
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Up)) Location += Vector3.UnitZ;
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Down)) Location -= Vector3.UnitZ;
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Equal)) Location -= Vector3.UnitY;
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Minus)) Location += Vector3.UnitY;
 
     }
     public override void Draw()

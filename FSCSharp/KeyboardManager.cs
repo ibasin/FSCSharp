@@ -5,6 +5,23 @@ namespace FSCSharp;
 public class KeyboardManager
 {
     #region Methods
+    public bool IsKeyDown(KeyboardKey key)
+    {
+        return Raylib.IsKeyDown(key);
+    }
+    public bool IsKeyUp(KeyboardKey key)
+    {
+        return Raylib.IsKeyUp(key);
+    }
+    public bool IsKeyReleased(KeyboardKey key)
+    {
+        return Raylib.IsKeyReleased(key);
+    }
+    public bool IsKeyPressed(KeyboardKey key)
+    {
+        return Raylib.IsKeyPressed(key);
+    }
+
     public KeyboardKey PeekKey()
     {
         if (!KeyBuffer.Any()) return KeyboardKey.Null;
