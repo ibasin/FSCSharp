@@ -1,3 +1,3 @@
 ﻿namespace FSCSharp;
 
-public enum Go { Up, Down, Right, Left }
+public enum Go { Up, Right, Down, Left }

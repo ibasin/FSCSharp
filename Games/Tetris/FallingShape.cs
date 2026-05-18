@@ -12,44 +12,39 @@ public class FallingShape : TangibleGameObject
         // ReSharper disable once PossibleLossOfFraction
         var locationInGrid = new Vector2((TetrisGame.WidthInSquares - 4) / 2, 0);
         Location = locationInGrid * TetrisGame.SquareSide;
-        Shape = Random.Shared.Next(Data.NumOfShapes);
-        Orientation = Random.Shared.Next(4);
+        Shape = 6; //Random.Shared.Next(Data.NumOfShapes);
+        Orientation = 0; //Random.Shared.Next(4);
     }
     #endregion
 
     #region Overrides
     public override void Update(float delta)
     {
-        var key = Game.KeyboardManager.PeekKey();
-        if (key != KeyboardKey.Null)
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Left))
         {
-            Game.KeyboardManager.ReadKey();
-            if (Raylib.IsKeyPressed(KeyboardKey.Left))
-            {
-                Location = Location.Move(Go.Left, TetrisGame.SquareSide);
-                //if (IsCollidingWithSomething()) Location = Location.Move(Go.Right, TetrisGame.SquareSide);
-            }
-            if (Raylib.IsKeyPressed(KeyboardKey.Right))
-            {
-                Location = Location.Move(Go.Right, TetrisGame.SquareSide);
-                //if (IsCollidingWithSomething()) Location = Location.Move(Go.Left, TetrisGame.SquareSide);
-            }
-            if (Raylib.IsKeyPressed(KeyboardKey.Up))
-            {
-                Orientation--;
-                //if (IsCollidingWithSomething()) Orientation++;
-            }
-            if (Raylib.IsKeyPressed(KeyboardKey.Down))
-            {
-                Orientation++;
-                //if (IsCollidingWithSomething()) Orientation--;
-            }
-            //if (key == KeyboardKey.Space)
-            //{
-            //    while (!ToDelete) MoveDown();
-            //    return;
-            //}
+            Location = Location.Move(Go.Left, TetrisGame.SquareSide);
+            //if (IsCollidingWithSomething()) Location = Location.Move(Go.Right, TetrisGame.SquareSide);
         }
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Right))
+        {
+            Location = Location.Move(Go.Right, TetrisGame.SquareSide);
+            //if (IsCollidingWithSomething()) Location = Location.Move(Go.Left, TetrisGame.SquareSide);
+        }
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Up))
+        {
+            Orientation--;
+            //if (IsCollidingWithSomething()) Orientation++;
+        }
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Down))
+        {
+            Orientation++;
+            //if (IsCollidingWithSomething()) Orientation--;
+        }
+        //if (key == KeyboardKey.Space)
+        //{
+        //    while (!ToDelete) MoveDown();
+        //    return;
+        //}
         Location = Location.Move(Go.Down, delta * 200);
     }
 

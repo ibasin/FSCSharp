@@ -12,6 +12,7 @@ public static class Data
         InitShapesToNull();
 
         int shape = -1;
+
         #region Line
         {
             shape++;
@@ -27,10 +28,10 @@ public static class Data
             Shapes[shape, (int)Go.Right, 2, 1] = color;
             Shapes[shape, (int)Go.Right, 3, 1] = color;
 
-            Shapes[shape, (int)Go.Down, 2, 0] = color;
-            Shapes[shape, (int)Go.Down, 2, 1] = color;
-            Shapes[shape, (int)Go.Down, 2, 2] = color;
-            Shapes[shape, (int)Go.Down, 2, 3] = color;
+            Shapes[shape, (int)Go.Down, 1, 0] = color;
+            Shapes[shape, (int)Go.Down, 1, 1] = color;
+            Shapes[shape, (int)Go.Down, 1, 2] = color;
+            Shapes[shape, (int)Go.Down, 1, 3] = color;
 
             Shapes[shape, (int)Go.Left, 0, 2] = color;
             Shapes[shape, (int)Go.Left, 1, 2] = color;
@@ -185,9 +186,9 @@ public static class Data
             Shapes[shape, (int)Go.Up, 1, 2] = color;
 
             Shapes[shape, (int)Go.Right, 1, 0] = color;
-            Shapes[shape, (int)Go.Right, 2, 1] = color;
+            Shapes[shape, (int)Go.Right, 2, 0] = color;
             Shapes[shape, (int)Go.Right, 0, 1] = color;
-            Shapes[shape, (int)Go.Right, 1, 2] = color;
+            Shapes[shape, (int)Go.Right, 1, 1] = color;
 
             Shapes[shape, (int)Go.Down, 1, 0] = color;
             Shapes[shape, (int)Go.Down, 1, 1] = color;
