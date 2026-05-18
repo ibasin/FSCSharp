@@ -3,6 +3,7 @@
     <Project Path="Games/Cube/Cube.csproj" />
     <Project Path="Games/Snake/Snake.csproj" />
     <Project Path="Games/SpaceInvaders/SpaceInvaders.csproj" />
+    <Project Path="Games/Tetris/Tetris.csproj" Id="c21889ff-be24-42eb-9ac9-b0534d6319a2" />
   </Folder>
   <Project Path="FSCSharp/FSCSharp.csproj" />
 </Solution>

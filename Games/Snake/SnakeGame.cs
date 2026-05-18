@@ -36,5 +36,4 @@ public class SnakeGame : Game<SnakeGame>
 
     public Texture2D AppleTexture { get; set; }
     #endregion
-
 }
