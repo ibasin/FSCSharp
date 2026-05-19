@@ -6,7 +6,7 @@ namespace Snake;
 public class SnakeGame : Game<SnakeGame>
 {
     #region Constrcutors
-    public SnakeGame() : base("Snake", 1600, 1000, new Color(56, 106, 28))
+    public SnakeGame() : base("Snake", 1600, 1040, new Color(56, 106, 28))
     {
         if (Current.WindowWidth % BoardCellSize != 0) throw new Exception("Board size must be divisible by board cell size!");
         if (Current.WindowHeight % BoardCellSize != 0) throw new Exception("Board size must be divisible by board cell size!");

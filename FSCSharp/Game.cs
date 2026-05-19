@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using Raylib_cs;
 
 namespace FSCSharp;
@@ -57,6 +58,13 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     }
     protected Game(string name, int width, int height, Color backgroundColor, bool is3D = false) : base(name, is3D)
     {
+        //if we are on a mac, we need to scale the window down by half becasue of the retina display
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            width /= 2;
+            height /= 2;
+        }
+        
         WindowWidth = width;
         WindowHeight = height;
         BackgroundColor = backgroundColor;
