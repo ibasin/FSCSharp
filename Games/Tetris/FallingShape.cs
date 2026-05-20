@@ -84,7 +84,7 @@ public class FallingShape : TangibleGameObject
             if (Orientation != oldOrientation) Orientation = oldOrientation;
         }
 
-        Location = Location.Move(Go.Down, delta * 150);
+        Location = Location.Move(Go.Down, delta * 100);
         if (Location.Move(Go.Down, TetrisGame.SquareSide * ShapeRect.Y2).Violations.YPlusViolation)
         {
             ToDelete = true;
