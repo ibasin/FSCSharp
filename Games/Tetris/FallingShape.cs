@@ -6,6 +6,36 @@ namespace Tetris;
 
 public class FallingShape : TangibleGameObject
 {
+    #region Embedded Types
+    public struct Rect
+    {
+        #region Constructiors
+        public Rect(int x1, int y1, int x2, int y2)
+        {
+            X1 = x1;
+            Y1 = y1;
+            X2 = x2;
+            Y2 = y2;
+        }
+        #endregion
+
+        #region Overrides
+        public override string ToString()
+        {
+            return $"({X1},{Y1})-({X2},{Y2})";
+        }
+        #endregion
+
+        #region Properties
+        public int X1 { get; }
+        public int Y1 { get; }
+        public int X2 { get; }
+        public int Y2 { get; }
+        #endregion
+    }
+    #endregion
+
+
     #region Constructors
     public FallingShape()
     {
@@ -20,24 +50,26 @@ public class FallingShape : TangibleGameObject
     #region Overrides
     public override void Update(float delta)
     {
+        Vector2 location = Location;
+        var orientation = Orientation;
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Left))
         {
-            Location = Location.Move(Go.Left, TetrisGame.SquareSide);
+            location = Location.Move(Go.Left, TetrisGame.SquareSide);
             //if (IsCollidingWithSomething()) Location = Location.Move(Go.Right, TetrisGame.SquareSide);
         }
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Right))
         {
-            Location = Location.Move(Go.Right, TetrisGame.SquareSide);
+            location = Location.Move(Go.Right, TetrisGame.SquareSide);
             //if (IsCollidingWithSomething()) Location = Location.Move(Go.Left, TetrisGame.SquareSide);
         }
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Up))
         {
-            Orientation--;
+            orientation--;
             //if (IsCollidingWithSomething()) Orientation++;
         }
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Down))
         {
-            Orientation++;
+            orientation++;
             //if (IsCollidingWithSomething()) Orientation--;
         }
         //if (key == KeyboardKey.Space)
@@ -45,13 +77,19 @@ public class FallingShape : TangibleGameObject
         //    while (!ToDelete) MoveDown();
         //    return;
         //}
-        Location = Location.Move(Go.Down, delta * 200);
-
-        if (!Location.IsValid || !Location.Move(Go.Down, TetrisGame.SquareSide).Move(Go.Right, TetrisGame.SquareSide).IsValid)
+        if (!location.Violations.XMinusViolation && 
+            !location.Move(Go.Left, TetrisGame.SquareSide * ShapeRect.X1).Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X2).Violations.XPlusViolation)
         {
-            ToDelete = true;
-            TetrisGame.Current.GameObjects.Add(new FallingShape());
+            Location = location;
+            if (Orientation != orientation) Orientation = orientation;
         }
+
+        //Location = Location.Move(Go.Down, delta * 200);
+        //if (Location.Move(Go.Down, TetrisGame.SquareSide * ShapeRect.Y2).Violations.YPlusViolation)
+        //{
+        //    ToDelete = true;
+        //    TetrisGame.Current.GameObjects.Add(new FallingShape());
+        //}
     }
     public override void Draw()
     {
@@ -92,21 +130,24 @@ public class FallingShape : TangibleGameObject
         get;
         set
         {
-            _currentSizeInBlocks = null;
+            _shapeRect = null;
             if (value < 0) value = 4 - 1;
             if (value >= 4) value = 0;
             field = value;
         }
     }
 
-    public (int, int) CurrentSizeInBlocks
+    public Rect ShapeRect
     {
         get
         {
-            if (_currentSizeInBlocks == null)
+            if (_shapeRect == null)
             {
-                int maxX = 0;
-                int maxY = 0;
+                int minX = Data.Shapes.GetLength(2);
+                int minY = Data.Shapes.GetLength(3);
+
+                int maxX = -1;
+                int maxY = -1;
 
                 for (var x = 0; x < Data.Shapes.GetLength(2); x++)
                 {
@@ -114,17 +155,20 @@ public class FallingShape : TangibleGameObject
                     {
                         if (Data.Shapes[Shape, Orientation, x, y].HasValue)
                         {
+                            if (x < minX) minX = x;
+                            if (y < minY) minY = y;
                             if (x > maxX) maxX = x;
-                            if (y > maxY) maxY = x;
+                            if (y > maxY) maxY = y;
                         }
                     }
                 }
-                _currentSizeInBlocks = (maxX, maxY);
+                _shapeRect = new Rect(minX, minY, maxX, maxY);
+                Console.WriteLine($"Shape = {Shape}, Orientation = {Orientation}, Rect = {_shapeRect}");
             }
-            return _currentSizeInBlocks.Value;
+            return _shapeRect.Value;
         }
     }
-    private (int, int)? _currentSizeInBlocks;
+    private Rect? _shapeRect;
 
     #endregion
 }

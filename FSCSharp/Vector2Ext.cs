@@ -95,7 +95,7 @@ public static class Vector2Ext
         public int IntY => (int)Math.Round(me.Y);
 
         public Violations Violations => new(me);
-        public bool IsValid => me.Violations.IsInViolation;
+        public bool IsValid => !me.Violations.IsInViolation;
         #endregion
     }
     private static Vector2? _windowCenter;
