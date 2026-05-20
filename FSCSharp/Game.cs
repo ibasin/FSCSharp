@@ -110,7 +110,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
             {
                 var delta = (float)stopwatch.Elapsed.TotalSeconds;
                 stopwatch.Restart();
-                KeyboardManager.Update();
+                KeyboardManager.Update(stopwatch);
                 RunSingleIterationWithoutKeyboard(delta);
                 GameObjects.Sort(gameObjectPriorityComparer);
                 stopwatch.Stop();

@@ -1,4 +1,5 @@
-﻿using Raylib_cs;
+﻿using System.Diagnostics;
+using Raylib_cs;
 
 namespace FSCSharp;
 
@@ -45,7 +46,7 @@ public class KeyboardManager
     #endregion
 
     #region Overrides
-    public virtual void Update()
+    public virtual void Update(Stopwatch stopwatch)
     {
         //we can read up to 10 keys per iteration
         for (var i = 0; i < 10; i++)
@@ -53,8 +54,16 @@ public class KeyboardManager
             var key = (KeyboardKey)Raylib.GetKeyPressed();
             if (key != KeyboardKey.Null)
             {
-                if (key == PauseButton) WaitForUnpause();
-                else KeyBuffer.Insert(0, key);
+                if (key == PauseButton)
+                {
+                    stopwatch.Stop();
+                    WaitForUnpause();
+                    stopwatch.Start();
+                }
+                else
+                {
+                    KeyBuffer.Insert(0, key);
+                }
             }
             else
             {
