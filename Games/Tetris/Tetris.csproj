@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\2line_clear.mp3" />
+    <None Remove="Resources\3line_clear.mp3" />
+    <None Remove="Resources\4line_clear.mp3" />
+    <None Remove="Resources\cant_sound.wav" />
     <None Remove="Resources\game_over.wav" />
     <None Remove="Resources\kalinka.mp3" />
     <None Remove="Resources\line_clear.wav" />
@@ -19,6 +23,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\2line_clear.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3line_clear.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\4line_clear.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\cant_sound.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\game_over.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

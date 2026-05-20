@@ -241,13 +241,15 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     }
     public virtual void PlaySound(string soundPath)
     {
-        var sound = Raylib.LoadSound(soundPath);
-        PlaySound(sound);
+        if (!SoundsCache.ContainsKey(soundPath)) SoundsCache[soundPath] = Raylib.LoadSound(soundPath);
+        PlaySound(SoundsCache[soundPath]);
     }
     #endregion
 
     #region Properties
     public static TGame Current => (TGame)CurrentInternal;
     public Color BackgroundColor { get; set; }
+    public Dictionary<string, Sound> SoundsCache = new();
+
     #endregion
 }

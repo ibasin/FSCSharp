@@ -9,7 +9,7 @@ public class TetrisGame : Game<TetrisGame>
     public TetrisGame() : base("Tetris", WidthInSquares * SquareSide, HeightInSquares * SquareSide, Color.Black)
     {
         Current.PlaySound("Resources/kalinka.mp3");
-        Current.ShowSplashScreen("Resources/splash.png", 8000);
+        Current.ShowSplashScreen("Resources/splash.png", 7750);
 
         GameObjects.Add(new ScoreKeeper());
 

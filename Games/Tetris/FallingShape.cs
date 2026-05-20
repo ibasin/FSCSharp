@@ -46,6 +46,7 @@ public class FallingShape : TangibleGameObject
 
         if (TetrisGame.Current.ShapesBlock.IsShapeAtLocationColliding(Shape, Orientation, Location))
         {
+            TetrisGame.Current.PlaySound("Resources/game_over.wav");
             throw new GameOverException($"Game Over! Score: {TetrisGame.Score}.");
         }
     }
@@ -74,8 +75,21 @@ public class FallingShape : TangibleGameObject
             Location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X2).Violations.XPlusViolation || 
             TetrisGame.Current.ShapesBlock.IsShapeAtLocationColliding(Shape, Orientation, Location))
         {
-            if (Location != oldLocation) Location = oldLocation;
-            if (Orientation != oldOrientation) Orientation = oldOrientation;
+            if (Location != oldLocation)
+            {
+                TetrisGame.Current.PlaySound("Resources/cant_sound.wav");
+                Location = oldLocation;
+            }
+            if (Orientation != oldOrientation)
+            {
+                TetrisGame.Current.PlaySound("Resources/cant_sound.wav");
+                Orientation = oldOrientation;
+            }
+        }
+        else
+        {
+            if (Location != oldLocation) TetrisGame.Current.PlaySound("Resources/move_piece.wav");
+            if (Orientation != oldOrientation) TetrisGame.Current.PlaySound("Resources/rotate_piece.wav");
         }
 
         MoveDown(delta);
@@ -104,6 +118,8 @@ public class FallingShape : TangibleGameObject
         Location = Location.Move(Go.Down, delta * VerticalSpeed);
         if (TetrisGame.Current.ShapesBlock.IsShapeAtLocationColliding(Shape, Orientation, Location))
         {
+            TetrisGame.Current.PlaySound("Resources/piece_landed.wav");
+
             TetrisGame.Current.ShapesBlock.MergeShapeAtLocation(Shape, Orientation, Location);
             var lines = TetrisGame.Current.ShapesBlock.RemoveFullLines();
 
@@ -114,9 +130,10 @@ public class FallingShape : TangibleGameObject
             else if (lines == 4) TetrisGame.Score += 1200;
 
             ToDelete = true;
-            VerticalSpeed++;
 
-            TetrisGame.Current.GameObjects.Add(new FallingShape());
+            var newShape = new FallingShape();
+            newShape.VerticalSpeed = VerticalSpeed + 1;
+            TetrisGame.Current.GameObjects.Add(newShape);
         }
     }
     #endregion
@@ -164,7 +181,7 @@ public class FallingShape : TangibleGameObject
                     }
                 }
                 _shapeRect = new Rect(minX, minY, maxX, maxY);
-                Console.WriteLine($"Shape = {Shape}, Orientation = {Orientation}, Rect = {_shapeRect}");
+                //Console.WriteLine($"Shape = {Shape}, Orientation = {Orientation}, Rect = {_shapeRect}");
             }
             return _shapeRect.Value;
         }
