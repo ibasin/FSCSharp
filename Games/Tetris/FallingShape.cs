@@ -12,8 +12,8 @@ public class FallingShape : TangibleGameObject
         // ReSharper disable once PossibleLossOfFraction
         var locationInGrid = new Vector2((TetrisGame.WidthInSquares - 4) / 2, 0);
         Location = locationInGrid * TetrisGame.SquareSide;
-        Shape = 6; //Random.Shared.Next(Data.NumOfShapes);
-        Orientation = 0; //Random.Shared.Next(4);
+        Shape = Random.Shared.Next(Data.NumOfShapes);
+        Orientation = Random.Shared.Next(4);
     }
     #endregion
 
@@ -46,8 +46,13 @@ public class FallingShape : TangibleGameObject
         //    return;
         //}
         Location = Location.Move(Go.Down, delta * 200);
-    }
 
+        if (!Location.IsValid || !Location.Move(Go.Down, TetrisGame.SquareSide).Move(Go.Right, TetrisGame.SquareSide).IsValid)
+        {
+            ToDelete = true;
+            TetrisGame.Current.GameObjects.Add(new FallingShape());
+        }
+    }
     public override void Draw()
     {
         for (var x = 0; x < Data.Shapes.GetLength(2); x++)
@@ -70,25 +75,56 @@ public class FallingShape : TangibleGameObject
     #region Properties
     public Vector2 Location { get; set; }
 
-    public int Shape
-    {
-        get;
-        set
-        {
-            if (value < 0) value = Data.NumOfShapes - 1;
-            if (value >= Data.NumOfShapes) value = 0;
-            field = value;
-        }
-    }
+    public int Shape { get; }
+    //public int Shape
+    //{
+    //    get;
+    //    set
+    //    {
+    //        _currentSizeInBlocks = null;
+    //        if (value < 0) value = Data.NumOfShapes - 1;
+    //        if (value >= Data.NumOfShapes) value = 0;
+    //        field = value;
+    //    }
+    //}
     public int Orientation
     {
         get;
         set
         {
+            _currentSizeInBlocks = null;
             if (value < 0) value = 4 - 1;
             if (value >= 4) value = 0;
             field = value;
         }
     }
+
+    public (int, int) CurrentSizeInBlocks
+    {
+        get
+        {
+            if (_currentSizeInBlocks == null)
+            {
+                int maxX = 0;
+                int maxY = 0;
+
+                for (var x = 0; x < Data.Shapes.GetLength(2); x++)
+                {
+                    for (var y = 0; y < Data.Shapes.GetLength(3); y++)
+                    {
+                        if (Data.Shapes[Shape, Orientation, x, y].HasValue)
+                        {
+                            if (x > maxX) maxX = x;
+                            if (y > maxY) maxY = x;
+                        }
+                    }
+                }
+                _currentSizeInBlocks = (maxX, maxY);
+            }
+            return _currentSizeInBlocks.Value;
+        }
+    }
+    private (int, int)? _currentSizeInBlocks;
+
     #endregion
 }
