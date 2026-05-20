@@ -8,10 +8,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\game_over.wav" />
+    <None Remove="Resources\kalinka.mp3" />
+    <None Remove="Resources\line_clear.wav" />
+    <None Remove="Resources\move_piece.wav" />
+    <None Remove="Resources\piece-fall.wav" />
+    <None Remove="Resources\piece_landed.wav" />
+    <None Remove="Resources\rotate_piece.wav" />
     <None Remove="Resources\splash.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\game_over.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\kalinka.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\line_clear.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\move_piece.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\piece-fall.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\piece_landed.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\rotate_piece.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\splash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
