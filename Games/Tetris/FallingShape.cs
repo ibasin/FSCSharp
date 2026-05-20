@@ -35,7 +35,6 @@ public class FallingShape : TangibleGameObject
     }
     #endregion
 
-
     #region Constructors
     public FallingShape()
     {
@@ -44,52 +43,42 @@ public class FallingShape : TangibleGameObject
         Location = locationInGrid * TetrisGame.SquareSide;
         Shape = Random.Shared.Next(Data.NumOfShapes);
         Orientation = Random.Shared.Next(4);
+
+        if (TetrisGame.Current.ShapesBlock.IsShapeAtLocationColliding(Shape, Orientation, Location))
+        {
+            throw new GameOverException($"Game Over! Score: {TetrisGame.Score}.");
+        }
     }
     #endregion
 
     #region Overrides
     public override void Update(float delta)
     {
+        //Save current location and orientation
         Vector2 oldLocation = Location;
         var oldOrientation = Orientation;
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Left))
+        
+        //Move or rotate in response to keyboard inputs
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Left)) Location = Location.Move(Go.Left, TetrisGame.SquareSide);
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Right)) Location = Location.Move(Go.Right, TetrisGame.SquareSide);
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Up)) Orientation--;
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Down)) Orientation++;
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Space))
         {
-            Location = Location.Move(Go.Left, TetrisGame.SquareSide);
-            //if (IsCollidingWithSomething()) Location = Location.Move(Go.Right, TetrisGame.SquareSide);
+            while (!ToDelete) MoveDown(delta);
+            return;
         }
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Right))
-        {
-            Location = Location.Move(Go.Right, TetrisGame.SquareSide);
-            //if (IsCollidingWithSomething()) Location = Location.Move(Go.Left, TetrisGame.SquareSide);
-        }
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Up))
-        {
-            Orientation--;
-            //if (IsCollidingWithSomething()) Orientation++;
-        }
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Down))
-        {
-            Orientation++;
-            //if (IsCollidingWithSomething()) Orientation--;
-        }
-        //if (key == KeyboardKey.Space)
-        //{
-        //    while (!ToDelete) MoveDown();
-        //    return;
-        //}
+
+        //Check if we did not move or rotate out of the screen 
         if (Location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X1).Violations.XMinusViolation || 
-            Location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X2).Violations.XPlusViolation)
+            Location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X2).Violations.XPlusViolation || 
+            TetrisGame.Current.ShapesBlock.IsShapeAtLocationColliding(Shape, Orientation, Location))
         {
             if (Location != oldLocation) Location = oldLocation;
             if (Orientation != oldOrientation) Orientation = oldOrientation;
         }
 
-        Location = Location.Move(Go.Down, delta * 100);
-        if (Location.Move(Go.Down, TetrisGame.SquareSide * ShapeRect.Y2).Violations.YPlusViolation)
-        {
-            ToDelete = true;
-            TetrisGame.Current.GameObjects.Add(new FallingShape());
-        }
+        MoveDown(delta);
     }
     public override void Draw()
     {
@@ -109,21 +98,31 @@ public class FallingShape : TangibleGameObject
     }
     #endregion
 
+    #region Methods
+    public void MoveDown(float delta)
+    {
+        Location = Location.Move(Go.Down, delta * 100);
+        if (TetrisGame.Current.ShapesBlock.IsShapeAtLocationColliding(Shape, Orientation, Location))
+        {
+            TetrisGame.Current.ShapesBlock.MergeShapeAtLocation(Shape, Orientation, Location);
+            var lines = TetrisGame.Current.ShapesBlock.RemoveFullLines();
+
+            //update score
+            if (lines == 1) TetrisGame.Score += 40;
+            else if (lines == 2) TetrisGame.Score += 100;
+            else if (lines == 3) TetrisGame.Score += 300;
+            else if (lines == 4) TetrisGame.Score += 1200;
+
+            ToDelete = true;
+            TetrisGame.Current.GameObjects.Add(new FallingShape());
+        }
+    }
+    #endregion
+
     #region Properties
     public Vector2 Location { get; set; }
 
     public int Shape { get; }
-    //public int Shape
-    //{
-    //    get;
-    //    set
-    //    {
-    //        _currentSizeInBlocks = null;
-    //        if (value < 0) value = Data.NumOfShapes - 1;
-    //        if (value >= Data.NumOfShapes) value = 0;
-    //        field = value;
-    //    }
-    //}
     public int Orientation
     {
         get;
@@ -168,6 +167,5 @@ public class FallingShape : TangibleGameObject
         }
     }
     private Rect? _shapeRect;
-
     #endregion
 }

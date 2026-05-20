@@ -11,12 +11,17 @@ public class TetrisGame : Game<TetrisGame>
         Current.ShowSplashScreen("Resources/splash.png", 2000);
 
         GameObjects.Add(new ScoreKeeper());
+
+        ShapesBlock = new ShapesBlock();
+        GameObjects.Add(ShapesBlock);
+
         GameObjects.Add(new FallingShape());
     }
     #endregion
 
     #region Properties
     public static int Score { get; set; }
+    public ShapesBlock ShapesBlock { get; set; }
     #endregion
 
     #region Settings
