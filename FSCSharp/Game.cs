@@ -69,6 +69,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         WindowHeight = height;
         BackgroundColor = backgroundColor;
 
+        Raylib.SetConfigFlags(ConfigFlags.AlwaysRunWindow);
         Raylib.InitWindow(width, height, name);
         Raylib.SetTargetFPS(60);
 

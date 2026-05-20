@@ -77,19 +77,19 @@ public class FallingShape : TangibleGameObject
         //    while (!ToDelete) MoveDown();
         //    return;
         //}
-        if (!location.Violations.XMinusViolation && 
-            !location.Move(Go.Left, TetrisGame.SquareSide * ShapeRect.X1).Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X2).Violations.XPlusViolation)
+        if (!location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X1).Violations.XMinusViolation && 
+            !location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X2).Violations.XPlusViolation)
         {
             Location = location;
             if (Orientation != orientation) Orientation = orientation;
         }
 
-        //Location = Location.Move(Go.Down, delta * 200);
-        //if (Location.Move(Go.Down, TetrisGame.SquareSide * ShapeRect.Y2).Violations.YPlusViolation)
-        //{
-        //    ToDelete = true;
-        //    TetrisGame.Current.GameObjects.Add(new FallingShape());
-        //}
+        Location = Location.Move(Go.Down, delta * 200);
+        if (Location.Move(Go.Down, TetrisGame.SquareSide * ShapeRect.Y2).Violations.YPlusViolation)
+        {
+            ToDelete = true;
+            TetrisGame.Current.GameObjects.Add(new FallingShape());
+        }
     }
     public override void Draw()
     {
