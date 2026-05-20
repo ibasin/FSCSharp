@@ -16,7 +16,7 @@ public static class Data
         #region Line
         {
             shape++;
-            Color color = Color.Blue;
+            Color color = Color.Purple;
 
             Shapes[shape, (int)Go.Up, 1, 0] = color;
             Shapes[shape, (int)Go.Up, 1, 1] = color;
@@ -43,7 +43,7 @@ public static class Data
         #region Square
         {
             shape++;
-            Color color = Color.Lime;
+            Color color = Color.Blue;
 
             Shapes[shape, (int)Go.Up, 1, 1] = color;
             Shapes[shape, (int)Go.Up, 2, 1] = color;

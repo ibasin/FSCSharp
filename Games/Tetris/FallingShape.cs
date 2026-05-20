@@ -50,26 +50,26 @@ public class FallingShape : TangibleGameObject
     #region Overrides
     public override void Update(float delta)
     {
-        Vector2 location = Location;
-        var orientation = Orientation;
+        Vector2 oldLocation = Location;
+        var oldOrientation = Orientation;
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Left))
         {
-            location = Location.Move(Go.Left, TetrisGame.SquareSide);
+            Location = Location.Move(Go.Left, TetrisGame.SquareSide);
             //if (IsCollidingWithSomething()) Location = Location.Move(Go.Right, TetrisGame.SquareSide);
         }
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Right))
         {
-            location = Location.Move(Go.Right, TetrisGame.SquareSide);
+            Location = Location.Move(Go.Right, TetrisGame.SquareSide);
             //if (IsCollidingWithSomething()) Location = Location.Move(Go.Left, TetrisGame.SquareSide);
         }
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Up))
         {
-            orientation--;
+            Orientation--;
             //if (IsCollidingWithSomething()) Orientation++;
         }
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Down))
         {
-            orientation++;
+            Orientation++;
             //if (IsCollidingWithSomething()) Orientation--;
         }
         //if (key == KeyboardKey.Space)
@@ -77,14 +77,14 @@ public class FallingShape : TangibleGameObject
         //    while (!ToDelete) MoveDown();
         //    return;
         //}
-        if (!location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X1).Violations.XMinusViolation && 
-            !location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X2).Violations.XPlusViolation)
+        if (Location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X1).Violations.XMinusViolation || 
+            Location.Move(Go.Right, TetrisGame.SquareSide * ShapeRect.X2).Violations.XPlusViolation)
         {
-            Location = location;
-            if (Orientation != orientation) Orientation = orientation;
+            if (Location != oldLocation) Location = oldLocation;
+            if (Orientation != oldOrientation) Orientation = oldOrientation;
         }
 
-        Location = Location.Move(Go.Down, delta * 200);
+        Location = Location.Move(Go.Down, delta * 150);
         if (Location.Move(Go.Down, TetrisGame.SquareSide * ShapeRect.Y2).Violations.YPlusViolation)
         {
             ToDelete = true;
@@ -103,7 +103,6 @@ public class FallingShape : TangibleGameObject
                     var xx = (int)Math.Round(Location.X + x * TetrisGame.SquareSide);
                     var yy = (int)Math.Round(Location.Y + y * TetrisGame.SquareSide);
                     Raylib.DrawRectangle(xx, yy, TetrisGame.SquareSide, TetrisGame.SquareSide, color.Value);
-
                 }
             }
         }
