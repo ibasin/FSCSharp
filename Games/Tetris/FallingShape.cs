@@ -101,7 +101,7 @@ public class FallingShape : TangibleGameObject
     #region Methods
     public void MoveDown(float delta)
     {
-        Location = Location.Move(Go.Down, delta * 100);
+        Location = Location.Move(Go.Down, delta * VerticalSpeed);
         if (TetrisGame.Current.ShapesBlock.IsShapeAtLocationColliding(Shape, Orientation, Location))
         {
             TetrisGame.Current.ShapesBlock.MergeShapeAtLocation(Shape, Orientation, Location);
@@ -114,6 +114,8 @@ public class FallingShape : TangibleGameObject
             else if (lines == 4) TetrisGame.Score += 1200;
 
             ToDelete = true;
+            VerticalSpeed++;
+
             TetrisGame.Current.GameObjects.Add(new FallingShape());
         }
     }
@@ -121,6 +123,7 @@ public class FallingShape : TangibleGameObject
 
     #region Properties
     public Vector2 Location { get; set; }
+    public int VerticalSpeed { get; protected set; } = 120;
 
     public int Shape { get; }
     public int Orientation

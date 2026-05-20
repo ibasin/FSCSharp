@@ -8,7 +8,8 @@ public class TetrisGame : Game<TetrisGame>
     #region Constrcutors
     public TetrisGame() : base("Tetris", WidthInSquares * SquareSide, HeightInSquares * SquareSide, Color.Black)
     {
-        Current.ShowSplashScreen("Resources/splash.png", 2000);
+        Current.PlaySound("Resources/kalinka.mp3");
+        Current.ShowSplashScreen("Resources/splash.png", 8000);
 
         GameObjects.Add(new ScoreKeeper());
 
