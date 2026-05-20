@@ -29,10 +29,12 @@ public class ShapesBlock : TangibleGameObject
                 linesRemoved++;
             }
         }
+
         if (linesRemoved == 1) TetrisGame.Current.PlaySound("Resources/line_clear.mp3");
         if (linesRemoved == 2) TetrisGame.Current.PlaySound("Resources/2line_clear.mp3");
         if (linesRemoved == 3) TetrisGame.Current.PlaySound("Resources/3line_clear.mp3");
         if (linesRemoved == 4) TetrisGame.Current.PlaySound("Resources/4line_clear.mp3");
+
         return linesRemoved;
     }
     public void RemoveLine(int yLine)
