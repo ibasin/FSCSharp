@@ -103,18 +103,18 @@ public class FallingShape : TangibleGameObject
                 var color = Data.Shapes[Shape, Orientation, x, y];
                 if (color.HasValue)
                 {
-                    var xx = (int)Math.Round(Location.X + x * Tetris3DGame.SquareSide) - Tetris3DGame.WidthInSquares * Tetris3DGame.SquareSide / 2;
-                    var yy = (int)Math.Round(Location.Y + y * Tetris3DGame.SquareSide) - Tetris3DGame.HeightInSquares * Tetris3DGame.SquareSide / 2;
+                    var xx = (int)Math.Round(Location.X + x * Tetris3DGame.SquareSide - Tetris3DGame.WidthInSquares * Tetris3DGame.SquareSide / 2);
+                    var yy = (int)Math.Round(Location.Y + y * Tetris3DGame.SquareSide + Tetris3DGame.HeightInSquares * Tetris3DGame.SquareSide / 2);
 
                     //Raylib.DrawRectangle(xx, yy, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
                     var location = new Vector3(xx, yy, 0);
                     Raylib.DrawCube(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
                     Raylib.DrawCubeWires(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Color.White);
 
-                    var cameraGameObject = (Camera3DGameObject)Tetris3DGame.Current.GameObjects.Single(o => o is Camera3DGameObject);
-                    var camera = cameraGameObject.Camera;
-                    camera.Target = location;
-                    cameraGameObject.Camera = camera;
+                    //var cameraGameObject = (Camera3DGameObject)Tetris3DGame.Current.GameObjects.Single(o => o is Camera3DGameObject);
+                    //var camera = cameraGameObject.Camera;
+                    //camera.Target = location;
+                    //cameraGameObject.Camera = camera;
                 }
             }
         }

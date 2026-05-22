@@ -9,14 +9,18 @@ public class Tetris3DGame : Game<Tetris3DGame>
     #region Constrcutors
     public Tetris3DGame() : base("Tetris", WidthInSquares * SquareSide, HeightInSquares * SquareSide, Color.Black, true)
     {
-        Current.PlaySound("Resources/kalinka.mp3");
-        Current.ShowSplashScreen("Resources/splash.png", 7750);
+        //Current.PlaySound("Resources/kalinka.mp3");
+        //Current.ShowSplashScreen("Resources/splash.png", 7750);
 
         // ReSharper disable PossibleLossOfFraction
-        Vector3 cameraPosition = new Vector3(0, 0, 300);
-        Vector3 cameraTarget = new Vector3(0, 0, -300);
+        Vector3 cameraPosition = new Vector3(0, -200, 0);
+        Vector3 cameraTarget = new Vector3(0, 0, 0);
         // ReSharper restore PossibleLossOfFraction
-        var camera = new Camera3D(cameraPosition, cameraTarget, Vector3.UnitZ, 45.0f, CameraProjection.Perspective);
+        var camera = new Camera3D(cameraPosition, cameraTarget, Vector3.UnitZ, 180.0f, CameraProjection.Perspective)
+        {
+            Up = Vector3.UnitY
+        };
+        Rlgl.SetClipPlanes(0.1f, 100000.0f);
         var cameraGameObject = new Camera3DGameObject(camera);
         GameObjects.Add(cameraGameObject);
 
