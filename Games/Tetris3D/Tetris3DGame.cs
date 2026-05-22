@@ -11,8 +11,8 @@ public class Tetris3DGame : Game<Tetris3DGame>
     {
         Rlgl.SetClipPlanes(0.1f, 100000.0f);
 
-        //Current.PlaySound("Resources/kalinka.mp3");
-        //Current.ShowSplashScreen("Resources/splash.png", 7750);
+        Current.PlaySound("Resources/kalinka.mp3");
+        Current.ShowSplashScreen("Resources/splash.png", 7750);
 
         // ReSharper disable PossibleLossOfFraction
         Vector3 cameraPosition = new Vector3(0, 0, -800);

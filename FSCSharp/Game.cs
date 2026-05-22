@@ -163,21 +163,29 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         if (Is3D)
         {
             BeginMode3D();
-            foreach (var gameObject in GameObjects.ToArray())
+            try
             {
-                var tangibleGameObject = gameObject as Tangible3DGameObject;
-                if (tangibleGameObject != null)
+                foreach (var gameObject in GameObjects.ToArray())
                 {
-                    tangibleGameObject.Update(delta);
-                    tangibleGameObject.Draw();
+                    var tangibleGameObject = gameObject as Tangible3DGameObject;
+                    if (tangibleGameObject != null)
+                    {
+                        tangibleGameObject.Update(delta);
+                        tangibleGameObject.Draw();
+                    }
                 }
             }
-            EndMode3D();
+            finally
+            {
+                EndMode3D();
+            }
         }
 
         //Round-robin update all other game objects
         foreach (var gameObject in GameObjects.ToArray())
         {
+            if (gameObject is Tangible3DGameObject) continue;
+            
             gameObject.Update(delta);
 
             var tangibleGameObject = gameObject as TangibleGameObject;
