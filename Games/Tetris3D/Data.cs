@@ -16,7 +16,7 @@ public static class Data
         #region Line
         {
             shape++;
-            Color color = Color.Purple;
+            Color color = Color.DarkPurple;
 
             Shapes[shape, (int)Go.Up, 1, 0] = color;
             Shapes[shape, (int)Go.Up, 1, 1] = color;
