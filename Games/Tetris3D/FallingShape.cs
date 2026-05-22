@@ -1,8 +1,6 @@
 ﻿using FSCSharp;
 using Raylib_cs;
-using System.Drawing;
 using System.Numerics;
-using Color = Raylib_cs.Color;
 
 namespace Tetris3D;
 
@@ -117,7 +115,7 @@ public class FallingShape : TangibleGameObject
                     // ReSharper restore PossibleLossOfFraction
 
                     //Raylib.DrawRectangle(xx, yy, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
-                    var location = new Vector3(xx, yy, 0);
+                    var location = new Vector3(xx, yy, 0) - Vector3.UnitX * Tetris3DGame.SquareSide / 2 - Vector3.UnitY * Tetris3DGame.SquareSide / 2;
                     Raylib.DrawCube(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
                     Raylib.DrawCubeWires(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Color.White);
                 }

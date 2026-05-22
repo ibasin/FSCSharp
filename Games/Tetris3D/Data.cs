@@ -178,7 +178,7 @@ public static class Data
         #region S-Shape
         {
             shape++;
-            Color color = Color.Yellow;
+            Color color = Color.DarkBrown;
 
             Shapes[shape, (int)Go.Up, 0, 0] = color;
             Shapes[shape, (int)Go.Up, 0, 1] = color;

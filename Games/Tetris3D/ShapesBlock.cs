@@ -113,8 +113,7 @@ public class ShapesBlock : TangibleGameObject
                     var yy = (int)MathF.Round(-y * Tetris3DGame.SquareSide + Tetris3DGame.HeightInSquares * Tetris3DGame.SquareSide / 2);
                     // ReSharper restore PossibleLossOfFraction
 
-                    //Raylib.DrawRectangle(xx, yy, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
-                    var location = new Vector3(xx, yy, 0);
+                    var location = new Vector3(xx, yy, 0) - Vector3.UnitX * Tetris3DGame.SquareSide / 2 - Vector3.UnitY * Tetris3DGame.SquareSide / 2;
                     Raylib.DrawCube(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Blocks[x, y]!.Value);
                     Raylib.DrawCubeWires(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Color.White);
 
