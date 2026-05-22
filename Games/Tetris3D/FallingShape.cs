@@ -1,6 +1,8 @@
-﻿using System.Numerics;
-using FSCSharp;
+﻿using FSCSharp;
 using Raylib_cs;
+using System.Drawing;
+using System.Numerics;
+using Color = Raylib_cs.Color;
 
 namespace Tetris3D;
 
@@ -96,6 +98,12 @@ public class FallingShape : TangibleGameObject
     }
     public override void Draw()
     {
+        //Raylib.DrawRectangle(xx, yy, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
+
+        //var location = new Vector3(0, 0, 0);
+        //Raylib.DrawCube(location, 30, 30, 30, Color.DarkBrown);
+        //Raylib.DrawCubeWires(location, 30, 30, 30, Color.White);
+
         for (var x = 0; x < Data.Shapes.GetLength(2); x++)
         {
             for (var y = 0; y < Data.Shapes.GetLength(3); y++)
@@ -103,18 +111,15 @@ public class FallingShape : TangibleGameObject
                 var color = Data.Shapes[Shape, Orientation, x, y];
                 if (color.HasValue)
                 {
-                    var xx = (int)Math.Round(Location.X + x * Tetris3DGame.SquareSide - Tetris3DGame.WidthInSquares * Tetris3DGame.SquareSide / 2);
-                    var yy = (int)Math.Round(Location.Y + y * Tetris3DGame.SquareSide + Tetris3DGame.HeightInSquares * Tetris3DGame.SquareSide / 2);
+                    // ReSharper disable PossibleLossOfFraction
+                    var xx = (int)MathF.Round(-Location.X - x * Tetris3DGame.SquareSide + Tetris3DGame.WidthInSquares * Tetris3DGame.SquareSide / 2);
+                    var yy = (int)MathF.Round(-Location.Y - y * Tetris3DGame.SquareSide + Tetris3DGame.HeightInSquares * Tetris3DGame.SquareSide / 2);
+                    // ReSharper restore PossibleLossOfFraction
 
                     //Raylib.DrawRectangle(xx, yy, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
                     var location = new Vector3(xx, yy, 0);
                     Raylib.DrawCube(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
                     Raylib.DrawCubeWires(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Color.White);
-
-                    //var cameraGameObject = (Camera3DGameObject)Tetris3DGame.Current.GameObjects.Single(o => o is Camera3DGameObject);
-                    //var camera = cameraGameObject.Camera;
-                    //camera.Target = location;
-                    //cameraGameObject.Camera = camera;
                 }
             }
         }

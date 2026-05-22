@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using System.Numerics;
-using FSCSharp;
+﻿using FSCSharp;
 using Raylib_cs;
+using System.Diagnostics;
+using System.Numerics;
 
 namespace Tetris3D;
 
@@ -108,10 +108,16 @@ public class ShapesBlock : TangibleGameObject
             {
                 if (Blocks[x, y].HasValue)
                 {
-                    var xx = x * Tetris3DGame.SquareSide;
-                    var yy = y * Tetris3DGame.SquareSide;
-                    
-                    
+                    // ReSharper disable PossibleLossOfFraction
+                    var xx = (int)MathF.Round(-x * Tetris3DGame.SquareSide + Tetris3DGame.WidthInSquares * Tetris3DGame.SquareSide / 2);
+                    var yy = (int)MathF.Round(-y * Tetris3DGame.SquareSide + Tetris3DGame.HeightInSquares * Tetris3DGame.SquareSide / 2);
+                    // ReSharper restore PossibleLossOfFraction
+
+                    //Raylib.DrawRectangle(xx, yy, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
+                    var location = new Vector3(xx, yy, 0);
+                    Raylib.DrawCube(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Blocks[x, y]!.Value);
+                    Raylib.DrawCubeWires(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Color.White);
+
                     //Raylib.DrawRectangle(xx, yy, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Blocks[x, y]!.Value);
                 }
             }
