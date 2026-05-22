@@ -55,16 +55,15 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         Raylib.SetTargetFPS(60);
 
         Raylib.InitAudioDevice();
+
+        //if (Is3D)
+        //{
+        //    var offset = new Vector2(Raylib.GetScreenWidth() / 2.0f, Raylib.GetScreenHeight() / 2.0f);
+        //    DefaultCamera2D = new Camera2D(offset, Vector2.Zero, 0f, 1f);
+        //}
     }
     protected Game(string name, int width, int height, Color backgroundColor, bool is3D = false) : base(name, is3D)
     {
-        //if we are on a mac, we need to scale the window down by half becasue of the retina display
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            width /= 2;
-            height /= 2;
-        }
-        
         WindowWidth = width;
         WindowHeight = height;
         BackgroundColor = backgroundColor;
@@ -76,6 +75,12 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         Raylib.InitAudioDevice();
 
         Raylib.SetExitKey(KeyboardKey.Null);
+
+        //if (Is3D)
+        //{
+        //    var offset = new Vector2(Raylib.GetScreenWidth() / 2.0f, Raylib.GetScreenHeight() / 2.0f);
+        //    DefaultCamera2D = new Camera2D(offset, Vector2.Zero, 0f, 1f);
+        //}
     }
     #endregion
 
@@ -160,12 +165,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         if (!Raylib.IsWindowFocused()) Raylib.SetWindowFocused();
 
         Raylib.BeginDrawing();
-        if (Is3D)
-        {
-            var cameraGameObject = (Camera3DGameObject?)GameObjects.SingleOrDefault(x => x is Camera3DGameObject);
-            if (cameraGameObject == null) throw new Exception("Exactly one game object must be of type Camera3DGameObject for 3D games!");
-            Raylib.BeginMode3D(cameraGameObject.Camera);
-        }
+        BeginMode3D();
         
         Raylib.ClearBackground(BackgroundColor);
 
@@ -192,7 +192,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
             GameObjects.Remove(gameObject);
         }
 
-        if (Is3D) Raylib.EndMode3D();
+        EndMode3D();
         Raylib.EndDrawing();
 
         Thread.Sleep(IterationSleep);
@@ -259,12 +259,35 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         if (!SoundsCache.ContainsKey(soundPath)) SoundsCache[soundPath] = Raylib.LoadSound(soundPath);
         PlaySound(SoundsCache[soundPath]);
     }
+
+    public virtual void BeginMode3D()
+    {
+        if (Is3D)
+        {
+            var cameraGameObject = (Camera3DGameObject?)GameObjects.SingleOrDefault(x => x is Camera3DGameObject);
+            if (cameraGameObject == null) throw new Exception("Exactly one game object must be of type Camera3DGameObject for 3D games!");
+            Raylib.BeginMode3D(cameraGameObject.Camera);
+        }
+    }
+    public virtual void EndMode3D()
+    {
+        if (Is3D) Raylib.EndMode3D();
+    }
+    //public virtual void BeginMode2D()
+    //{
+    //    if (Is3D) Raylib.BeginMode2D(DefaultCamera2D!.Value);
+    //}
+    //public virtual void EndMode2D()
+    //{
+    //    if (Is3D) Raylib.EndMode2D();
+    //}
     #endregion
 
     #region Properties
     public static TGame Current => (TGame)CurrentInternal;
     public Color BackgroundColor { get; set; }
-    public Dictionary<string, Sound> SoundsCache = new();
+    public readonly Dictionary<string, Sound> SoundsCache = new();
 
+    //protected Camera2D? DefaultCamera2D { get; }
     #endregion
 }

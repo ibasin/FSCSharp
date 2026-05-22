@@ -19,14 +19,14 @@ public class Tetris3DGame : Game<Tetris3DGame>
         Vector3 cameraTarget = new Vector3(0, 0, 0);
         // ReSharper restore PossibleLossOfFraction
 
-        var camera = new Camera3D(cameraPosition, cameraTarget, Vector3.UnitZ, 75.5f, CameraProjection.Perspective)
+        var camera = new Camera3D(cameraPosition, cameraTarget, Vector3.UnitZ, 75.2f, CameraProjection.Perspective)
         {
             Up = Vector3.UnitY
         };
         var cameraGameObject = new Camera3DGameObject(camera);
         GameObjects.Add(cameraGameObject);
 
-        //GameObjects.Add(new ScoreKeeper());
+        GameObjects.Add(new ScoreKeeper());
 
         ShapesBlock = new ShapesBlock();
         GameObjects.Add(ShapesBlock);
