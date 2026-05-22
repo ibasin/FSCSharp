@@ -20,7 +20,7 @@ public class Tetris3DGame : Game<Tetris3DGame>
         var cameraGameObject = new Camera3DGameObject(camera);
         GameObjects.Add(cameraGameObject);
 
-        GameObjects.Add(new ScoreKeeper());
+        //GameObjects.Add(new ScoreKeeper());
 
         ShapesBlock = new ShapesBlock();
         GameObjects.Add(ShapesBlock);

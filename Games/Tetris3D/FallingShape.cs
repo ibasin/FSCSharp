@@ -110,6 +110,11 @@ public class FallingShape : TangibleGameObject
                     var location = new Vector3(xx, yy, 0);
                     Raylib.DrawCube(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, color.Value);
                     Raylib.DrawCubeWires(location, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Tetris3DGame.SquareSide, Color.White);
+
+                    var cameraGameObject = (Camera3DGameObject)Tetris3DGame.Current.GameObjects.Single(o => o is Camera3DGameObject);
+                    var camera = cameraGameObject.Camera;
+                    camera.Target = location;
+                    cameraGameObject.Camera = camera;
                 }
             }
         }
