@@ -132,7 +132,7 @@ public class FallingShape : TangibleGameObject
             ToDelete = true;
 
             var newShape = new FallingShape();
-            newShape.VerticalSpeed = VerticalSpeed + 1;
+            newShape.VerticalSpeed = VerticalSpeed + 0.33f;
             TetrisGame.Current.GameObjects.Add(newShape);
         }
     }
@@ -140,7 +140,7 @@ public class FallingShape : TangibleGameObject
 
     #region Properties
     public Vector2 Location { get; set; }
-    public int VerticalSpeed { get; protected set; } = 120;
+    public float VerticalSpeed { get; protected set; } = 110;
 
     public int Shape { get; }
     public int Orientation
