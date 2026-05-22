@@ -55,12 +55,6 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         Raylib.SetTargetFPS(60);
 
         Raylib.InitAudioDevice();
-
-        //if (Is3D)
-        //{
-        //    var offset = new Vector2(Raylib.GetScreenWidth() / 2.0f, Raylib.GetScreenHeight() / 2.0f);
-        //    DefaultCamera2D = new Camera2D(offset, Vector2.Zero, 0f, 1f);
-        //}
     }
     protected Game(string name, int width, int height, Color backgroundColor, bool is3D = false) : base(name, is3D)
     {
@@ -75,12 +69,6 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         Raylib.InitAudioDevice();
 
         Raylib.SetExitKey(KeyboardKey.Null);
-
-        //if (Is3D)
-        //{
-        //    var offset = new Vector2(Raylib.GetScreenWidth() / 2.0f, Raylib.GetScreenHeight() / 2.0f);
-        //    DefaultCamera2D = new Camera2D(offset, Vector2.Zero, 0f, 1f);
-        //}
     }
     #endregion
 
@@ -165,19 +153,34 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         if (!Raylib.IsWindowFocused()) Raylib.SetWindowFocused();
 
         Raylib.BeginDrawing();
-        BeginMode3D();
         
         Raylib.ClearBackground(BackgroundColor);
 
         //Round-robin pre-update all game objects
         foreach (var gameObject in GameObjects.ToArray()) gameObject.PreUpdate(delta);
 
-        //Round-robin update all game objects
+        //Round-robin update all tangible 3D game objects
+        if (Is3D)
+        {
+            BeginMode3D();
+            foreach (var gameObject in GameObjects.ToArray())
+            {
+                var tangibleGameObject = gameObject as Tangible3DGameObject;
+                if (tangibleGameObject != null)
+                {
+                    tangibleGameObject.Update(delta);
+                    tangibleGameObject.Draw();
+                }
+            }
+            EndMode3D();
+        }
+
+        //Round-robin update all other game objects
         foreach (var gameObject in GameObjects.ToArray())
         {
-            var tangibleGameObject = gameObject as TangibleGameObject;
-
             gameObject.Update(delta);
+
+            var tangibleGameObject = gameObject as TangibleGameObject;
             tangibleGameObject?.Draw();
         }
 
@@ -192,7 +195,6 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
             GameObjects.Remove(gameObject);
         }
 
-        EndMode3D();
         Raylib.EndDrawing();
 
         Thread.Sleep(IterationSleep);
@@ -273,21 +275,11 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     {
         if (Is3D) Raylib.EndMode3D();
     }
-    //public virtual void BeginMode2D()
-    //{
-    //    if (Is3D) Raylib.BeginMode2D(DefaultCamera2D!.Value);
-    //}
-    //public virtual void EndMode2D()
-    //{
-    //    if (Is3D) Raylib.EndMode2D();
-    //}
     #endregion
 
     #region Properties
     public static TGame Current => (TGame)CurrentInternal;
     public Color BackgroundColor { get; set; }
     public readonly Dictionary<string, Sound> SoundsCache = new();
-
-    //protected Camera2D? DefaultCamera2D { get; }
     #endregion
 }
