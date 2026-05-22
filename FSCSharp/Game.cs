@@ -213,26 +213,41 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
 
     public virtual void ShowSplashScreen(string imagePath, int milliseconds)
     {
-        //draw background
-        Raylib.BeginDrawing();
         var texture = Raylib.LoadTexture(imagePath);
-        var hScale = (float)Current.WindowWidth / texture.Width;
-        var vScale = (float)Current.WindowHeight / texture.Height;
-
-        if (hScale <= vScale)
+        try
         {
-            var vOffset = (Current.WindowHeight - texture.Height * hScale) / 2;
-            Raylib.DrawTextureEx(texture, new Vector2(0, vOffset), 0, hScale, Color.White);
-        }
-        else
-        {
-            var hOffset = (Current.WindowWidth - texture.Width * vScale) / 2;
-            Raylib.DrawTextureEx(texture, new Vector2(hOffset, 0), 0, vScale, Color.White);
-        }
+            //wait for x milliseconds
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
 
-        Raylib.EndDrawing();
-        Thread.Sleep(milliseconds);
-        Raylib.UnloadTexture(texture);
+            while (stopwatch.ElapsedMilliseconds <= milliseconds)
+            {
+                //draw background
+                Raylib.BeginDrawing();
+
+                var hScale = (float)Current.WindowWidth / texture.Width;
+                var vScale = (float)Current.WindowHeight / texture.Height;
+
+                if (hScale <= vScale)
+                {
+                    var vOffset = (Current.WindowHeight - texture.Height * hScale) / 2;
+                    Raylib.DrawTextureEx(texture, new Vector2(0, vOffset), 0, hScale, Color.White);
+                }
+                else
+                {
+                    var hOffset = (Current.WindowWidth - texture.Width * vScale) / 2;
+                    Raylib.DrawTextureEx(texture, new Vector2(hOffset, 0), 0, vScale, Color.White);
+                }
+
+                Raylib.EndDrawing();
+
+                if (Raylib.WindowShouldClose()) Environment.Exit(0);
+            }
+        }
+        finally
+        {
+            Raylib.UnloadTexture(texture);
+        }
     }
 
     public virtual void PlaySound(Sound sound)

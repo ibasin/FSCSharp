@@ -12,9 +12,9 @@ public class Tetris3DGame : Game<Tetris3DGame>
         Current.PlaySound("Resources/kalinka.mp3");
         Current.ShowSplashScreen("Resources/splash.png", 7750);
 
-        Vector3 cameraPosition = new Vector3(500, 0, 500);
         // ReSharper disable PossibleLossOfFraction
-        Vector3 cameraTarget = new Vector3(WidthInSquares * SquareSide / 2, HeightInSquares * SquareSide / 2, 300);
+        Vector3 cameraPosition = new Vector3(0, 0, 300);
+        Vector3 cameraTarget = new Vector3(0, 0, -300);
         // ReSharper restore PossibleLossOfFraction
         var camera = new Camera3D(cameraPosition, cameraTarget, Vector3.UnitZ, 45.0f, CameraProjection.Perspective);
         var cameraGameObject = new Camera3DGameObject(camera);
