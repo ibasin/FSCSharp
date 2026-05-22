@@ -28,6 +28,8 @@ public class Tetris3DGame : Game<Tetris3DGame>
 
         GameObjects.Add(new ScoreKeeper());
 
+        GameObjects.Add(new Grid());
+
         ShapesBlock = new ShapesBlock();
         GameObjects.Add(ShapesBlock);
 

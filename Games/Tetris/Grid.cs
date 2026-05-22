@@ -8,23 +8,30 @@ public class Grid : TangibleGameObject
     #region Overrides
     public override void Update(float delta)
     {
-        //do nothing
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.G)) Enabled = !Enabled;
     }
     public override void Draw()
     {
-        //horizontal lines
-        for (var i = 1; i < TetrisGame.HeightInSquares; i++)
+        if (Enabled)
         {
-            var y = i * TetrisGame.SquareSide;
-            Raylib.DrawLine(0, y, TetrisGame.WidthInSquares * TetrisGame.SquareSide, y, Color.DarkGray);
-        }
+            //horizontal lines
+            for (var i = 1; i < TetrisGame.HeightInSquares; i++)
+            {
+                var y = i * TetrisGame.SquareSide;
+                Raylib.DrawLine(0, y, TetrisGame.WidthInSquares * TetrisGame.SquareSide, y, Color.DarkGray);
+            }
 
-        //vertical lines
-        for (var i = 1; i < TetrisGame.WidthInSquares; i++)
-        {
-            var  x = i * TetrisGame.SquareSide;
-            Raylib.DrawLine(x, 0, x, TetrisGame.HeightInSquares * TetrisGame.SquareSide, Color.DarkGray);
+            //vertical lines
+            for (var i = 1; i < TetrisGame.WidthInSquares; i++)
+            {
+                var x = i * TetrisGame.SquareSide;
+                Raylib.DrawLine(x, 0, x, TetrisGame.HeightInSquares * TetrisGame.SquareSide, Color.DarkGray);
+            }
         }
     }
+    #endregion
+
+    #region Properties
+    public bool Enabled { get; set; } = true;
     #endregion
 }
