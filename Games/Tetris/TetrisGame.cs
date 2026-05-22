@@ -11,6 +11,8 @@ public class TetrisGame : Game<TetrisGame>
         Current.PlaySound("Resources/kalinka.mp3");
         Current.ShowSplashScreen("Resources/splash.png", 7750);
 
+        GameObjects.Add(new Grid());
+        
         GameObjects.Add(new ScoreKeeper());
 
         ShapesBlock = new ShapesBlock();
