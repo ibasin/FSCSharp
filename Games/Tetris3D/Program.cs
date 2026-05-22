@@ -1,9 +1,9 @@
-﻿namespace Tetris;
+﻿namespace Tetris3D;
 
 internal class Program
 {
     static void Main(string[] args)
     {
-        using (new TetrisGame().Run()) { }
+        using (new Tetris3DGame().Run()) { }
     }
 }
