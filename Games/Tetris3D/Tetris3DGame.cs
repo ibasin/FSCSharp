@@ -9,8 +9,8 @@ public class Tetris3DGame : Game<Tetris3DGame>
     #region Constrcutors
     public Tetris3DGame() : base("Tetris", WidthInSquares * SquareSide, HeightInSquares * SquareSide, Color.Black, true)
     {
-        //Current.PlaySound("Resources/kalinka.mp3");
-        //Current.ShowSplashScreen("Resources/splash.png", 7750);
+        Current.PlaySound("Resources/kalinka.mp3");
+        Current.ShowSplashScreen("Resources/splash.png", 7750);
 
         Rlgl.SetClipPlanes(0.1f, 100000.0f);
 
