@@ -132,7 +132,7 @@ public class FallingShape : TangibleGameObject
             ToDelete = true;
 
             var newShape = new FallingShape();
-            newShape.VerticalSpeed = VerticalSpeed + 0.33f;
+            newShape.VerticalSpeed = VerticalSpeed + 0.25f;
             TetrisGame.Current.GameObjects.Add(newShape);
         }
     }
