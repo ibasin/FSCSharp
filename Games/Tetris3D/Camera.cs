@@ -1,6 +1,5 @@
 ﻿using FSCSharp;
 using Raylib_cs;
-using System.Numerics;
 
 namespace Tetris3D;
 
@@ -14,7 +13,8 @@ public class Camera : Camera3DGameObject
     public override void Update(float delta)
     {
         var a = 800f + Tetris3DGame.WidthInSquares * Tetris3DGame.SquareSide / 2f;
-        var b = 800f;
+        var b = 800f + Tetris3DGame.HeightInSquares * Tetris3DGame.SquareSide / 2f;
+        var c = 800f;
 
         var x = Camera.Position.X;
         var y = Camera.Position.Y;
@@ -29,27 +29,39 @@ public class Camera : Camera3DGameObject
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.A))
         {
             x -= 1000*delta;
-            if (x < -a) x = -a;
+            if (x < -a+10) x = -a+10;
             
-            z = -MathF.Sqrt((1f - x*x/(a*a)) * b*b);
-            //Console.WriteLine($"({x},{y},{z})");
+            z = -MathF.Sqrt((1f - x*x/(a*a)) * c*c);
+            Console.WriteLine($"({x},{y},{z})");
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.D))
         {
             x += 1000*delta;
-            if (x > a) x = a;
+            if (x > a-10) x = a-10;
 
-            z = -MathF.Sqrt((1f - x*x/(a*a)) * b*b);
-            //Console.WriteLine($"({x},{y},{z})");
+            z = -MathF.Sqrt((1f - x*x/(a*a)) * c*c);
+            Console.WriteLine($"({x},{y},{z})");
         }
-        //if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.W)) Camera.Position.X--;
-        //if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.S)) Camera.Position.X++;
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.W))
+        {
+            y += 1000 * delta;
+            if (y > b-10) y = b-10;
+
+            z = -MathF.Sqrt((1f - y*y/(b*b))*c*c);
+            Console.WriteLine($"({x},{y},{z})");
+        }
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.S))
+        {
+            y -= 1000 * delta;
+            if (y < -b+10) y = -b+10;
+
+            z = -MathF.Sqrt((1f - y*y/(b*b))*c*c);
+            Console.WriteLine($"({x},{y},{z})");
+        }
 
         Camera.Position.X = x;
         Camera.Position.Y = y;
         Camera.Position.Z = z;
-
-        //Camera.Target = Vector3.Zero;
     }
     #endregion
 }
