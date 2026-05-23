@@ -19,6 +19,6 @@ public class Camera3DGameObject : GameObject
     #endregion
 
     #region Properties
-    public Camera3D Camera { get; set; }
+    public Camera3D Camera;
     #endregion
 }

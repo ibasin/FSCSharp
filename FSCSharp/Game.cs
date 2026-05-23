@@ -272,12 +272,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
 
     public virtual void BeginMode3D()
     {
-        if (Is3D)
-        {
-            var cameraGameObject = (Camera3DGameObject?)GameObjects.SingleOrDefault(x => x is Camera3DGameObject);
-            if (cameraGameObject == null) throw new Exception("Exactly one game object must be of type Camera3DGameObject for 3D games!");
-            Raylib.BeginMode3D(cameraGameObject.Camera);
-        }
+        if (Is3D) Raylib.BeginMode3D(Camera3DGameObject.Camera);
     }
     public virtual void EndMode3D()
     {
@@ -286,6 +281,16 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     #endregion
 
     #region Properties
+    public Camera3DGameObject Camera3DGameObject
+    {
+        get
+        {
+            if (!Is3D) throw new Exception("Camera3DGameObject property can only br called for 3D games");
+            var cameraGameObject = (Camera3DGameObject?)GameObjects.SingleOrDefault(x => x is Camera3DGameObject);
+            if (cameraGameObject == null) throw new Exception("Exactly one game object must be of type Camera3DGameObject for 3D games!");
+            return cameraGameObject;
+        }
+    }
     public static TGame Current => (TGame)CurrentInternal;
     public Color BackgroundColor { get; set; }
     public readonly Dictionary<string, Sound> SoundsCache = new();

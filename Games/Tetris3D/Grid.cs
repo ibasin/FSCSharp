@@ -1,4 +1,5 @@
-﻿using FSCSharp;
+﻿using System.Numerics;
+using FSCSharp;
 using Raylib_cs;
 
 namespace Tetris3D;
@@ -12,7 +13,8 @@ public class Grid : TangibleGameObject
     }
     public override void Draw()
     {
-        if (Enabled)
+        var camera = Tetris3DGame.Current.Camera3DGameObject;
+        if (Enabled && camera.Camera.Position == Tetris3DGame.Current.Camera3DDefaultPosition)
         {
             //horizontal lines
             for (var i = 1; i < Tetris3DGame.HeightInSquares; i++)
@@ -32,6 +34,6 @@ public class Grid : TangibleGameObject
     #endregion
 
     #region Properties
-    public bool Enabled { get; set; } = false;
+    public bool Enabled { get; set; }
     #endregion
 }
