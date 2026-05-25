@@ -32,7 +32,7 @@ public class Camera : Camera3DGameObject
             if (x < -a+10) x = -a+10;
             
             z = -MathF.Sqrt((1f - x*x/(a*a)) * c*c);
-            Console.WriteLine($"({x},{y},{z})");
+            //Console.WriteLine($"({x},{y},{z})");
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.D))
         {
@@ -40,7 +40,7 @@ public class Camera : Camera3DGameObject
             if (x > a-10) x = a-10;
 
             z = -MathF.Sqrt((1f - x*x/(a*a)) * c*c);
-            Console.WriteLine($"({x},{y},{z})");
+            //Console.WriteLine($"({x},{y},{z})");
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.W))
         {
@@ -48,7 +48,7 @@ public class Camera : Camera3DGameObject
             if (y > b-10) y = b-10;
 
             z = -MathF.Sqrt((1f - y*y/(b*b))*c*c);
-            Console.WriteLine($"({x},{y},{z})");
+            //Console.WriteLine($"({x},{y},{z})");
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.S))
         {
@@ -56,7 +56,7 @@ public class Camera : Camera3DGameObject
             if (y < -b+10) y = -b+10;
 
             z = -MathF.Sqrt((1f - y*y/(b*b))*c*c);
-            Console.WriteLine($"({x},{y},{z})");
+            //Console.WriteLine($"({x},{y},{z})");
         }
 
         Camera.Position.X = x;
