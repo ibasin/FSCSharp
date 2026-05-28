@@ -12,7 +12,7 @@ public class CubeGame : Game<CubeGame>
         Rlgl.SetClipPlanes(0.1f, 100000.0f);
 
         Vector3 cubePosition = new Vector3(0, 0, 0);
-        var cube = new CubeObj(cubePosition);
+        var cube = new Cube(cubePosition);
         GameObjects.Add(cube);
         
         Vector3 cameraPosition = new Vector3(0, 0, -200);

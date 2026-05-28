@@ -4,10 +4,10 @@ using FSCSharp;
 
 namespace Cube;
 
-public class CubeObj : TangibleGameObject
+public class Cube : Tangible3DGameObject
 {
     #region Cnstrcutors
-    public CubeObj(Vector3 location)
+    public Cube(Vector3 location)
     {
         Location = location;
     }
