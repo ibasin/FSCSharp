@@ -55,6 +55,12 @@ public class FallingShape : Tangible3DGameObject
     #region Overrides
     public override void Update(float delta)
     {
+        if (IsFreeFall)
+        {
+            MoveDown(delta * 12);
+            return;
+        }
+        
         //Save current location and orientation
         Vector2 oldLocation = Location;
         var oldOrientation = Orientation;
@@ -64,11 +70,7 @@ public class FallingShape : Tangible3DGameObject
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Right)) Location = Location.Move(Go.Right, Tetris3DGame.SquareSide);
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Up)) Orientation--;
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Down)) Orientation++;
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Space))
-        {
-            while (!ToDelete) MoveDown(delta);
-            return;
-        }
+        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Space)) IsFreeFall = true;
 
         //Check if we did not move or rotate out of the screen 
         if (Location.Move(Go.Right, Tetris3DGame.SquareSide * ShapeRect.X1).Violations.XMinusViolation || 
@@ -128,6 +130,7 @@ public class FallingShape : Tangible3DGameObject
     public void MoveDown(float delta)
     {
         Location = Location.Move(Go.Down, delta * VerticalSpeed);
+
         if (Tetris3DGame.Current.ShapesBlock.IsShapeAtLocationColliding(Shape, Orientation, Location))
         {
             Tetris3DGame.Current.PlaySound("Resources/piece_landed.wav");
@@ -153,6 +156,7 @@ public class FallingShape : Tangible3DGameObject
     #region Properties
     public Vector2 Location { get; set; }
     public float VerticalSpeed { get; protected set; } = 110;
+    public bool IsFreeFall { get; set; }
 
     public int Shape { get; }
     public int Orientation
