@@ -14,6 +14,9 @@ public class Car : Tangible3DGameObject
         //model downloaded here
         var model = Raylib.LoadModel("Resources/pony_cartoon_small.glb");
         Body = new Model3D(model, 50f);
+
+        //var model = Raylib.LoadModel("Resources/2022_subaru_outback.glb");
+        //Body = new Model3D(model, 0.06f);
     }
     public override void Dispose()
     {
