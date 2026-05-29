@@ -31,7 +31,6 @@ public class Car : Tangible3DGameObject
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Down)) Location -= Vector3.UnitY;
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Equal)) Location -= Vector3.UnitZ;
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Minus)) Location += Vector3.UnitZ;
-
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.A)) Rotaton -= 1f;
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.D)) Rotaton += 1f;
     }
