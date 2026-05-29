@@ -1,15 +1,23 @@
-﻿using Raylib_cs;
+﻿using FSCSharp;
+using Raylib_cs;
 using System.Numerics;
-using FSCSharp;
 
-namespace Cube;
+namespace Car;
 
-public class Cube : Tangible3DGameObject
+public class Car : Tangible3DGameObject
 {
-    #region Cnstrcutors
-    public Cube(Vector3 location)
+    #region Constructors
+    public Car(Vector3 location)
     {
         Location = location;
+
+        var model = Raylib.LoadModel("Resources/pony_cartoon_small.glb");
+        Body = new Model3D(model, 50f);
+    }
+    public override void Dispose()
+    {
+        base.Dispose();
+        Body.Dispose();
     }
     #endregion
 
@@ -22,16 +30,16 @@ public class Cube : Tangible3DGameObject
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Down)) Location -= Vector3.UnitY;
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Equal)) Location -= Vector3.UnitZ;
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Minus)) Location += Vector3.UnitZ;
-
     }
+
     public override void Draw()
     {
-        Raylib.DrawCube(Location, 30, 30, 30, Color.DarkBrown);
-        Raylib.DrawCubeWires(Location, 30, 30, 30, Color.White);
+        Body.Draw(Location);
     }
     #endregion
 
     #region Properties
+    public Model3D Body { get; }
     public Vector3 Location { get; set; }
     #endregion
 }
