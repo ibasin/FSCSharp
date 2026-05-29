@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using FSCSharp;
+﻿using FSCSharp;
 using Raylib_cs;
 
 namespace Tetris3D;

@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Numerics;
-using System.Runtime.InteropServices;
 using Raylib_cs;
 
 namespace FSCSharp;
@@ -25,7 +24,6 @@ public abstract class Game : IDisposable
 
     #region Properties
     public List<GameObject> GameObjects { get; set; } = new();
-    protected int IterationSleep { get; set; }
 
     public string Name { get; }
     public bool Is3D { get; }
@@ -92,10 +90,10 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         var gameObjectPriorityComparer = new GameObjectPriorityComparer();
 
         //Initial show all objects
-        foreach (var gameObject in GameObjects)
-        {
-            if (gameObject is TangibleGameObject tangibleGameObject) tangibleGameObject.Draw();
-        }
+        //foreach (var gameObject in GameObjects)
+        //{
+        //    if (gameObject is TangibleGameObject tangibleGameObject) tangibleGameObject.Draw();
+        //}
 
         try
         {
@@ -152,49 +150,16 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     {
         if (!Raylib.IsWindowFullscreen() && !Raylib.IsWindowFocused()) Raylib.SetWindowFocused();
 
-        Raylib.BeginDrawing();
-        
-        Raylib.ClearBackground(BackgroundColor);
+        var gameObjectsArr = GameObjects.ToArray();
 
         //Round-robin pre-update all game objects
-        foreach (var gameObject in GameObjects.ToArray()) gameObject.PreUpdate(delta);
+        foreach (var gameObject in gameObjectsArr) gameObject.PreUpdate(delta);
 
-        //Round-robin update all tangible 3D game objects
-        if (Is3D)
-        {
-            BeginMode3D();
-            try
-            {
-                foreach (var gameObject in GameObjects.ToArray())
-                {
-                    var tangibleGameObject = gameObject as Tangible3DGameObject;
-                    if (tangibleGameObject != null)
-                    {
-                        tangibleGameObject.Update(delta);
-                        tangibleGameObject.Draw();
-                    }
-                }
-            }
-            finally
-            {
-                EndMode3D();
-            }
-        }
-
-        //Round-robin update all other game objects
-        foreach (var gameObject in GameObjects.ToArray())
-        {
-            if (gameObject is Tangible3DGameObject) continue;
-            
-            gameObject.Update(delta);
-
-            var tangibleGameObject = gameObject as TangibleGameObject;
-            tangibleGameObject?.Draw();
-        }
+        //Round-robin update all game objects
+        foreach (var gameObject in gameObjectsArr) gameObject.Update(delta);
 
         //Round-robin post-update all game objects
-        foreach (var gameObject in GameObjects.ToArray()) gameObject.PostUpdate(delta);
-
+        foreach (var gameObject in gameObjectsArr) gameObject.PostUpdate(delta);
 
         //Delete kills
         foreach (var gameObject in GameObjects.Where(x => x.ToDelete).ToArray())
@@ -203,10 +168,48 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
             GameObjects.Remove(gameObject);
         }
 
-        Raylib.EndDrawing();
-
-        Thread.Sleep(IterationSleep);
+        //Draw on the screen
+        DrawGameObjects();
     }
+    public virtual void DrawGameObjects()
+    {
+        Raylib.BeginDrawing();
+
+        Raylib.ClearBackground(BackgroundColor);
+
+        //resort new objects
+        var gameObjectsArr = GameObjects.ToArray();
+
+        //Round-robin draw tangible 3D game objects
+        if (Is3D)
+        {
+            BeginMode3D();
+            try
+            {
+                foreach (var gameObject in gameObjectsArr)
+                {
+                    var tangibleGameObject = gameObject as Tangible3DGameObject;
+                    tangibleGameObject?.Draw();
+                }
+            }
+            finally
+            {
+                EndMode3D();
+            }
+        }
+
+        //Round-robin draw 2D tangible game objects
+        foreach (var gameObject in gameObjectsArr)
+        {
+            if (gameObject is Tangible3DGameObject) continue;
+
+            var tangibleGameObject = gameObject as TangibleGameObject;
+            tangibleGameObject?.Draw();
+        }
+
+        Raylib.EndDrawing();
+    }
+
     public virtual void ShowMessage(string text, Color color)
     {
         Raylib.BeginDrawing();

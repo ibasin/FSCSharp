@@ -63,7 +63,9 @@ public class Snake : TangibleGameObject
                 throw new GameOverException($"Snake ate itself! Score: { ScoreKeeper.ApplesCount }", 0.25f);
             }
 
-            if (head.X == SnakeGame.Current.Apple.Position.X && head.Y == SnakeGame.Current.Apple.Position.Y)
+            Body.Enqueue(newPoint);
+
+            if (newPoint.X == SnakeGame.Current.Apple.Position.X && newPoint.Y == SnakeGame.Current.Apple.Position.Y)
             {
                 SnakeGame.Current.PlaySound("Resources/apple-bite.mp3");
 
@@ -77,7 +79,6 @@ public class Snake : TangibleGameObject
                 GrowingCooldown = 5;
             }
 
-            Body.Enqueue(newPoint);
 
             StepCooldown = 0.2f;
         }

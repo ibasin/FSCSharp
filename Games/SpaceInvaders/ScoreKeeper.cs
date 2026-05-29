@@ -3,10 +3,14 @@ using Raylib_cs;
 
 namespace SpaceInvaders;
 
-public class ScoreKeeper : GameObject
+public class ScoreKeeper : TangibleGameObject
 {
     #region Overrides
     public override void Update(float delta)
+    {
+        //Do nothing
+    }
+    public override void Draw()
     {
         Raylib.DrawText($"Score: {DeadEnemiesCount}", 5, 5, 20, Color.Gray);
     }
