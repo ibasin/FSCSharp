@@ -150,7 +150,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
 
     protected virtual void RunSingleIterationWithoutKeyboard(float delta)
     {
-        if (!Raylib.IsWindowFocused()) Raylib.SetWindowFocused();
+        if (!Raylib.IsWindowFullscreen() && !Raylib.IsWindowFocused()) Raylib.SetWindowFocused();
 
         Raylib.BeginDrawing();
         
