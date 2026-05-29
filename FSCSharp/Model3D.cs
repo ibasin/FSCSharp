@@ -31,9 +31,10 @@ public class Model3D : IDisposable
     #endregion
 
     #region Methods
-    public void Draw(Vector3 location)
+    public void Draw(Vector3 location, Vector3? rotationAxis = null, float rotationAngle = 0)
     {
-        Raylib.DrawModel(Model, location, Scale, TintColor); //TODO: switch to DrawModelEx
+        if (rotationAxis == null) Raylib.DrawModel(Model, location, Scale, TintColor); 
+        else Raylib.DrawModelEx(Model, location, rotationAxis.Value, rotationAngle, new Vector3(Scale, Scale, Scale), TintColor);
     }
     #endregion
 
