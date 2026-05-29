@@ -11,7 +11,7 @@ public class CarGame : Game<CarGame>
     {
         Rlgl.SetClipPlanes(0.1f, 100000.0f);
 
-        Vector3 carPosition = new Vector3(0, 0, 0);
+        Vector3 carPosition = new Vector3(0, -50, 0);
         var car = new Car(carPosition);
         GameObjects.Add(car);
 

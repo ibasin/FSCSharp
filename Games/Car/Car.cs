@@ -47,6 +47,6 @@ public class Car : Tangible3DGameObject
     #region Properties
     public Model3D Body { get; }
     public Vector3 Location { get; set; }
-    public float Rotaton { get; set; }
+    public float Rotaton { get; set; } = 90;
     #endregion
 }
