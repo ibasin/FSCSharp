@@ -193,17 +193,24 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         //update music streams
         foreach (var musicStreamKvp in MusicStreamCache) Raylib.UpdateMusicStream(musicStreamKvp.Value);
 
+        //Need a separate data structure in case Updates modify the structure used in foreach
+        // ReSharper disable once JoinDeclarationAndInitializer
+        GameObject[] gameObjectsArr;
+
         //Round-robin pre-update all game objects
         GameObjects.Sort(GameObjectPriorityComparer);
-        foreach (var gameObject in GameObjects) gameObject.PreUpdate(delta);
+        gameObjectsArr = GameObjects.ToArray();
+        foreach (var gameObject in gameObjectsArr) gameObject.PreUpdate(delta);
 
         //Round-robin update all game objects
         GameObjects.Sort(GameObjectPriorityComparer);
-        foreach (var gameObject in GameObjects) gameObject.Update(delta);
+        gameObjectsArr = GameObjects.ToArray();
+        foreach (var gameObject in gameObjectsArr) gameObject.Update(delta);
 
         //Round-robin post-update all game objects
         GameObjects.Sort(GameObjectPriorityComparer);
-        foreach (var gameObject in GameObjects) gameObject.PostUpdate(delta);
+        gameObjectsArr = GameObjects.ToArray();
+        foreach (var gameObject in gameObjectsArr) gameObject.PostUpdate(delta);
 
         //Delete kills
         foreach (var gameObject in GameObjects.Where(x => x.ToDelete).ToArray())
@@ -223,6 +230,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         Raylib.ClearBackground(BackgroundColor);
 
         //resort new objects
+        GameObjects.Sort(GameObjectPriorityComparer);
         var gameObjectsArr = GameObjects.ToArray();
 
         //Round-robin draw tangible 3D game objects
