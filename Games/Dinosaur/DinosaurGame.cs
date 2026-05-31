@@ -11,8 +11,8 @@ public class DinosaurGame : Game<DinosaurGame>
     public DinosaurGame() : base("Dinosaur", 1400, 700, Color.LightGray)
     {
         // ReSharper disable VirtualMemberCallInConstructor
-        PlaySound("Resources/Monkeys-Spinning-Monkeys.mp3");
-        ShowSplashScreen("Resources/splash.png", 1000);
+        PlayMusicStream("Resources/Monkeys-Spinning-Monkeys.mp3", true);
+        ShowSplashScreen("Resources/splash.png", 3000);
         // ReSharper restore VirtualMemberCallInConstructor
 
         Ground = new Ground();

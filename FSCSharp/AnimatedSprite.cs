@@ -21,9 +21,10 @@ public class AnimatedSprite : SpriteBase
     #endregion
 
     #region Methods
-    public virtual void StartAnimation(bool loop = false)
+    public virtual void StartAnimation(bool looping = false)
     {
         IsAnimationStopped = false;
+        Looping = looping;
     }
     public virtual bool DrawAnimation(Vector2 location, float delta)
     {
@@ -32,7 +33,7 @@ public class AnimatedSprite : SpriteBase
         var timeElapsedAdjusted = TimeElapsed;
         if (TimeElapsed >= TimePerFrame * Frames.Length)
         {
-            if (Loop) timeElapsedAdjusted = TimeElapsed % TimePerFrame * Frames.Length;
+            if (Looping) timeElapsedAdjusted = TimeElapsed % TimePerFrame * Frames.Length;
             else StopAnimation();
         }
         var frameIdx = Math.Min((int)(timeElapsedAdjusted / TimePerFrame), Frames.Length - 1);
@@ -102,6 +103,6 @@ public class AnimatedSprite : SpriteBase
     public bool IsAnimationStopped { get; protected set; } = true;
     public float TimePerFrame { get; set; }
     public float TimeElapsed { get; set; }
-    public bool Loop { get; set; }
+    public bool Looping { get; set; }
     #endregion
 }

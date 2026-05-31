@@ -22,6 +22,34 @@ public abstract class Game : IDisposable
     }
     #endregion
 
+    #region Methods
+    public virtual void PlaySound(string soundPath)
+    {
+        if (!SoundsCache.ContainsKey(soundPath)) SoundsCache[soundPath] = Raylib.LoadSound(soundPath);
+        Raylib.PlaySound(SoundsCache[soundPath]);
+    }
+
+    public virtual void PlayMusicStream(string musicPath, bool looping)
+    {
+        if (!MusicStreamCache.ContainsKey(musicPath))
+        {
+            var musicStream = Raylib.LoadMusicStream(musicPath);
+            musicStream.Looping = looping;
+            MusicStreamCache[musicPath] = musicStream;
+        }
+        Raylib.PlayMusicStream(MusicStreamCache[musicPath]);
+    }
+
+    public virtual void BeginMode3D()
+    {
+        if (Is3D) Raylib.BeginMode3D(Camera3DGameObject.Camera);
+    }
+    public virtual void EndMode3D()
+    {
+        if (Is3D) Raylib.EndMode3D();
+    }
+    #endregion
+
     #region Properties
     public List<GameObject> GameObjects { get; set; } = new();
 
@@ -36,7 +64,7 @@ public abstract class Game : IDisposable
     public static KeyboardManager KeyboardManager { get; } = new();
 
     public readonly Dictionary<string, Sound> SoundsCache = new();
-    public readonly Dictionary<string, Music> MusicCache = new();
+    public readonly Dictionary<string, Music> MusicStreamCache = new();
 
     public Camera3DGameObject Camera3DGameObject
     {
@@ -107,13 +135,6 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     public virtual IDisposable Run()
     {
         var stopwatch = new Stopwatch();
-        var gameObjectPriorityComparer = new GameObjectPriorityComparer();
-
-        //Initial show all objects
-        //foreach (var gameObject in GameObjects)
-        //{
-        //    if (gameObject is TangibleGameObject tangibleGameObject) tangibleGameObject.Draw();
-        //}
 
         try
         {
@@ -123,7 +144,6 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
                 stopwatch.Restart();
                 KeyboardManager.Update(stopwatch);
                 RunSingleIterationWithoutKeyboard(delta);
-                GameObjects.Sort(gameObjectPriorityComparer);
                 stopwatch.Stop();
             }
         }
@@ -165,21 +185,24 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         }
         return this;
     }
-
     protected virtual void RunSingleIterationWithoutKeyboard(float delta)
     {
         if (!Raylib.IsWindowFullscreen() && !Raylib.IsWindowFocused()) Raylib.SetWindowFocused();
 
-        var gameObjectsArr = GameObjects.ToArray();
+        //update music streams
+        foreach (var musicStreamKvp in MusicStreamCache) Raylib.UpdateMusicStream(musicStreamKvp.Value);
 
         //Round-robin pre-update all game objects
-        foreach (var gameObject in gameObjectsArr) gameObject.PreUpdate(delta);
+        GameObjects.Sort(GameObjectPriorityComparer);
+        foreach (var gameObject in GameObjects) gameObject.PreUpdate(delta);
 
         //Round-robin update all game objects
-        foreach (var gameObject in gameObjectsArr) gameObject.Update(delta);
+        GameObjects.Sort(GameObjectPriorityComparer);
+        foreach (var gameObject in GameObjects) gameObject.Update(delta);
 
         //Round-robin post-update all game objects
-        foreach (var gameObject in gameObjectsArr) gameObject.PostUpdate(delta);
+        GameObjects.Sort(GameObjectPriorityComparer);
+        foreach (var gameObject in GameObjects) gameObject.PostUpdate(delta);
 
         //Delete kills
         foreach (var gameObject in GameObjects.Where(x => x.ToDelete).ToArray())
@@ -189,6 +212,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         }
 
         //Draw on the screen
+        GameObjects.Sort(GameObjectPriorityComparer);
         DrawGameObjects(delta);
     }
     public virtual void DrawGameObjects(float delta)
@@ -243,7 +267,6 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
 
         Raylib.EndDrawing();
     }
-
     public virtual void ShowSplashScreen(string imagePath, int milliseconds)
     {
         var texture = Raylib.LoadTexture(imagePath);
@@ -255,6 +278,9 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
 
             while (stopwatch.ElapsedMilliseconds <= milliseconds)
             {
+                //update music streams
+                foreach (var musicStreamKvp in MusicStreamCache) Raylib.UpdateMusicStream(musicStreamKvp.Value);
+
                 //draw background
                 Raylib.BeginDrawing();
 
@@ -282,27 +308,12 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
             Raylib.UnloadTexture(texture);
         }
     }
-
-    public virtual void PlaySound(string soundPath)
-    {
-        if (!SoundsCache.ContainsKey(soundPath)) SoundsCache[soundPath] = Raylib.LoadSound(soundPath);
-        Raylib.PlaySound(SoundsCache[soundPath]);
-    }
-
-    //public virtual void Play
-
-    public virtual void BeginMode3D()
-    {
-        if (Is3D) Raylib.BeginMode3D(Camera3DGameObject.Camera);
-    }
-    public virtual void EndMode3D()
-    {
-        if (Is3D) Raylib.EndMode3D();
-    }
     #endregion
 
     #region Properties
     public static TGame Current => (TGame)CurrentInternal;
     public Color BackgroundColor { get; set; }
+
+    public static GameObjectPriorityComparer GameObjectPriorityComparer { get;}= new ();
     #endregion
 }
