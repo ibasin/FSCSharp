@@ -18,9 +18,8 @@ public class Explosion : TangibleGameObject
             Raylib.LoadTexture("Resources/explosion3.png"),
             Raylib.LoadTexture("Resources/explosion4.png")
         ];
-        Body = new AnimatedSprite(frames, 1.2f);
-
-        TimePerFrame = 0.15f;
+        Body = new AnimatedSprite(frames, 0.15f, 1.2f);
+        Body.StartAnimation();
     }
     public override void Dispose()
     {
@@ -32,24 +31,16 @@ public class Explosion : TangibleGameObject
     #region Overrides
     public override void Update(float delta)
     {
-        TimeElapsed += delta;
-        if (TimeElapsed >= TimePerFrame * Body.Frames.Length) ToDelete = true;
+        if (Body.IsAnimationStopped) ToDelete = true;
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
-        if (!ToDelete)
-        {
-            var frameIdx = Math.Min((int)(TimeElapsed / TimePerFrame), Body.Frames.Length - 1);
-            Body.Draw(Location, frameIdx);
-        }
+        Body.DrawAnimation(Location, delta);
     }
     #endregion
 
     #region Propeties
     public Vector2 Location { get; set; }
     public AnimatedSprite Body { get; }
-
-    public float TimePerFrame { get; set; }
-    public float TimeElapsed { get; set; }
     #endregion
 }

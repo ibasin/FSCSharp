@@ -6,9 +6,10 @@ namespace FSCSharp;
 public class AnimatedSprite : SpriteBase
 {
     #region Constructors
-    public AnimatedSprite(Texture2D[] frames, float scale = 1.0f) : base(scale)
+    public AnimatedSprite(Texture2D[] frames, float timePerFrame, float scale = 1.0f) : base(scale)
     {
         Frames = frames;
+        TimePerFrame = timePerFrame;
     }
     public override void Dispose()
     {
@@ -20,6 +21,28 @@ public class AnimatedSprite : SpriteBase
     #endregion
 
     #region Methods
+    public virtual void StartAnimation(bool loop = false)
+    {
+        IsAnimationStopped = false;
+    }
+    public virtual bool DrawAnimation(Vector2 location, float delta)
+    {
+        TimeElapsed += delta;
+
+        var timeElapsedAdjusted = TimeElapsed;
+        if (TimeElapsed >= TimePerFrame * Frames.Length)
+        {
+            if (Loop) timeElapsedAdjusted = TimeElapsed % TimePerFrame * Frames.Length;
+            else StopAnimation();
+        }
+        var frameIdx = Math.Min((int)(timeElapsedAdjusted / TimePerFrame), Frames.Length - 1);
+        return Draw(location, frameIdx);
+    }
+    public virtual void StopAnimation()
+    {
+        IsAnimationStopped = true;
+        TimeElapsed = 0;
+    }
     public virtual bool Draw(Vector2 location, int frameIdx)
     {
         var result = IsFullyOnScreenAtLocation(location);
@@ -37,6 +60,10 @@ public class AnimatedSprite : SpriteBase
         var rect = new Rectangle(location, Size);
         Raylib.DrawRectanglePro(rect, Size / 2, Rotation, bgColor);
         return result;
+    }
+    public virtual float CalcAnimationLength()
+    {
+        return TimePerFrame * Frames.Length;
     }
 
     public void ResetSize()
@@ -71,5 +98,10 @@ public class AnimatedSprite : SpriteBase
 
     #region Properties
     public Texture2D[] Frames { get; set; }
+
+    public bool IsAnimationStopped { get; protected set; } = true;
+    public float TimePerFrame { get; set; }
+    public float TimeElapsed { get; set; }
+    public bool Loop { get; set; }
     #endregion
 }

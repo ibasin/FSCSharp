@@ -63,7 +63,7 @@ public class EnemyShip : TangibleGameObject
 
                 var pressEsc = "";
                 if (Raylib.IsWindowFullscreen()) pressEsc = ". Press Esc.";
-                throw new GameOverException($"An enemy got through! Score {ScoreKeeper.DeadEnemiesCount}{pressEsc}", explosion.TimePerFrame * explosion.Body.Frames.Length);
+                throw new GameOverException($"An enemy got through! Score {ScoreKeeper.DeadEnemiesCount}{pressEsc}", explosion.Body.CalcAnimationLength());
             }
         }
 
@@ -110,12 +110,12 @@ public class EnemyShip : TangibleGameObject
 
                     var pressEsc = "";
                     if (Raylib.IsWindowFullscreen()) pressEsc = ". Press Esc.";
-                    throw new GameOverException($"You collided with an enemy! Score {ScoreKeeper.DeadEnemiesCount}{pressEsc}", explosion.TimePerFrame * explosion.Body.Frames.Length);
+                    throw new GameOverException($"You collided with an enemy! Score {ScoreKeeper.DeadEnemiesCount}{pressEsc}", explosion.Body.CalcAnimationLength());
                 }
             }
         }
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         Body.Draw(Location);
     }

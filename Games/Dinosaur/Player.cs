@@ -20,7 +20,7 @@ public class Player : TangibleGameObject
     {
         //do nothing
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         Body.Draw(Location);
     }

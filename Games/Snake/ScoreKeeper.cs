@@ -10,7 +10,7 @@ public class ScoreKeeper : TangibleGameObject
     {
         //do nothing
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         Raylib.DrawText($"Score: {ApplesCount}", 5, 5, 20, Color.RayWhite);
     }

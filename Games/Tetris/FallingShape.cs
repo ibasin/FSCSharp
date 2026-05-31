@@ -99,7 +99,7 @@ public class FallingShape : TangibleGameObject
 
         MoveDown(delta);
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         for (var x = 0; x < Data.Shapes.GetLength(2); x++)
         {

@@ -83,7 +83,7 @@ public class Snake : TangibleGameObject
             StepCooldown = 0.2f;
         }
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         foreach (var bodyPart in Body)
         {

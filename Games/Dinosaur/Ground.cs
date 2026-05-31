@@ -17,7 +17,7 @@ public class Ground : TangibleGameObject
     {
         //do nothing
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         Raylib.DrawRectangle(0, GroundY, DinosaurGame.Current.WindowWidth, DinosaurGame.Current.WindowHeight, Color.DarkGreen);
     }

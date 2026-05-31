@@ -26,7 +26,7 @@ public class Apple : TangibleGameObject
     {
         //do nothing
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         Body.Draw(Location);
     }

@@ -90,13 +90,13 @@ public class Missile : TangibleGameObject
 
                         var pressEsc = "";
                         if (Raylib.IsWindowFullscreen()) pressEsc = ". Press Esc.";
-                        throw new GameOverException($"You got shot by an enemy missile! Score {ScoreKeeper.DeadEnemiesCount}{pressEsc}", explosion.TimePerFrame * explosion.Body.Frames.Length);
+                        throw new GameOverException($"You got shot by an enemy missile! Score {ScoreKeeper.DeadEnemiesCount}{pressEsc}", explosion.Body.CalcAnimationLength());
                     }
                 }
             }
         }
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         Body.Draw(Location);
     }

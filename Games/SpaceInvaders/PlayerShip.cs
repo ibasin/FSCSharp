@@ -54,7 +54,7 @@ public class PlayerShip : TangibleGameObject
             if (Body.IsFullyOnScreenAtLocation(location)) Location = location;
         }
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         Body.Draw(Location);
     }

@@ -10,7 +10,7 @@ public class Grid : TangibleGameObject
     {
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.G)) Enabled = !Enabled;
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         var camera = Tetris3DGame.Current.Camera3DGameObject;
         if (Enabled && camera.Camera.Position == Tetris3DGame.Current.Camera3DDefaultPosition)

@@ -100,7 +100,7 @@ public class ShapesBlock : TangibleGameObject
     {
         //Do nothing
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         for (var x = 0; x < Blocks.GetLength(0); x++)
         {

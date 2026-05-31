@@ -169,9 +169,9 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         }
 
         //Draw on the screen
-        DrawGameObjects();
+        DrawGameObjects(delta);
     }
-    public virtual void DrawGameObjects()
+    public virtual void DrawGameObjects(float delta)
     {
         Raylib.BeginDrawing();
 
@@ -204,7 +204,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
             if (gameObject is Tangible3DGameObject) continue;
 
             var tangibleGameObject = gameObject as TangibleGameObject;
-            tangibleGameObject?.Draw();
+            tangibleGameObject?.Draw(delta);
         }
 
         Raylib.EndDrawing();

@@ -10,7 +10,7 @@ public class Grid : TangibleGameObject
     {
         if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.G)) Enabled = !Enabled;
     }
-    public override void Draw()
+    public override void Draw(float delta)
     {
         if (Enabled)
         {
