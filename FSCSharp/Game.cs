@@ -34,6 +34,19 @@ public abstract class Game : IDisposable
     public static Game CurrentInternal { get; private set; } = null!;
 
     public static KeyboardManager KeyboardManager { get; } = new();
+
+    public readonly Dictionary<string, Sound> SoundsCache = new();
+
+    public Camera3DGameObject Camera3DGameObject
+    {
+        get
+        {
+            if (!Is3D) throw new Exception("Camera3DGameObject property can only br called for 3D games");
+            var cameraGameObject = (Camera3DGameObject?)GameObjects.SingleOrDefault(x => x is Camera3DGameObject);
+            if (cameraGameObject == null) throw new Exception("Exactly one game object must be of type Camera3DGameObject for 3D games!");
+            return cameraGameObject;
+        }
+    }
     #endregion
 }
 
@@ -77,6 +90,12 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         {
             gameObject.Dispose();
         }
+
+        foreach (var soundKvp in SoundsCache)
+        {
+            Raylib.UnloadSound(soundKvp.Value);
+        }
+
         Raylib.CloseWindow();
     }
     public sealed override int WindowWidth { get; }
@@ -284,18 +303,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     #endregion
 
     #region Properties
-    public Camera3DGameObject Camera3DGameObject
-    {
-        get
-        {
-            if (!Is3D) throw new Exception("Camera3DGameObject property can only br called for 3D games");
-            var cameraGameObject = (Camera3DGameObject?)GameObjects.SingleOrDefault(x => x is Camera3DGameObject);
-            if (cameraGameObject == null) throw new Exception("Exactly one game object must be of type Camera3DGameObject for 3D games!");
-            return cameraGameObject;
-        }
-    }
     public static TGame Current => (TGame)CurrentInternal;
     public Color BackgroundColor { get; set; }
-    public readonly Dictionary<string, Sound> SoundsCache = new();
     #endregion
 }
