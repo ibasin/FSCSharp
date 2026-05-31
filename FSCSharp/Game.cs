@@ -18,7 +18,14 @@ public abstract class Game : IDisposable
     #region IDisposable
     public virtual void Dispose()
     {
-        //do nothing
+        foreach (var soundKvp in SoundsCache)
+        {
+            Raylib.UnloadSound(soundKvp.Value);
+        }
+        foreach (var musicStreamKvp in MusicStreamCache)
+        {
+            Raylib.UpdateMusicStream(musicStreamKvp.Value);
+        }
     }
     #endregion
 
@@ -31,12 +38,8 @@ public abstract class Game : IDisposable
 
     public virtual void PlayMusicStream(string musicPath, bool looping)
     {
-        if (!MusicStreamCache.ContainsKey(musicPath))
-        {
-            var musicStream = Raylib.LoadMusicStream(musicPath);
-            musicStream.Looping = looping;
-            MusicStreamCache[musicPath] = musicStream;
-        }
+        if (!MusicStreamCache.ContainsKey(musicPath)) MusicStreamCache[musicPath] = Raylib.LoadMusicStream(musicPath);
+        MusicStreamCache[musicPath] = MusicStreamCache[musicPath] with { Looping = looping };
         Raylib.PlayMusicStream(MusicStreamCache[musicPath]);
     }
 
@@ -117,14 +120,10 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     #region Overrides
     public override void Dispose()
     {
+        base.Dispose();
         foreach (var gameObject in GameObjects)
         {
             gameObject.Dispose();
-        }
-
-        foreach (var soundKvp in SoundsCache)
-        {
-            Raylib.UnloadSound(soundKvp.Value);
         }
 
         Raylib.CloseWindow();
