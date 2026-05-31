@@ -19,8 +19,10 @@ public class DinosaurGame : Game<DinosaurGame>
         Ground.Priority = 50;
         GameObjects.Add(Ground);
 
+        // ReSharper disable PossibleLossOfFraction
         Player = new Player(new Vector2(WindowWidth / 2, WindowHeight / 2));
         GameObjects.Add(Player);
+        // ReSharper restore PossibleLossOfFraction
     }
     #endregion
 
