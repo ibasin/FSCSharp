@@ -76,6 +76,8 @@ public abstract class Game : IDisposable
             return cameraGameObject;
         }
     }
+
+    public static GameObjectPriorityComparer GameObjectPriorityComparer { get; } = new();
     #endregion
 }
 
@@ -313,7 +315,5 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
     #region Properties
     public static TGame Current => (TGame)CurrentInternal;
     public Color BackgroundColor { get; set; }
-
-    public static GameObjectPriorityComparer GameObjectPriorityComparer { get;}= new ();
     #endregion
 }
