@@ -34,8 +34,7 @@ public class EnemyShip : TangibleGameObject
 
             MissileCooldown = 3f;
 
-            SpaceInvadersGame.Current.MissileLaunch ??= Raylib.LoadSound("Resources/missile-launch.mp3");
-            SpaceInvadersGame.Current.PlaySound(SpaceInvadersGame.Current.MissileLaunch.Value);
+            SpaceInvadersGame.Current.PlaySound("Resources/missile-launch.mp3");
         }
 
         ActionCooldown -= delta;
@@ -51,8 +50,7 @@ public class EnemyShip : TangibleGameObject
 
         if (location.Move(Go.Down, Body.Size.Y/2).Violations.YPlusViolation)
         {
-            SpaceInvadersGame.Current.Explosion ??= Raylib.LoadSound("Resources/explosion.mp3");
-            SpaceInvadersGame.Current.PlaySound(SpaceInvadersGame.Current.Explosion.Value);
+            SpaceInvadersGame.Current.PlaySound("Resources/explosion.mp3");
 
             var explosion = new Explosion(SpaceInvadersGame.Current.Player.Location);
             SpaceInvadersGame.Current.GameObjects.Add(explosion);
@@ -80,8 +78,7 @@ public class EnemyShip : TangibleGameObject
                 var otherEnemy = (EnemyShip)gameObject;
                 if (otherEnemy.Body.IsCollidingAtLocation(otherEnemy.Location, Body, Location))
                 {
-                    SpaceInvadersGame.Current.Explosion ??= Raylib.LoadSound("Resources/explosion.mp3");
-                    SpaceInvadersGame.Current.PlaySound(SpaceInvadersGame.Current.Explosion.Value);
+                    SpaceInvadersGame.Current.PlaySound("Resources/explosion.mp3");
 
                     ToDelete = true;
                     otherEnemy.ToDelete = true;
@@ -98,8 +95,7 @@ public class EnemyShip : TangibleGameObject
                 var player = (PlayerShip)gameObject;
                 if (player.Body.IsCollidingAtLocation(player.Location, Body, Location))
                 {
-                    SpaceInvadersGame.Current.Explosion ??= Raylib.LoadSound("Resources/explosion.mp3");
-                    SpaceInvadersGame.Current.PlaySound(SpaceInvadersGame.Current.Explosion.Value);
+                    SpaceInvadersGame.Current.PlaySound("Resources/explosion.mp3");
 
                     var explosion = new Explosion(player.Location);
                     SpaceInvadersGame.Current.GameObjects.Add(explosion);

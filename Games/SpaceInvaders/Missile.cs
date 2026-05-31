@@ -45,8 +45,7 @@ public class Missile : TangibleGameObject
                     var otherMissile = (Missile)gameObject;
                     if (Body.IsCollidingAtLocation(Location, otherMissile.Body, otherMissile.Location))
                     {
-                        SpaceInvadersGame.Current.Explosion ??= Raylib.LoadSound("Resources/explosion.mp3");
-                        SpaceInvadersGame.Current.PlaySound(SpaceInvadersGame.Current.Explosion.Value);
+                        SpaceInvadersGame.Current.PlaySound("Resources/explosion.mp3");
 
                         ToDelete = true;
                         otherMissile.ToDelete = true;
@@ -61,8 +60,7 @@ public class Missile : TangibleGameObject
                     var enemy = (EnemyShip)gameObject;
                     if (Body.IsCollidingAtLocation(Location, enemy.Body, enemy.Location))
                     {
-                        SpaceInvadersGame.Current.Explosion ??= Raylib.LoadSound("Resources/explosion.mp3");
-                        SpaceInvadersGame.Current.PlaySound(SpaceInvadersGame.Current.Explosion.Value);
+                        SpaceInvadersGame.Current.PlaySound("Resources/explosion.mp3");
 
                         ToDelete = true;
                         enemy.ToDelete = true;
@@ -79,8 +77,7 @@ public class Missile : TangibleGameObject
                     var player = (PlayerShip)gameObject;
                     if (Body.IsCollidingAtLocation(Location, player.Body, player.Location))
                     {
-                        SpaceInvadersGame.Current.Explosion ??= Raylib.LoadSound("Resources/explosion.mp3");
-                        SpaceInvadersGame.Current.PlaySound(SpaceInvadersGame.Current.Explosion.Value);
+                        SpaceInvadersGame.Current.PlaySound("Resources/explosion.mp3");
 
                         var explosion = new Explosion(player.Location);
                         SpaceInvadersGame.Current.GameObjects.Add(explosion);

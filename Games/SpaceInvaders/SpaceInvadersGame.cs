@@ -26,8 +26,5 @@ public class SpaceInvadersGame : Game<SpaceInvadersGame>
 
     #region Properties
     public PlayerShip Player { get; }
-
-    public Sound? MissileLaunch { get; set; }
-    public Sound? Explosion { get; set; }
     #endregion
 }

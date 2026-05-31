@@ -47,8 +47,7 @@ public class PlayerShip : TangibleGameObject
 
                 MissileCooldown = 0.7f;
 
-                SpaceInvadersGame.Current.MissileLaunch ??= Raylib.LoadSound("Resources/missile-launch.mp3");
-                SpaceInvadersGame.Current.PlaySound(SpaceInvadersGame.Current.MissileLaunch.Value);
+                SpaceInvadersGame.Current.PlaySound("Resources/missile-launch.mp3");
             }
 
             if (Body.IsFullyOnScreenAtLocation(location)) Location = location;

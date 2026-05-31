@@ -36,6 +36,7 @@ public abstract class Game : IDisposable
     public static KeyboardManager KeyboardManager { get; } = new();
 
     public readonly Dictionary<string, Sound> SoundsCache = new();
+    public readonly Dictionary<string, Music> MusicCache = new();
 
     public Camera3DGameObject Camera3DGameObject
     {
@@ -282,15 +283,13 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         }
     }
 
-    public virtual void PlaySound(Sound sound)
-    {
-        Raylib.PlaySound(sound);
-    }
     public virtual void PlaySound(string soundPath)
     {
         if (!SoundsCache.ContainsKey(soundPath)) SoundsCache[soundPath] = Raylib.LoadSound(soundPath);
-        PlaySound(SoundsCache[soundPath]);
+        Raylib.PlaySound(SoundsCache[soundPath]);
     }
+
+    //public virtual void Play
 
     public virtual void BeginMode3D()
     {
