@@ -22,13 +22,16 @@ public abstract class AnimatedSpriteBase : SpriteBase
     {
         TimeElapsed += delta;
 
-        var timeElapsedAdjusted = TimeElapsed;
-        if (TimeElapsed >= CalcAnimationLength())
+        var animationLength = CalcAnimationLength();
+        if (!Looping && TimeElapsed > animationLength)
         {
-            if (Looping) timeElapsedAdjusted = TimeElapsed % TimePerFrame * FramesCount;
-            else StopAnimation();
+            StopAnimation();
+            return true;
         }
-        var frameIdx = Math.Min((int)(timeElapsedAdjusted / TimePerFrame), FramesCount - 1);
+        
+        var timeElapsedAdjusted = TimeElapsed % animationLength;
+        var frameIdx = (int)(timeElapsedAdjusted / TimePerFrame);
+
         return Draw(location, frameIdx);
     }
     public virtual void StopAnimation()

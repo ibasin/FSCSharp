@@ -21,17 +21,8 @@ public class RunningBunny : TangibleGameObject
             }
         }
         var size = new Vector2(475, 518);
-        Body = new AnimatedTilesSprite(tilesTexture, frames.ToArray(), size, 1f, 0.5f);
+        Body = new AnimatedTilesSprite(tilesTexture, frames.ToArray(), size, 0.1f, 0.5f);
         Body.StartAnimation(true);
-
-        ////Pre - render
-        //Raylib.BeginDrawing();
-        //Raylib.ClearBackground(Color.White);
-        //for (var i = 0; i < frames.Count; i++)
-        //{
-        //    Body.Draw(size, i);
-        //}
-        //Raylib.EndDrawing();
     }
     public override void Dispose()
     {
