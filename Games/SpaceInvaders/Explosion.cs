@@ -18,7 +18,7 @@ public class Explosion : TangibleGameObject
             Raylib.LoadTexture("Resources/explosion3.png"),
             Raylib.LoadTexture("Resources/explosion4.png")
         ];
-        Body = new AnimatedSprite(frames, 0.15f, 1.2f);
+        Body = new AnimatedArraySprite(frames, 0.15f, 1.2f);
         Body.StartAnimation();
     }
     public override void Dispose()
@@ -41,6 +41,6 @@ public class Explosion : TangibleGameObject
 
     #region Propeties
     public Vector2 Location { get; set; }
-    public AnimatedSprite Body { get; }
+    public AnimatedArraySprite Body { get; }
     #endregion
 }

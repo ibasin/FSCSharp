@@ -2,7 +2,7 @@
 
 internal class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         using (new Tetris3DGame().Run()) { }
     }
