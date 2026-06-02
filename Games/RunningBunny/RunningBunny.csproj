@@ -9,10 +9,14 @@
 
   <ItemGroup>
     <None Remove="Resources\running-bunny-tiles.png" />
+    <None Remove="Resources\splash.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\running-bunny-tiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\splash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

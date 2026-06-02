@@ -1,6 +1,7 @@
 ﻿using FSCSharp;
 using Raylib_cs;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace RunningBunny;
 
@@ -12,9 +13,15 @@ public class RunningBunny : TangibleGameObject
         Location = location;
         var timesTexture = Raylib.LoadTexture("Resources/running-bunny-tiles.png");
 
-        Vector2[] frames = [new(290, 405), new(770, 405), new(1250, 405), new(2310, 405),
-                            new(290, 923), new(770, 923), new(1250, 923), new(2310, 923)];
-        Body = new AnimatedTilesSprite(timesTexture, frames, new(390, 470), 0.7f, 0.5f);
+        var frames = new List<Vector2>();
+        for (var y = 405; y <= 923; y += 518)
+        {
+            for (var x = 300; x <= 1800; x += 475)
+            {
+                frames.Add(new Vector2(x, y));
+            }
+        }
+        Body = new AnimatedTilesSprite(timesTexture, frames.ToArray(), new(475, 518), 1f, 0.5f);
         Body.StartAnimation(true);
     }
     #endregion

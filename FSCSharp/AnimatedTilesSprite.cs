@@ -6,6 +6,7 @@ namespace FSCSharp;
 public class AnimatedTilesSprite : AnimatedSpriteBase
 {
     #region Constructors
+
     public AnimatedTilesSprite(Texture2D tilesTexture, Vector2[] frameRectCenters, Vector2 frameRectSize, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
         TilesTexture = tilesTexture;
@@ -69,13 +70,12 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
         {
             Draw(location, i);
             var rect = new Rectangle((int)(location.X - Size.X / 2), (int)(location.Y - Size.Y / 2), (int)Size.X, (int)Size.Y);
-            Raylib.DrawRectangleLinesEx(rect, 3, borderColor);
+            Raylib.DrawRectangleLinesEx(rect, 1, borderColor);
 
             var proposedLocation = location.Move(Go.Right, Size.X);
-            
-            location = proposedLocation.X + Size.X <= Game.CurrentInternal.WindowWidth ? 
-                proposedLocation : 
-                new Vector2(Size.X/2, location.Y + Size.Y);
+
+            if (proposedLocation.X + Size.X <= Game.CurrentInternal.WindowWidth) location = proposedLocation;
+            else location = new Vector2(Size.X / 2, location.Y + Size.Y);
         }
     }
     public override bool Draw(Vector2 location, int frameIdx)
