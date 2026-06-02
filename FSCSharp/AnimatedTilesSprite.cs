@@ -58,11 +58,17 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
     #region Methods
     public void DrawAllTiles()
     {
-        var location = Vector2.Zero;
+        DrawAllTiles(Color.Lime);
+    }
+    public void DrawAllTiles(Color borderColor)
+    {
+        var location = Size / 2;
 
         for (var i = 0; i < FramesCount; i++)
         {
             Draw(location, i);
+            var rect = new Rectangle((int)(location.X - Size.X / 2), (int)(location.Y - Size.Y / 2), (int)Size.X, (int)Size.Y);
+            Raylib.DrawRectangleLinesEx(rect, 3, borderColor);
 
             var proposedLocation = location.Move(Go.Right, Size.X);
             

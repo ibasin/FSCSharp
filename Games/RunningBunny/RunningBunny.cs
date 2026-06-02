@@ -12,8 +12,8 @@ public class RunningBunny : TangibleGameObject
         Location = location;
         var timesTexture = Raylib.LoadTexture("Resources/running-bunny-tiles.png");
 
-        Vector2[] frames = [new(0, 0)];
-        Body = new AnimatedTilesSprite(timesTexture, frames, new(1000, 1000), 0.2f);
+        Vector2[] frames = [new(105, 190)];
+        Body = new AnimatedTilesSprite(timesTexture, frames, new(370, 450), 0.2f);
         Body.Looping = true;
     }
     #endregion
