@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\running-bunny-tiles.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\running-bunny-tiles.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\FSCSharp\FSCSharp.csproj" />
   </ItemGroup>
 

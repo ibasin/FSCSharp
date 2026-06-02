@@ -56,6 +56,21 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
     #endregion
 
     #region Methods
+    public void DrawAllTiles()
+    {
+        var location = Vector2.Zero;
+
+        for (var i = 0; i < FramesCount; i++)
+        {
+            Draw(location, i);
+
+            var proposedLocation = location.Move(Go.Right, Size.X);
+            
+            location = proposedLocation.X + Size.X <= Game.CurrentInternal.WindowWidth ? 
+                proposedLocation : 
+                new Vector2(0, location.Y + Size.Y);
+        }
+    }
     public override bool Draw(Vector2 location, int frameIdx)
     {
         var result = IsFullyOnScreenAtLocation(location);
