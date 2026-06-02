@@ -12,9 +12,10 @@ public class RunningBunny : TangibleGameObject
         Location = location;
         var timesTexture = Raylib.LoadTexture("Resources/running-bunny-tiles.png");
 
-        Vector2[] frames = [new(105, 190)];
-        Body = new AnimatedTilesSprite(timesTexture, frames, new(370, 450), 0.2f);
-        Body.Looping = true;
+        Vector2[] frames = [new(290, 405), new(770, 405), new(1250, 405), new(2310, 405),
+                            new(290, 923), new(770, 923), new(1250, 923), new(2310, 923)];
+        Body = new AnimatedTilesSprite(timesTexture, frames, new(390, 470), 0.9f);
+        Body.StartAnimation(true);
     }
     #endregion
 
@@ -25,7 +26,11 @@ public class RunningBunny : TangibleGameObject
     }
     public override void Draw(float delta)
     {
-        Body.DrawAllTiles();
+        //Body.DrawAllTiles();
+
+        // ReSharper disable PossibleLossOfFraction
+        Body.DrawAnimation(new Vector2(RunningBunnyGame.Current.WindowWidth/2, RunningBunnyGame.Current.WindowHeight / 2), delta);
+        // ReSharper restore PossibleLossOfFraction
     }
     #endregion
 

@@ -6,14 +6,15 @@ namespace FSCSharp;
 public class AnimatedTilesSprite : AnimatedSpriteBase
 {
     #region Constructors
-    public AnimatedTilesSprite(Texture2D tilesTexture, Vector2[] frameRectsTopLeftCorners, Vector2 frameRectSize, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
+    public AnimatedTilesSprite(Texture2D tilesTexture, Vector2[] frameRectCenters, Vector2 frameRectSize, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
         TilesTexture = tilesTexture;
         
-        var frameRects = new Rectangle[frameRectsTopLeftCorners.Length];
+        var frameRects = new Rectangle[frameRectCenters.Length];
         for (var i = 0; i < frameRects.Length; i++)
         {
-            frameRects[i] = new Rectangle(frameRectsTopLeftCorners[i], frameRectSize);
+            // ReSharper disable once VirtualMemberCallInConstructor
+            frameRects[i] = new Rectangle(frameRectCenters[i] - frameRectSize/2, frameRectSize);
         }
         FrameRects = frameRects;
     }
@@ -74,7 +75,7 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
             
             location = proposedLocation.X + Size.X <= Game.CurrentInternal.WindowWidth ? 
                 proposedLocation : 
-                new Vector2(0, location.Y + Size.Y);
+                new Vector2(Size.X/2, location.Y + Size.Y);
         }
     }
     public override bool Draw(Vector2 location, int frameIdx)
