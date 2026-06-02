@@ -14,7 +14,7 @@ public class RunningBunny : TangibleGameObject
 
         Vector2[] frames = [new(290, 405), new(770, 405), new(1250, 405), new(2310, 405),
                             new(290, 923), new(770, 923), new(1250, 923), new(2310, 923)];
-        Body = new AnimatedTilesSprite(timesTexture, frames, new(390, 470), 0.9f);
+        Body = new AnimatedTilesSprite(timesTexture, frames, new(390, 470), 0.7f, 0.5f);
         Body.StartAnimation(true);
     }
     #endregion
