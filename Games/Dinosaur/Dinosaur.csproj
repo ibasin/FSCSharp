@@ -8,12 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\cactus.png" />
     <None Remove="Resources\Monkeys-Spinning-Monkeys.mp3" />
     <None Remove="Resources\splash.png" />
     <None Remove="Resources\yoshi.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\cactus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Monkeys-Spinning-Monkeys.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

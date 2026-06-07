@@ -1,7 +1,6 @@
 ﻿using FSCSharp;
 using Raylib_cs;
 using System.Numerics;
-using System.Text.RegularExpressions;
 
 namespace Dinosaur;
 
@@ -12,17 +11,17 @@ public class DinosaurGame : Game<DinosaurGame>
     {
         // ReSharper disable VirtualMemberCallInConstructor
         PlayMusicStream("Resources/Monkeys-Spinning-Monkeys.mp3", true);
-        ShowSplashScreen("Resources/splash.png", 3000);
+        ShowSplashScreen("Resources/splash.png", 500);
         // ReSharper restore VirtualMemberCallInConstructor
 
         Ground = new Ground();
         Ground.Priority = 50;
         GameObjects.Add(Ground);
 
-        // ReSharper disable PossibleLossOfFraction
-        Player = new Player(new Vector2(WindowWidth / 2, WindowHeight / 2));
+        Player = new Player();
         GameObjects.Add(Player);
-        // ReSharper restore PossibleLossOfFraction
+
+        GameObjects.Add(new CactusGenerator());
     }
     #endregion
 
