@@ -8,6 +8,72 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\1 Tiles\FieldsTileset.png" />
+    <None Remove="Resources\1 Tiles\FieldsTilesetTest.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_01.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_02.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_03.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_04.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_05.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_06.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_07.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_08.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_09.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_10.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_11.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_12.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_13.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_14.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_15.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_16.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_17.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_18.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_19.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_20.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_21.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_22.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_23.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_24.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_25.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_26.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_27.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_28.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_29.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_30.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_31.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_32.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_33.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_34.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_35.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_36.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_37.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_38.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_39.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_40.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_41.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_42.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_43.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_44.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_45.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_46.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_47.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_48.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_49.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_50.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_51.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_52.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_53.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_54.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_55.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_56.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_57.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_58.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_59.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_60.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_61.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_62.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_63.png" />
+    <None Remove="Resources\1 Tiles\FieldsTile_64.png" />
     <None Remove="Resources\2\D_Attack.png" />
     <None Remove="Resources\2\D_Death.png" />
     <None Remove="Resources\2\D_Run.png" />
@@ -21,6 +87,204 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\1 Tiles\FieldsTileset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTilesetTest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_18.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_19.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_21.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_22.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_23.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_25.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_26.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_27.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_29.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_30.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_31.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_33.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_34.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_35.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_36.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_37.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_38.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_39.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_40.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_41.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_42.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_43.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_44.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_45.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_46.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_47.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_49.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_51.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_52.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_53.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_54.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_55.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_56.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_57.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_58.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_59.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_60.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_61.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_62.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_63.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1 Tiles\FieldsTile_64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\2\D_Attack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
