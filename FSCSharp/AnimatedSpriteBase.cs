@@ -15,6 +15,7 @@ public abstract class AnimatedSpriteBase : SpriteBase
     #region Methods
     public virtual void StartAnimation(bool looping = false)
     {
+        TimeElapsed = 0;
         IsAnimationStopped = false;
         Looping = looping;
     }
