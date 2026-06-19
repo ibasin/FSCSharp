@@ -55,31 +55,33 @@ public class Hero : TangibleGameObject
     #region Overrides
     public override void Update(float delta)
     {
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Up) && IsIdle)
+        //Key pressed
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Up) && IsIdle)
         {
             LookingDirection = Go.Up;
             BodyUpRun.StartAnimation(true);
             IsIdle = false;
         }
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Down) && IsIdle)
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Down) && IsIdle)
         {
             LookingDirection = Go.Down;
             BodyDownRun.StartAnimation(true);
             IsIdle = false;
         }
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Left) && IsIdle)
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left) && IsIdle)
         {
             LookingDirection = Go.Left;
             BodyLeftRun.StartAnimation(true);
             IsIdle = false;
         }
-        if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Right) && IsIdle)
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right) && IsIdle)
         {
             LookingDirection = Go.Right;
             BodyRightRun.StartAnimation(true);
             IsIdle = false;
         }
 
+        //Key released
         if (Game.KeyboardManager.IsKeyReleased(KeyboardKey.Up))
         {
             LookingDirection = Go.Up;
@@ -105,6 +107,7 @@ public class Hero : TangibleGameObject
             IsIdle = true;
         }
 
+        if (!IsIdle) Location = Location.Move(LookingDirection, delta * 100f);
     }
 
     public override void Draw(float delta)
