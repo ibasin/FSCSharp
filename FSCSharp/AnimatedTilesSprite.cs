@@ -83,6 +83,9 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
         var result = IsFullyOnScreenAtLocation(location);
 
         var sourceRect = FrameRects[frameIdx];
+        if (FlipHorizontally) sourceRect = sourceRect.FlipHorizontally();
+        if (FlipVertically) sourceRect = sourceRect.FlipVertically();
+
         var destRect = new Rectangle(location, Size);
         _textureCenter ??= Size / 2;
         Raylib.DrawTexturePro(TilesTexture, sourceRect, destRect, _textureCenter.Value, Rotation, TintColor);

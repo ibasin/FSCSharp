@@ -72,8 +72,12 @@ public abstract class SpriteBase : IDisposable
     public float HScale { get; set; }
     public float VScale { get; set; }
     public Color TintColor { get; set; } = Color.White;
+
     public float Rotation { get; set; }
-    
+    public bool FlipHorizontally { get; set; }
+    public bool FlipVertically { get; set; }
+
+
     // ReSharper disable once InconsistentNaming
     protected Vector2? _textureCenter;
     #endregion

@@ -23,11 +23,12 @@ public class Hero : TangibleGameObject
         var size = new Vector2(96, 96);
 
         //Idle
-        var tilesLeftIdleTexture = Raylib.LoadTexture("Resources/2/L_Special.png");
+        var tilesLeftIdleTexture = Raylib.LoadTexture("Resources/2/S_Special.png");
         BodyLeftIdle = new AnimatedTilesSprite(tilesLeftIdleTexture, frames.ToArray(), size, 0.1f, 2f);
         
-        var tilesRightIdleTexture = Raylib.LoadTexture("Resources/2/R_Special.png");
+        var tilesRightIdleTexture = Raylib.LoadTexture("Resources/2/S_Special.png");
         BodyRightIdle = new AnimatedTilesSprite(tilesRightIdleTexture, frames.ToArray(), size, 0.1f, 2f);
+        BodyRightIdle.FlipHorizontally = true;
 
         var tilesUpIdleTexture = Raylib.LoadTexture("Resources/2/U_Special.png");
         BodyUpIdle = new AnimatedTilesSprite(tilesUpIdleTexture, frames.ToArray(), size, 0.1f, 2f);
@@ -36,11 +37,12 @@ public class Hero : TangibleGameObject
         BodyDownIdle = new AnimatedTilesSprite(tilesDownIdleTexture, frames.ToArray(), size, 0.1f, 2f);
 
         //Run
-        var tilesLeftRunTexture = Raylib.LoadTexture("Resources/2/L_Run.png");
+        var tilesLeftRunTexture = Raylib.LoadTexture("Resources/2/S_Run.png");
         BodyLeftRun = new AnimatedTilesSprite(tilesLeftRunTexture, frames.ToArray(), size, 0.1f, 2f);
 
-        var tilesRightRunTexture = Raylib.LoadTexture("Resources/2/R_Run.png");
+        var tilesRightRunTexture = Raylib.LoadTexture("Resources/2/S_Run.png");
         BodyRightRun = new AnimatedTilesSprite(tilesRightRunTexture, frames.ToArray(), size, 0.1f, 2f);
+        BodyRightRun.FlipHorizontally = true;
 
         var tilesUpRunTexture = Raylib.LoadTexture("Resources/2/U_Run.png");
         BodyUpRun = new AnimatedTilesSprite(tilesUpRunTexture, frames.ToArray(), size, 0.1f, 2f);

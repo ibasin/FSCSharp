@@ -25,6 +25,9 @@ public class AnimatedArraySprite : AnimatedSpriteBase
         var result = IsFullyOnScreenAtLocation(location);
         
         var sourceRect = new Rectangle(0f, 0f, Frames[frameIdx].Width, Frames[frameIdx].Height);
+        if (FlipHorizontally) sourceRect = sourceRect.FlipHorizontally();
+        if (FlipVertically) sourceRect = sourceRect.FlipVertically();
+
         var destRect = new Rectangle(location, Size);
         _textureCenter ??= Size / 2;
         Raylib.DrawTexturePro(Frames[frameIdx], sourceRect, destRect, _textureCenter.Value, Rotation, TintColor);

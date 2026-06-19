@@ -20,11 +20,17 @@ public class Sprite : SpriteBase
     public virtual bool Draw(Vector2 location)
     {
         var result = IsFullyOnScreenAtLocation(location);
-        
-        _sourceRect ??= new Rectangle(0f, 0f, Texture.Width, Texture.Height);
+
+        if (_sourceRect == null)
+        {
+            _sourceRect = new Rectangle(0f, 0f, Texture.Width, Texture.Height);
+            if (FlipHorizontally) _sourceRect = _sourceRect.FlipHorizontally();
+            if (FlipVertically) _sourceRect = _sourceRect.FlipVertically();
+        }
+
         var destRect = new Rectangle(location, Size);
         _textureCenter ??= Size / 2;
-        Raylib.DrawTexturePro(Texture, _sourceRect.Value, destRect, _textureCenter.Value, Rotation, TintColor);
+        Raylib.DrawTexturePro(Texture, _sourceRect!.Value, destRect, _textureCenter.Value, Rotation, TintColor);
 
         return result;
     }
@@ -32,6 +38,7 @@ public class Sprite : SpriteBase
     {
         var result = IsFullyOnScreenAtLocation(location);
         var rect = new Rectangle(location, Size);
+
         Raylib.DrawRectanglePro(rect, Size/2, Rotation, bgColor);
         return result;
     }
