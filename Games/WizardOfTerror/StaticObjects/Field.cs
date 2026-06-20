@@ -2,7 +2,7 @@
 using Raylib_cs;
 using System.Numerics;
 
-namespace WizardOfTerror;
+namespace WizardOfTerror.StaticObjects;
 
 public class Field : TangibleGameObject
 {
@@ -30,8 +30,6 @@ public class Field : TangibleGameObject
                 Board[x, y] = Random.Shared.Next(64);
             }
         }
-
-        Priority = 50;
     }
     #endregion
     

@@ -84,6 +84,13 @@
     <None Remove="Resources\2\U_Death.png" />
     <None Remove="Resources\2\U_Run.png" />
     <None Remove="Resources\2\U_Special.png" />
+    <None Remove="Resources\3 Animated Objects\1 Flag\1.png" />
+    <None Remove="Resources\3 Animated Objects\1 Flag\2.png" />
+    <None Remove="Resources\3 Animated Objects\1 Flag\3.png" />
+    <None Remove="Resources\3 Animated Objects\1 Flag\4.png" />
+    <None Remove="Resources\3 Animated Objects\1 Flag\5.png" />
+    <None Remove="Resources\3 Animated Objects\2 Campfire\1.png" />
+    <None Remove="Resources\3 Animated Objects\2 Campfire\2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -319,6 +326,27 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\2\U_Special.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3 Animated Objects\1 Flag\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3 Animated Objects\1 Flag\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3 Animated Objects\1 Flag\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3 Animated Objects\1 Flag\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3 Animated Objects\1 Flag\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3 Animated Objects\2 Campfire\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3 Animated Objects\2 Campfire\2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

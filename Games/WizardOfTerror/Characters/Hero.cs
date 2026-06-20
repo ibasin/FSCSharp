@@ -2,7 +2,7 @@
 using Raylib_cs;
 using System.Numerics;
 
-namespace WizardOfTerror;
+namespace WizardOfTerror.Characters;
 
 public class Hero : TangibleGameObject
 {
@@ -12,7 +12,6 @@ public class Hero : TangibleGameObject
         Location = location;
         LookingDirection = lookingDirection;
         IsIdle = true;
-
 
         var frames = new List<Vector2>();
         for (var x = 48; x <= 576; x += 96)
