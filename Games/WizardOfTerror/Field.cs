@@ -9,14 +9,25 @@ public class Field : TangibleGameObject
     #region Constructors
     public Field()
     {
-        var tile01Texture = Raylib.LoadTexture("Resources/1 Tiles/FieldsTile_01.png");
-        FieldsetSprites[(int)FieldsetEnum.Tile01] = new Sprite(tile01Texture, 2f);
-        
+        var frames = new List<Vector2>();
+        for (var y = 16; y <= 256; y += 32)
+        {
+            for (var x = 16; x <= 256; x += 32)
+            {
+                frames.Add(new Vector2(x, y));
+            }
+        }
+        var size = new Vector2(32, 32);
+
+        var fieldsTilesetTexture = Raylib.LoadTexture("Resources/1 Tiles/FieldsTileset.png");
+
+        TileSetBody = new AnimatedTilesSprite(fieldsTilesetTexture, frames.ToArray(), size, 0.1f, 2f);
+
         for (var x = 0; x < Board.GetLength(0); x++)
         {
             for (var y = 0; y < Board.GetLength(1); y++)
             {
-                Board[x, y] = FieldsetEnum.Tile01;
+                Board[x, y] = Random.Shared.Next(64);
             }
         }
 
@@ -35,19 +46,19 @@ public class Field : TangibleGameObject
         {
             for (var y = 0; y < Board.GetLength(1); y++)
             {
-                var location = new Vector2(32 + x * 64, 32 + y * 64);
+                var location = new Vector2(32 + x*64, 32 + y*64);
                 var tileType = Board[x, y];
-                FieldsetSprites[(int)tileType].Draw(location);
+                TileSetBody.Draw(location, (int)tileType);
             }
         }
     }
     #endregion
 
     #region Properties
-    public const int WidthInTiles = 25;
+    public const int WidthInTiles = 30;
     public const int HeightInTiles = 20;
 
-    public FieldsetEnum[,] Board { get; set; } = new FieldsetEnum[WidthInTiles, HeightInTiles];
-    public Sprite[] FieldsetSprites { get; set; } = new Sprite[1];
+    public int[,] Board { get; set; } = new int[WidthInTiles, HeightInTiles];
+    public AnimatedTilesSprite TileSetBody { get; set; }
     #endregion
 }
