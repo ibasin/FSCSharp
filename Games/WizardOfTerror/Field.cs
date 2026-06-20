@@ -20,7 +20,7 @@ public class Field : TangibleGameObject
             }
         }
 
-        Priority = 200;
+        Priority = 50;
     }
     #endregion
     
@@ -44,7 +44,10 @@ public class Field : TangibleGameObject
     #endregion
 
     #region Properties
-    public FieldsetEnum[,] Board { get; set; } = new FieldsetEnum[20, 15];
+    public const int WidthInTiles = 25;
+    public const int HeightInTiles = 20;
+
+    public FieldsetEnum[,] Board { get; set; } = new FieldsetEnum[WidthInTiles, HeightInTiles];
     public Sprite[] FieldsetSprites { get; set; } = new Sprite[1];
     #endregion
 }
