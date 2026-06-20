@@ -38,5 +38,9 @@ public class WOTGame : Game<WOTGame>
         var flag5 = new Flag5(new Vector2(32 + 64 * 28, 16 + 64 * 10)) { Priority = 200 };
         GameObjects.Add(flag5);
 
+        Current.PlaySound("Resources/lightning-strike.mp3");
+        Current.ShowSplashScreen("Resources/splash.png", 3000);
+        
+        Current.PlayMusicStream("Resources/background-music.mp3", true);
     }
 }

@@ -91,6 +91,9 @@
     <None Remove="Resources\3 Animated Objects\1 Flag\5.png" />
     <None Remove="Resources\3 Animated Objects\2 Campfire\1.png" />
     <None Remove="Resources\3 Animated Objects\2 Campfire\2.png" />
+    <None Remove="Resources\background-music.mp3" />
+    <None Remove="Resources\lightning-strike.mp3" />
+    <None Remove="Resources\splash.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -347,6 +350,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\3 Animated Objects\2 Campfire\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\background-music.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\lightning-strike.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\splash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
