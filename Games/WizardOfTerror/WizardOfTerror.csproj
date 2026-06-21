@@ -74,6 +74,18 @@
     <None Remove="Resources\1 Tiles\FieldsTile_62.png" />
     <None Remove="Resources\1 Tiles\FieldsTile_63.png" />
     <None Remove="Resources\1 Tiles\FieldsTile_64.png" />
+    <None Remove="Resources\1\D_Attack.png" />
+    <None Remove="Resources\1\D_Death.png" />
+    <None Remove="Resources\1\D_Run.png" />
+    <None Remove="Resources\1\D_Special.png" />
+    <None Remove="Resources\1\S_Attack.png" />
+    <None Remove="Resources\1\S_Death.png" />
+    <None Remove="Resources\1\S_Run.png" />
+    <None Remove="Resources\1\S_Special.png" />
+    <None Remove="Resources\1\U_Attack.png" />
+    <None Remove="Resources\1\U_Death.png" />
+    <None Remove="Resources\1\U_Run.png" />
+    <None Remove="Resources\1\U_Special.png" />
     <None Remove="Resources\2\D_Attack.png" />
     <None Remove="Resources\2\D_Death.png" />
     <None Remove="Resources\2\D_Run.png" />
@@ -91,6 +103,20 @@
     <None Remove="Resources\3 Animated Objects\1 Flag\5.png" />
     <None Remove="Resources\3 Animated Objects\2 Campfire\1.png" />
     <None Remove="Resources\3 Animated Objects\2 Campfire\2.png" />
+    <None Remove="Resources\3\D_Attack.png" />
+    <None Remove="Resources\3\D_Death.png" />
+    <None Remove="Resources\3\D_Fly.png" />
+    <None Remove="Resources\3\D_Special.png" />
+    <None Remove="Resources\3\Projectile1.png" />
+    <None Remove="Resources\3\Projectile2.png" />
+    <None Remove="Resources\3\S_Attack.png" />
+    <None Remove="Resources\3\S_Death.png" />
+    <None Remove="Resources\3\S_Fly.png" />
+    <None Remove="Resources\3\S_Special.png" />
+    <None Remove="Resources\3\U_Attack.png" />
+    <None Remove="Resources\3\U_Death.png" />
+    <None Remove="Resources\3\U_Fly.png" />
+    <None Remove="Resources\3\U_Special.png" />
     <None Remove="Resources\background-music.mp3" />
     <None Remove="Resources\lightning-strike.mp3" />
     <None Remove="Resources\splash.png" />
@@ -295,6 +321,42 @@
     <Content Include="Resources\1 Tiles\FieldsTile_64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\1\D_Attack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\D_Death.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\D_Run.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\D_Special.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\S_Attack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\S_Death.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\S_Run.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\S_Special.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\U_Attack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\U_Death.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\U_Run.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\1\U_Special.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\2\D_Attack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -350,6 +412,48 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\3 Animated Objects\2 Campfire\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\D_Attack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\D_Death.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\D_Fly.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\D_Special.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\Projectile1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\Projectile2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\S_Attack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\S_Death.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\S_Fly.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\S_Special.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\U_Attack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\U_Death.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\U_Fly.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\3\U_Special.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\background-music.mp3">

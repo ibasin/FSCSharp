@@ -14,6 +14,33 @@ public class WOTGame : Game<WOTGame>
         var hero = new Hero(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 300 };
         GameObjects.Add(hero);
 
+        var mage = new Mage(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 275 };
+        GameObjects.Add(mage);
+
+        var rat1 = new Rat(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 250 };
+        GameObjects.Add(rat1);
+
+        var rat2 = new Rat(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 250 };
+        GameObjects.Add(rat2);
+
+        var rat3 = new Rat(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 250 };
+        GameObjects.Add(rat3);
+
+        var rat4 = new Rat(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 250 };
+        GameObjects.Add(rat4);
+
+        var rat5 = new Rat(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 250 };
+        GameObjects.Add(rat5);
+
+        var rat6 = new Rat(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 250 };
+        GameObjects.Add(rat6);
+
+        var rat7 = new Rat(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 250 };
+        GameObjects.Add(rat7);
+
+        var rat8 = new Rat(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 250 };
+        GameObjects.Add(rat8);
+
         var field = new Field { Priority = 100 };
         GameObjects.Add(field);
 
