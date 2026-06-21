@@ -105,17 +105,14 @@
     <None Remove="Resources\3 Animated Objects\2 Campfire\2.png" />
     <None Remove="Resources\3\D_Attack.png" />
     <None Remove="Resources\3\D_Death.png" />
-    <None Remove="Resources\3\D_Fly.png" />
     <None Remove="Resources\3\D_Special.png" />
     <None Remove="Resources\3\Projectile1.png" />
     <None Remove="Resources\3\Projectile2.png" />
     <None Remove="Resources\3\S_Attack.png" />
     <None Remove="Resources\3\S_Death.png" />
-    <None Remove="Resources\3\S_Fly.png" />
     <None Remove="Resources\3\S_Special.png" />
     <None Remove="Resources\3\U_Attack.png" />
     <None Remove="Resources\3\U_Death.png" />
-    <None Remove="Resources\3\U_Fly.png" />
     <None Remove="Resources\3\U_Special.png" />
     <None Remove="Resources\background-music.mp3" />
     <None Remove="Resources\lightning-strike.mp3" />
@@ -420,7 +417,7 @@
     <Content Include="Resources\3\D_Death.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\3\D_Fly.png">
+    <Content Include="Resources\3\D_Run.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\3\D_Special.png">
@@ -438,7 +435,7 @@
     <Content Include="Resources\3\S_Death.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\3\S_Fly.png">
+    <Content Include="Resources\3\S_Run.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\3\S_Special.png">
@@ -450,7 +447,7 @@
     <Content Include="Resources\3\U_Death.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\3\U_Fly.png">
+    <Content Include="Resources\3\U_Run.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\3\U_Special.png">
