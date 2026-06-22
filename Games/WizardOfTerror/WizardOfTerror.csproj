@@ -86,6 +86,12 @@
     <None Remove="Resources\1\U_Death.png" />
     <None Remove="Resources\1\U_Run.png" />
     <None Remove="Resources\1\U_Special.png" />
+    <None Remove="Resources\2 Objects\8 Camp\1.png" />
+    <None Remove="Resources\2 Objects\8 Camp\2.png" />
+    <None Remove="Resources\2 Objects\8 Camp\3.png" />
+    <None Remove="Resources\2 Objects\8 Camp\4.png" />
+    <None Remove="Resources\2 Objects\8 Camp\5.png" />
+    <None Remove="Resources\2 Objects\8 Camp\6.png" />
     <None Remove="Resources\2\D_Attack.png" />
     <None Remove="Resources\2\D_Death.png" />
     <None Remove="Resources\2\D_Run.png" />
@@ -352,6 +358,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\1\U_Special.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\8 Camp\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\8 Camp\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\8 Camp\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\8 Camp\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\8 Camp\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\8 Camp\6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\2\D_Attack.png">
