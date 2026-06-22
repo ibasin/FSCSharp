@@ -6,6 +6,9 @@ namespace WizardOfTerror.Characters;
 public class Mage : NPCCharacterBase
 {
     #region Constructors
-    public Mage(Vector2 location, Go lookingDirection) : base(location, lookingDirection, "Resources/3") { }
+    public Mage(Vector2 location, Go lookingDirection) : base(location, lookingDirection, "Resources/3")
+    {
+        Speed = 80;
+    }
     #endregion
 }

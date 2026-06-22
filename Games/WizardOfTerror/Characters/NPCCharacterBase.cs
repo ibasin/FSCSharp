@@ -44,11 +44,12 @@ public abstract class NPCCharacterBase : CharacterBase
                 IsIdle = false;
             }
         }
-        Location = Location.Move(LookingDirection, delta * 100f);
+        Location = Location.Move(LookingDirection, delta * Speed);
     }
     #endregion
 
     #region Properties
     public float DirectionDuration { get; set; }
+    public float Speed { get; set; } = 100f;
     #endregion
 }

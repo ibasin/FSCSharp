@@ -67,7 +67,7 @@ public class Hero : CharacterBase
 
         //Attack key pressed
         IsAttacking = Game.KeyboardManager.IsKeyDown(KeyboardKey.Space) && !IsIdle;
-        if (!IsIdle) Location = Location.Move(LookingDirection, delta * 100f);
+        if (!IsIdle) Location = Location.Move(LookingDirection, delta * 150f);
     }
     #endregion
 }
