@@ -14,11 +14,11 @@ public class Rat : NPCCharacterBase
     {
         base.Update(delta);
         var hero = WOTGame.Current.Hero;
-        
-        //if (CurrentBody.IsCollidingAtLocation(Location, hero.CurrentBody, hero.Location))
-        //{
-        //    throw new GameOverException("A rat ate you!");
-        //}
+
+        if (CurrentBody.IsCollidingByPixelAtLocation(Location, hero.CurrentBody, hero.Location))
+        {
+            throw new GameOverException("A rat ate you!");
+        }
     }
     #endregion
 }
