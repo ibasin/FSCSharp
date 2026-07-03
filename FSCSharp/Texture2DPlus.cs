@@ -14,21 +14,26 @@ public class Texture2DPlus : IDisposable
     public void Dispose()
     {
         Raylib.UnloadTexture(Texture);
-        if (_image.HasValue) Raylib.UnloadImage(_image.Value);
+        if (_imageExists) Raylib.UnloadImage(_image);
     }
 
     #region Properties
     //this is intentionally not a property b/c this is a struct and we want to avoid copying it around
     public Texture2D Texture; 
 
-    public Image Image 
+    public ref Image Image
     {
         get
         {
-            if (!_image.HasValue) _image = Raylib.LoadImageFromTexture(Texture);
-            return _image.Value;
+            if (_imageExists)
+            {
+                _image = Raylib.LoadImageFromTexture(Texture);
+                _imageExists = true;
+            }
+            return ref _image;
         }
     }
-    private Image? _image;
+    private Image _image;
+    private bool _imageExists;
     #endregion
 }

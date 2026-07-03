@@ -49,6 +49,6 @@ public class Sprite : SpriteBase
     #region Properties
     public Texture2DPlus TexturePlus { get; set; }
     private Rectangle? _sourceRect;
-    public override Image CurrentImage => TexturePlus.Image;
+    public override ref Image CurrentImage => ref TexturePlus.Image;
     #endregion
 }

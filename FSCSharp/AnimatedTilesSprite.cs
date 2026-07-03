@@ -18,6 +18,9 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
             frameRects[i] = new Rectangle(frameRectCenters[i] - frameRectSize/2, frameRectSize);
         }
         FrameRects = frameRects;
+
+        _images = new Image[frameRectCenters.Length];
+        _imageExists = new bool[frameRectCenters.Length];
     }
     public AnimatedTilesSprite(Texture2D tilesTexture, Rectangle[] frameRects, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
@@ -97,17 +100,27 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
     #region Properties
     public Texture2DPlus TilesTexturePlus { get; set; }
     public Rectangle[] FrameRects { get; set; }
-    public override Image CurrentImage
+    
+    public Image[] _images;
+    public bool[] _imageExists;
+    
+    public override ref Image CurrentImage
     {
         get
         {
-            // Make a copy so the original isn't modified
-            Image tileImage = Raylib.ImageCopy(TilesTexturePlus.Image);
+            var frameIdx = CalculateAnimationFrameIdx();
+            if (!_imageExists[frameIdx])
+            {
+                // Make a copy so the original isn't modified
+                Image tileImage = Raylib.ImageCopy(TilesTexturePlus.Image);
 
-            // Crop to just the tile
-            Raylib.ImageCrop(ref tileImage, FrameRects[CalculateAnimationFrameIdx()]);
+                // Crop to just the tile
+                Raylib.ImageCrop(ref tileImage, FrameRects[frameIdx]);
 
-            return tileImage;
+                _images[frameIdx] = tileImage;
+            }
+
+            return ref _images[frameIdx];
         }
     }
     #endregion

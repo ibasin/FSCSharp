@@ -172,7 +172,7 @@ public abstract class SpriteBase : IDisposable
     #endregion
 
     #region Properties
-    public abstract Image CurrentImage { get; }
+    public abstract ref Image CurrentImage { get; }
     
     public float HScale { get; set; }
     public float VScale { get; set; }

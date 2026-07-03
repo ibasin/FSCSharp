@@ -67,6 +67,6 @@ public class AnimatedArraySprite : AnimatedSpriteBase
 
     #region Properties
     public Texture2DPlus[] Frames { get; set; }
-    public override Image CurrentImage => Frames[CalculateAnimationFrameIdx()].Image;
+    public override ref Image CurrentImage => ref Frames[CalculateAnimationFrameIdx()].Image;
     #endregion
 }
