@@ -45,12 +45,9 @@ public abstract class SpriteBase : IDisposable
         var posA = new Vector2(myLocation.X - myHalfSize.X, myLocation.Y - myHalfSize.Y);
         var posB = new Vector2(otherSpriteLocation.X - otherHalfSize.X, otherSpriteLocation.Y - otherHalfSize.Y);
 
-        var imgA = Raylib.ImageCopy(CurrentImage);
-        var imgB = Raylib.ImageCopy(otherSprite.CurrentImage);
+        var imgA = CurrentImage;
+        var imgB = otherSprite.CurrentImage;
 
-        Raylib.UnloadImage(CurrentImage);
-        Raylib.UnloadImage(otherSprite.CurrentImage);
-        
         Raylib.ImageResize(ref imgA, (int)(imgA.Width * HScale), (int)(imgA.Height * VScale));
         Raylib.ImageResize(ref imgB, (int)(imgB.Width * HScale), (int)(imgB.Height * VScale));
 

@@ -8,7 +8,7 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
     #region Constructors
     public AnimatedTilesSprite(Texture2D tilesTexture, Vector2[] frameRectCenters, Vector2 frameRectSize, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
-        TilesTexturePlus = new Texture2DPlus(tilesTexture);
+        TilesTexture = tilesTexture;
         
         var frameRects = new Rectangle[frameRectCenters.Length];
         for (var i = 0; i < frameRects.Length; i++)
@@ -18,24 +18,21 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
         }
         FrameRects = frameRects;
 
-        _images = new Image[frameRectCenters.Length];
-        _imageExists = new bool[frameRectCenters.Length];
+        _images = new Image[frameRects.Length];
+        _imageLoaded = new bool[frameRects.Length];
+
     }
     public AnimatedTilesSprite(Texture2D tilesTexture, Rectangle[] frameRects, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
-        TilesTexturePlus = new Texture2DPlus(tilesTexture);
+        TilesTexture = tilesTexture;
         FrameRects = frameRects;
 
-        _images = new Image[FrameRects.Length];
-        _imageExists = new bool[FrameRects.Length];
+        _images = new Image[frameRects.Length];
+        _imageLoaded = new bool[frameRects.Length];
     }
     public override void Dispose()
     {
-        TilesTexturePlus.Dispose();
-        for (var i = 0; i < _images.Length; i++)
-        {
-            if (_imageExists[i]) Raylib.UnloadImage(_images[i]);
-        }
+        Raylib.UnloadTexture(TilesTexture);
     }
     #endregion
 
@@ -97,30 +94,36 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
 
         var destRect = new Rectangle(location, Size);
         _textureCenter ??= Size / 2;
-        Raylib.DrawTexturePro(TilesTexturePlus.Texture, sourceRect, destRect, _textureCenter.Value, Rotation, TintColor);
+        Raylib.DrawTexturePro(TilesTexture, sourceRect, destRect, _textureCenter.Value, Rotation, TintColor);
 
         return result;
     }
     #endregion
 
     #region Properties
-    public Texture2DPlus TilesTexturePlus { get; set; }
-    public Rectangle[] FrameRects { get; set; }
+    public Texture2D TilesTexture;
     
-    // ReSharper disable InconsistentNaming
-    public readonly Image[] _images;
-    public readonly bool[] _imageExists;
-    // ReSharper restore InconsistentNaming
+    private Image _tilesImage;
+    private bool _tilesImageLoaded;
 
+    public readonly Rectangle[] FrameRects;
+    
     public override ref Image CurrentImage
     {
         get
         {
             var frameIdx = CalculateAnimationFrameIdx();
-            if (!_imageExists[frameIdx])
+            
+            if (!_imageLoaded[frameIdx])
             {
+                if (!_tilesImageLoaded)
+                {
+                    _tilesImage = Raylib.LoadImageFromTexture(TilesTexture);
+                    _tilesImageLoaded = true;
+                }
+                
                 // Make a copy so the original isn't modified
-                Image tileImage = Raylib.ImageCopy(TilesTexturePlus.Image);
+                Image tileImage = Raylib.ImageCopy(_tilesImage);
 
                 // Crop to just the tile
                 Raylib.ImageCrop(ref tileImage, FrameRects[frameIdx]);
@@ -133,5 +136,8 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
             return ref _images[frameIdx];
         }
     }
+
+    private readonly Image[] _images;
+    private readonly bool[] _imageLoaded;
     #endregion
 }
