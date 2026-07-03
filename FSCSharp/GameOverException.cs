@@ -4,13 +4,13 @@ public class GameOverException : Exception
 {
     #region Constrcutors
     public GameOverException(int delayIterations = 0) : this("", delayIterations) { }
-    public GameOverException(string msg, float delay = 0) : base(msg)
+    public GameOverException(string msg, float delaySec = 0) : base(msg)
     {
-        Delay = delay;
+        DelaySec = delaySec;
     }
     #endregion
 
     #region Properties
-    public float Delay { get; protected set; }
+    public float DelaySec { get; protected set; }
     #endregion
 }

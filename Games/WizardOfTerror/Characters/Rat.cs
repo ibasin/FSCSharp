@@ -24,7 +24,9 @@ public class Rat : NPCCharacterBase
             }
             else
             {
-                throw new GameOverException("A rat ate you!");
+                WOTGame.Current.PlaySound("Resources/hero-dying.mp3");
+                hero.ToDelete = true;
+                throw new GameOverException("A rat ate you!", 5);
             }
         }
     }

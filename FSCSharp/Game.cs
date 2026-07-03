@@ -158,7 +158,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
             }
 
             var timeElapsed = 0f;
-            while(timeElapsed <= ex.Delay)
+            while(timeElapsed <= ex.DelaySec)
             {
                 try
                 {
