@@ -17,7 +17,14 @@ public class Rat : NPCCharacterBase
 
         if (CurrentBody.IsCollidingByPixelAtLocation(Location, hero.CurrentBody, hero.Location))
         {
-            throw new GameOverException("A rat ate you!");
+            if (hero.IsAttacking && CurrentBody.IsCollidingByPixelAtLocation(Location, hero.GetAttackingSpearCoordinates()))
+            {
+                ToDelete = true;
+            }
+            else
+            {
+                throw new GameOverException("A rat ate you!");
+            }
         }
     }
     #endregion

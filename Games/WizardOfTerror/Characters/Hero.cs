@@ -61,7 +61,7 @@ public class Hero : CharacterBase
         IsAttacking = Game.KeyboardManager.IsKeyDown(KeyboardKey.Space) && !IsIdle;
         if (!IsIdle)
         {
-            var location = Location.Move(LookingDirection, delta * 150f);
+            var location = IsAttacking ? Location.Move(LookingDirection, delta * 150f) : Location.Move(LookingDirection, delta * 200f);
 
             if (location.X < 80 && LookingDirection == Go.Left) location = Location;
             if (location.X > WOTGame.Current.WindowWidth - 80 && LookingDirection == Go.Right) location = Location;
@@ -110,6 +110,22 @@ public class Hero : CharacterBase
                     default: throw new Exception("Invalid LookingDirection");
                 }
             }
+        }
+    }
+    #endregion
+
+    #region Methods
+    public Vector2 GetAttackingSpearCoordinates()
+    {
+        if (!IsAttacking) throw new Exception("Can't get attacking Spear coordinates when not attacking!");
+
+        switch (LookingDirection)
+        {
+            case Go.Up: return Location.Move(Go.Up, 100);
+            case Go.Right: return Location.Move(Go.Right,100);
+            case Go.Down: return Location.Move(Go.Down, 100);
+            case Go.Left: return Location.Move(Go.Left, 100);
+            default: throw new Exception("Invalid LookingDirection");
         }
     }
     #endregion
