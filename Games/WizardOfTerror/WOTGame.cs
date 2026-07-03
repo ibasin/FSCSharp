@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
 using FSCSharp;
 using Raylib_cs;
-using WizardOfTerror.AnimatedObjects;
 using WizardOfTerror.Characters;
 using WizardOfTerror.StaticObjects;
 
@@ -9,10 +8,11 @@ namespace WizardOfTerror;
 
 public class WOTGame : Game<WOTGame>
 {
+    #region Constructors
     public WOTGame() : base("Wizard of Terror", Field.WidthInTiles*64, Field.HeightInTiles*64, Color.Black)
     {
-        var hero = new Hero(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 300 };
-        GameObjects.Add(hero);
+        Hero = new Hero(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 300 };
+        GameObjects.Add(Hero);
 
         //var mage = new Mage(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 275 };
         //GameObjects.Add(mage);
@@ -61,4 +61,9 @@ public class WOTGame : Game<WOTGame>
         
         Current.PlayMusicStream("Resources/background-music.mp3", true);
     }
+    #endregion
+
+    #region Properties
+    public Hero Hero { get; }
+    #endregion
 }

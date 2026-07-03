@@ -44,7 +44,7 @@ public abstract class SpriteBase : IDisposable
 
         return result;
     }
-    public virtual bool IsCollidingAtLocation(Vector2 myLocation, Sprite otherSprite, Vector2 otherSpriteLocation)
+    public virtual bool IsCollidingAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
         // ReSharper disable once ReplaceWithSingleAssignment.True
         var result = true;
