@@ -28,7 +28,7 @@ public class Field : TangibleGameObject
             for (var y = 0; y < Board.GetLength(1); y++)
             {
                 //Board[x, y] = Random.Shared.Next(64);
-                Board[x, y] = 0;
+                Board[x, y] = 0; //37;
             }
         }
     }
