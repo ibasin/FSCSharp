@@ -17,16 +17,26 @@ public class WOTGame : Game<WOTGame>
         //var mage = new Mage(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 275 };
         //GameObjects.Add(mage);
 
+        var windowWidthCenter = WindowWidth / 2;
+        var windowHeightCenter = WindowHeight / 2;
+
         for (var i = 0; i < 10; i++)
         {
             var direction = (Go)Random.Shared.Next(4);
             var rat = new Rat(Vector2.Zero, direction) { Priority = 250 };
 
-            var x = Random.Shared.NextSingle() * (WindowWidth - 100) + 50;
-            var y = Random.Shared.NextSingle() * (WindowHeight - 100) + 50;
-            rat.Location = new Vector2(x, y);
+            while (true)
+            {
+                var x = Random.Shared.NextSingle() * (WindowWidth - 100) + 50;
+                var y = Random.Shared.NextSingle() * (WindowHeight - 100) + 50;
+                
+                if (Math.Abs(x - windowWidthCenter) < 100 && Math.Abs(y - windowHeightCenter) < 100) continue;
 
-            GameObjects.Add(rat);
+                rat.Location = new Vector2(x, y);
+
+                GameObjects.Add(rat);
+                break;
+            }
         }
 
         var field = new Field { Priority = 100 };
