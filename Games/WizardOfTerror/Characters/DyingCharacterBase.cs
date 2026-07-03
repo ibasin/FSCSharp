@@ -22,25 +22,30 @@ public abstract class DyingCharacterBase : TangibleGameObject
 
         //Idle
         var tilesLeftIdleTexture = Raylib.LoadTexture($"{directoryName}/S_Death.png");
-        BodyLeft = new AnimatedTilesSprite(tilesLeftIdleTexture, frames.ToArray(), size, 0.1f, 2f);
+        BodyLeft = new AnimatedTilesSprite(tilesLeftIdleTexture, frames.ToArray(), size, 0.2f, 2f);
 
         var tilesRightIdleTexture = Raylib.LoadTexture($"{directoryName}/S_Death.png");
-        BodyRight = new AnimatedTilesSprite(tilesRightIdleTexture, frames.ToArray(), size, 0.1f, 2f);
+        BodyRight = new AnimatedTilesSprite(tilesRightIdleTexture, frames.ToArray(), size, 0.2f, 2f);
         BodyRight.FlipHorizontally = true;
 
         var tilesUpIdleTexture = Raylib.LoadTexture($"{directoryName}/U_Death.png");
-        BodyUp = new AnimatedTilesSprite(tilesUpIdleTexture, frames.ToArray(), size, 0.1f, 2f);
+        BodyUp = new AnimatedTilesSprite(tilesUpIdleTexture, frames.ToArray(), size, 0.2f, 2f);
 
         var tilesDownIdleTexture = Raylib.LoadTexture($"{directoryName}/D_Death.png");
-        BodyDown = new AnimatedTilesSprite(tilesDownIdleTexture, frames.ToArray(), size, 0.1f, 2f);
+        BodyDown = new AnimatedTilesSprite(tilesDownIdleTexture, frames.ToArray(), size, 0.2f, 2f);
+
+        CurrentBody.StartAnimation();
     }
     #endregion
 
     #region Overrides
+    public override void Update(float delta)
+    {
+        if (CurrentBody.IsAnimationStopped) ToDelete = true;
+    }
     public override void Draw(float delta)
     {
-        if (CurrentBody.IsAnimationStopped) CurrentBody.StartAnimation();
-        else CurrentBody.DrawAnimation(Location, delta);
+        CurrentBody.DrawAnimation(Location, delta);
     }
     public AnimatedTilesSprite CurrentBody
     {
