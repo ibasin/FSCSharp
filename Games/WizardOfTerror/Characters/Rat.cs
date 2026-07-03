@@ -13,7 +13,10 @@ public class Rat : NPCCharacterBase
     public override void Update(float delta)
     {
         base.Update(delta);
+        if (ToDelete) return;
+        
         var hero = WOTGame.Current.Hero;
+        if (hero.ToDelete) return;
 
         if (CurrentBody.IsCollidingByPixelAtLocation(Location, hero.CurrentBody, hero.Location))
         {
