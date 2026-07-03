@@ -18,25 +18,21 @@ public class Hero : CharacterBase
         {
             LookingDirection = Go.Up;
             IsIdle = false;
-            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Down) && IsIdle)
         {
             LookingDirection = Go.Down;
             IsIdle = false;
-            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left) && IsIdle)
         {
             LookingDirection = Go.Left;
             IsIdle = false;
-            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right) && IsIdle)
         {
             LookingDirection = Go.Right;
             IsIdle = false;
-            CurrentBody.StartAnimation(true);
         }
 
         //Direction key released
@@ -44,25 +40,21 @@ public class Hero : CharacterBase
         {
             LookingDirection = Go.Up;
             IsIdle = true;
-            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyReleased(KeyboardKey.Down))
         {
             LookingDirection = Go.Down;
             IsIdle = true;
-            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyReleased(KeyboardKey.Left))
         {
             LookingDirection = Go.Left;
             IsIdle = true;
-            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyReleased(KeyboardKey.Right))
         {
             LookingDirection = Go.Right;
             IsIdle = true;
-            CurrentBody.StartAnimation(true);
         }
 
         //Attack key pressed

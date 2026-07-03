@@ -25,7 +25,6 @@ public abstract class NPCCharacterBase : CharacterBase
             LookingDirection = (Go)Random.Shared.Next(4);
             DirectionDuration = Random.Shared.NextSingle() * 5f;
         }
-        CurrentBody.StartAnimation();
         Location = Location.Move(LookingDirection, delta * Speed);
     }
 
