@@ -19,8 +19,9 @@ public class Rat : NPCCharacterBase
         {
             if (hero.IsAttacking && CurrentBody.IsCollidingByPixelAtLocation(Location, hero.GetAttackingSpearCoordinates()))
             {
-                ToDelete = true;
                 WOTGame.Current.PlaySound("Resources/rat-dying.mp3");
+                WOTGame.Current.GameObjects.Add(new DyingRat(Location, LookingDirection));
+                ToDelete = true;
             }
             else
             {
