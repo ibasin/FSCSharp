@@ -36,7 +36,54 @@ public abstract class SpriteBase : IDisposable
     //}
     public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
-        return IsPixelPerfectCollision(CurrentImage, myLocation, otherSprite.CurrentImage, otherSpriteLocation, 10);
+        var alphaThreshold = 10;
+        
+        //return IsPixelPerfectCollision(CurrentImage, myLocation, otherSprite.CurrentImage, otherSpriteLocation, 10);
+        var myHalfSize = Size / 2;
+        var otherHalfSize = otherSprite.Size / 2;
+
+        var posA = new Vector2(myLocation.X - myHalfSize.X, myLocation.Y - myHalfSize.Y);
+        var posB = new Vector2(otherSpriteLocation.X - otherHalfSize.X, otherSpriteLocation.Y - otherHalfSize.Y);
+
+        var imgA = Raylib.ImageCopy(CurrentImage);
+        var imgB = Raylib.ImageCopy(otherSprite.CurrentImage);
+
+        Raylib.UnloadImage(CurrentImage);
+        Raylib.UnloadImage(otherSprite.CurrentImage);
+        
+        Raylib.ImageResize(ref imgA, (int)(imgA.Width * HScale), (int)(imgA.Height * VScale));
+        Raylib.ImageResize(ref imgB, (int)(imgB.Width * HScale), (int)(imgB.Height * VScale));
+
+        Rectangle recA = new(posA.X, posA.Y, imgA.Width, imgA.Height);
+        Rectangle recB = new(posB.X, posB.Y, imgB.Width, imgB.Height);
+
+        if (!Raylib.CheckCollisionRecs(recA, recB)) return false;
+
+        int left = (int)MathF.Max(recA.X, recB.X);
+        int right = (int)MathF.Min(recA.X + recA.Width, recB.X + recB.Width);
+        int top = (int)MathF.Max(recA.Y, recB.Y);
+        int bottom = (int)MathF.Min(recA.Y + recA.Height, recB.Y + recB.Height);
+
+        for (int y = top; y < bottom; y++)
+        {
+            for (int x = left; x < right; x++)
+            {
+                int ax = x - (int)posA.X;
+                int ay = y - (int)posA.Y;
+                int bx = x - (int)posB.X;
+                int by = y - (int)posB.Y;
+
+                Color ca = Raylib.GetImageColor(imgA, ax, ay);
+                Color cb = Raylib.GetImageColor(imgB, bx, by);
+
+                if (ca.A >= alphaThreshold && cb.A >= alphaThreshold) return true;
+            }
+        }
+
+        Raylib.UnloadImage(imgA);
+        Raylib.UnloadImage(imgB);
+
+        return false;
     }
 
     public virtual bool IsCollidingAtLocation(Vector2 myLocation, Vector2 vector)
@@ -85,7 +132,7 @@ public abstract class SpriteBase : IDisposable
 
         return xIntersect && yIntersect;
     }
-    private static bool IsPixelPerfectCollision(Image imgA, Vector2 posA, Image imgB, Vector2 posB, byte alphaThreshold = 1)
+    private bool IsPixelPerfectCollision(Image imgA, Vector2 posA, Image imgB, Vector2 posB, byte alphaThreshold = 1)
     {
         Rectangle recA = new(posA.X, posA.Y, imgA.Width, imgA.Height);
         Rectangle recB = new(posB.X, posB.Y, imgB.Width, imgB.Height);

@@ -17,7 +17,7 @@ public class WOTGame : Game<WOTGame>
         //var mage = new Mage(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 275 };
         //GameObjects.Add(mage);
 
-        for (var i = 0; i < 1; i++)
+        for (var i = 0; i < 10; i++)
         {
             var direction = (Go)Random.Shared.Next(4);
             var rat = new Rat(Vector2.Zero, direction) { Priority = 250 };
