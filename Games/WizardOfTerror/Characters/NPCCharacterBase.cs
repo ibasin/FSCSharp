@@ -21,7 +21,6 @@ public abstract class NPCCharacterBase : CharacterBase
 
         if (DirectionDuration <= 0)
         {
-            //new direction key determined
             LookingDirection = (Go)Random.Shared.Next(4);
             DirectionDuration = Random.Shared.NextSingle() * 5f;
         }
@@ -42,7 +41,6 @@ public abstract class NPCCharacterBase : CharacterBase
             }
         }
     }
-
     #endregion
 
     #region Properties
