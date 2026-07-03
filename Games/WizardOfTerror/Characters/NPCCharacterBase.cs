@@ -22,37 +22,28 @@ public abstract class NPCCharacterBase : CharacterBase
         if (DirectionDuration <= 0)
         {
             //new direction key determined
-            var rndDir = Random.Shared.Next(4);
+            LookingDirection = (Go)Random.Shared.Next(4);
             DirectionDuration = Random.Shared.NextSingle() * 5f;
-
-
-            if (rndDir == 0)
-            {
-                LookingDirection = Go.Up;
-                BodyUpRun.StartAnimation(true);
-                IsIdle = false;
-            }
-            if (rndDir == 1)
-            {
-                LookingDirection = Go.Down;
-                BodyDownRun.StartAnimation(true);
-                IsIdle = false;
-            }
-            if (rndDir == 2)
-            {
-                LookingDirection = Go.Left;
-                BodyLeftRun.StartAnimation(true);
-                IsIdle = false;
-            }
-            if (rndDir == 3)
-            {
-                LookingDirection = Go.Right;
-                BodyRightRun.StartAnimation(true);
-                IsIdle = false;
-            }
         }
+        CurrentBody.StartAnimation();
         Location = Location.Move(LookingDirection, delta * Speed);
     }
+
+    public override AnimatedTilesSprite CurrentBody 
+    {
+        get
+        {
+            switch (LookingDirection)
+            {
+                case Go.Up: return BodyUpRun; 
+                case Go.Down: return BodyDownRun; 
+                case Go.Left: return BodyLeftRun; 
+                case Go.Right: return BodyRightRun;
+                default: throw new Exception("Invalid LookingDirection");
+            }
+        }
+    }
+
     #endregion
 
     #region Properties

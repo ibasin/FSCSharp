@@ -11,7 +11,6 @@ public abstract class CharacterBase : TangibleGameObject
     {
         Location = location;
         LookingDirection = lookingDirection;
-        IsIdle = true;
 
         var frames = new List<Vector2>();
         for (var x = 48; x <= 576; x += 96)
@@ -68,73 +67,15 @@ public abstract class CharacterBase : TangibleGameObject
     #region Overrides
     public override void Draw(float delta)
     {
-        switch (LookingDirection)
-        {
-            case Go.Up:
-            {
-                if (IsAttacking)
-                {
-                    if (BodyUpAttack.IsAnimationStopped) BodyUpAttack.StartAnimation();
-                    BodyUpAttack.DrawAnimation(Location, delta);
-                }
-                else
-                {
-                    if (IsIdle) BodyUpIdle.DrawAnimation(Location, delta);
-                    else BodyUpRun.DrawAnimation(Location, delta);
-                }
-                break;
-            }
-            case Go.Down:
-            {
-                if (IsAttacking)
-                {
-                    if (BodyUpAttack.IsAnimationStopped) BodyDownAttack.StartAnimation();
-                    BodyDownAttack.DrawAnimation(Location, delta);
-                }
-                else
-                {
-                    if (IsIdle) BodyDownIdle.DrawAnimation(Location, delta);
-                    else BodyDownRun.DrawAnimation(Location, delta);
-                }
-                break;
-            }
-            case Go.Left:
-            {
-                if (IsAttacking)
-                {
-                    if (BodyLeftAttack.IsAnimationStopped) BodyLeftAttack.StartAnimation();
-                    BodyLeftAttack.DrawAnimation(Location, delta);
-                }
-                else
-                {
-                    if (IsIdle) BodyLeftIdle.DrawAnimation(Location, delta);
-                    else BodyLeftRun.DrawAnimation(Location, delta);
-                }
-                break;
-            }
-            case Go.Right:
-            {
-                if (IsAttacking)
-                {
-                    if (BodyRightAttack.IsAnimationStopped) BodyRightAttack.StartAnimation();
-                    BodyRightAttack.DrawAnimation(Location, delta);
-                }
-                else
-                {
-                    if (IsIdle) BodyRightIdle.DrawAnimation(Location, delta);
-                    else BodyRightRun.DrawAnimation(Location, delta);
-                }
-                break;
-            }
-        }
+        if (CurrentBody.IsAnimationStopped) CurrentBody.StartAnimation();
+        else CurrentBody.DrawAnimation(Location, delta);
     }
+    public abstract AnimatedTilesSprite CurrentBody { get; }
     #endregion
 
     #region Properties
     public Vector2 Location { get; set; }
     public Go LookingDirection { get; set; }
-    public bool IsIdle { get; set; }
-    public bool IsAttacking { get; set; }
 
     public AnimatedTilesSprite BodyLeftIdle { get; set; }
     public AnimatedTilesSprite BodyRightIdle { get; set; }

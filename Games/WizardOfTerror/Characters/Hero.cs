@@ -17,52 +17,52 @@ public class Hero : CharacterBase
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Up) && IsIdle)
         {
             LookingDirection = Go.Up;
-            BodyUpRun.StartAnimation(true);
             IsIdle = false;
+            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Down) && IsIdle)
         {
             LookingDirection = Go.Down;
-            BodyDownRun.StartAnimation(true);
             IsIdle = false;
+            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left) && IsIdle)
         {
             LookingDirection = Go.Left;
-            BodyLeftRun.StartAnimation(true);
             IsIdle = false;
+            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right) && IsIdle)
         {
             LookingDirection = Go.Right;
-            BodyRightRun.StartAnimation(true);
             IsIdle = false;
+            CurrentBody.StartAnimation(true);
         }
 
         //Direction key released
         if (Game.KeyboardManager.IsKeyReleased(KeyboardKey.Up))
         {
             LookingDirection = Go.Up;
-            BodyUpIdle.StartAnimation(true);
             IsIdle = true;
+            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyReleased(KeyboardKey.Down))
         {
             LookingDirection = Go.Down;
-            BodyDownIdle.StartAnimation(true);
             IsIdle = true;
+            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyReleased(KeyboardKey.Left))
         {
             LookingDirection = Go.Left;
-            BodyLeftIdle.StartAnimation(true);
             IsIdle = true;
+            CurrentBody.StartAnimation(true);
         }
         if (Game.KeyboardManager.IsKeyReleased(KeyboardKey.Right))
         {
             LookingDirection = Go.Right;
-            BodyRightIdle.StartAnimation(true);
             IsIdle = true;
+            CurrentBody.StartAnimation(true);
         }
 
         //Attack key pressed
@@ -79,5 +79,51 @@ public class Hero : CharacterBase
             Location = location;
         }
     }
+
+    public override AnimatedTilesSprite CurrentBody
+    {
+        get
+        {
+            if (IsIdle)
+            {
+                switch (LookingDirection)
+                {
+                    case Go.Up: return BodyUpIdle;
+                    case Go.Down: return BodyDownIdle;
+                    case Go.Left: return BodyLeftIdle;
+                    case Go.Right: return BodyRightIdle;
+                    default: throw new Exception("Invalid LookingDirection");
+                }
+
+            }
+            else if (IsAttacking)
+            {
+                switch (LookingDirection)
+                {
+                    case Go.Up: return BodyUpAttack;
+                    case Go.Down: return BodyDownAttack;
+                    case Go.Left: return BodyLeftAttack;
+                    case Go.Right: return BodyRightAttack;
+                    default: throw new Exception("Invalid LookingDirection");
+                }
+            }
+            else
+            {
+                switch (LookingDirection)
+                {
+                    case Go.Up: return BodyUpRun;
+                    case Go.Down: return BodyDownRun;
+                    case Go.Left: return BodyLeftRun;
+                    case Go.Right: return BodyRightRun;
+                    default: throw new Exception("Invalid LookingDirection");
+                }
+            }
+        }
+    }
+    #endregion
+
+    #region Properties
+    public bool IsIdle { get; set; } = true;
+    public bool IsAttacking { get; set; }
     #endregion
 }
