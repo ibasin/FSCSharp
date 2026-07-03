@@ -61,7 +61,7 @@ public class Hero : CharacterBase
         IsAttacking = Game.KeyboardManager.IsKeyDown(KeyboardKey.Space) && !IsIdle;
         if (!IsIdle)
         {
-            var location = IsAttacking ? Location.Move(LookingDirection, delta * 150f) : Location.Move(LookingDirection, delta * 200f);
+            var location = IsAttacking ? Location.Move(LookingDirection, delta * 130f) : Location.Move(LookingDirection, delta * 220f);
 
             if (location.X < 80 && LookingDirection == Go.Left) location = Location;
             if (location.X > WOTGame.Current.WindowWidth - 80 && LookingDirection == Go.Right) location = Location;
