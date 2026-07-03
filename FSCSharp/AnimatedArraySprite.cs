@@ -8,13 +8,17 @@ public class AnimatedArraySprite : AnimatedSpriteBase
     #region Constructors
     public AnimatedArraySprite(Texture2D[] frames, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
-        Frames = frames;
+        Frames = new Texture2DPlus[frames.Length];
+        for (var i = 0; i < frames.Length; i++)
+        {
+            Frames[i] = new Texture2DPlus(frames[i]);
+        }
     }
     public override void Dispose()
     {
-        foreach(var texture in Frames)
+        foreach(var frame in Frames)
         {
-            Raylib.UnloadTexture(texture);
+            frame.Dispose();
         }
     }
     #endregion
@@ -24,13 +28,13 @@ public class AnimatedArraySprite : AnimatedSpriteBase
     {
         var result = IsFullyOnScreenAtLocation(location);
         
-        var sourceRect = new Rectangle(0f, 0f, Frames[frameIdx].Width, Frames[frameIdx].Height);
+        var sourceRect = new Rectangle(0f, 0f, Frames[frameIdx].Texture.Width, Frames[frameIdx].Texture.Height);
         if (FlipHorizontally) sourceRect = sourceRect.FlipHorizontally();
         if (FlipVertically) sourceRect = sourceRect.FlipVertically();
 
         var destRect = new Rectangle(location, Size);
         _textureCenter ??= Size / 2;
-        Raylib.DrawTexturePro(Frames[frameIdx], sourceRect, destRect, _textureCenter.Value, Rotation, TintColor);
+        Raylib.DrawTexturePro(Frames[frameIdx].Texture, sourceRect, destRect, _textureCenter.Value, Rotation, TintColor);
 
         return result;
     }
@@ -47,8 +51,8 @@ public class AnimatedArraySprite : AnimatedSpriteBase
 
                 foreach (var frame in Frames)
                 {
-                    var frameX = (int)(frame.Width * HScale);
-                    var frameY = (int)(frame.Height * VScale);
+                    var frameX = (int)(frame.Texture.Width * HScale);
+                    var frameY = (int)(frame.Texture.Height * VScale);
                     
                     if (frameX > maxX) maxX = frameX;
                     if (frameY > maxY) maxY = frameY;
@@ -62,6 +66,7 @@ public class AnimatedArraySprite : AnimatedSpriteBase
     #endregion
 
     #region Properties
-    public Texture2D[] Frames { get; set; }
+    public Texture2DPlus[] Frames { get; set; }
+    public override Image CurrentImage => Frames[CalculateAnimationFrameIdx()].Image;
     #endregion
 }

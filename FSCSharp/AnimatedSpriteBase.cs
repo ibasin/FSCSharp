@@ -41,6 +41,17 @@ public abstract class AnimatedSpriteBase : SpriteBase
         TimeElapsed = 0;
     }
 
+    public virtual int CalculateAnimationFrameIdx()
+    {
+        var animationLength = CalcAnimationLength();
+        if (!Looping && TimeElapsed > animationLength) return FramesCount - 1; //return last one if not looping & time exceeded 
+
+        var timeElapsedAdjusted = TimeElapsed % animationLength;
+        var frameIdx = (int)(timeElapsedAdjusted / TimePerFrame);
+
+        return frameIdx;
+    }
+
     public abstract bool Draw(Vector2 location, int frameIdx);
     public virtual bool Erase(Vector2 location, Color bgColor)
     {

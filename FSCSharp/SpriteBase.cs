@@ -1,5 +1,4 @@
 ﻿using System.Numerics;
-using Microsoft.VisualBasic;
 using Raylib_cs;
 
 namespace FSCSharp;
@@ -30,20 +29,32 @@ public abstract class SpriteBase : IDisposable
 
         return result;
     }
+
+    //public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, Vector2 vector)
+    //{
+
+    //}
+    public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
+    {
+        return IsPixelPerfectCollision(CurrentImage, myLocation, otherSprite.CurrentImage, otherSpriteLocation, 10);
+    }
+
     public virtual bool IsCollidingAtLocation(Vector2 myLocation, Vector2 vector)
     {
-        // ReSharper disable once ReplaceWithSingleAssignment.True
-        var result = true;
+        var myHalfSize = Size / 2;
 
-        var halfSize = Size / 2;
+        var myX0 = myLocation.X - myHalfSize.X;
+        var myX1 = myLocation.X + myHalfSize.X;
+        var myY0 = myLocation.Y - myHalfSize.Y;
+        var myY1 = myLocation.Y + myHalfSize.Y;
 
-        if (myLocation.X - halfSize.X <= vector.X) result = false;
-        if (myLocation.X + halfSize.X >= vector.X) result = false;
+        var xIntersect = false;
+        if (myX0 <= vector.X && vector.X <= myX1) xIntersect = true;
 
-        if (myLocation.Y - halfSize.Y <= vector.Y) result = false;
-        if (myLocation.Y + halfSize.Y >= vector.Y) result = false;
+        var yIntersect = false;
+        if (myY0 <= vector.Y && vector.Y <= myY1) yIntersect = true;
 
-        return result;
+        return xIntersect && yIntersect;
     }
     public virtual bool IsCollidingAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
@@ -74,6 +85,37 @@ public abstract class SpriteBase : IDisposable
 
         return xIntersect && yIntersect;
     }
+    private static bool IsPixelPerfectCollision(Image imgA, Vector2 posA, Image imgB, Vector2 posB, byte alphaThreshold = 1)
+    {
+        Rectangle recA = new(posA.X, posA.Y, imgA.Width, imgA.Height);
+        Rectangle recB = new(posB.X, posB.Y, imgB.Width, imgB.Height);
+
+        if (!Raylib.CheckCollisionRecs(recA, recB)) return false;
+
+        int left = (int)MathF.Max(recA.X, recB.X);
+        int right = (int)MathF.Min(recA.X + recA.Width, recB.X + recB.Width);
+        int top = (int)MathF.Max(recA.Y, recB.Y);
+        int bottom = (int)MathF.Min(recA.Y + recA.Height, recB.Y + recB.Height);
+
+        for (int y = top; y < bottom; y++)
+        {
+            for (int x = left; x < right; x++)
+            {
+                int ax = x - (int)posA.X;
+                int ay = y - (int)posA.Y;
+                int bx = x - (int)posB.X;
+                int by = y - (int)posB.Y;
+
+                Color ca = Raylib.GetImageColor(imgA, ax, ay);
+                Color cb = Raylib.GetImageColor(imgB, bx, by);
+
+                if (ca.A >= alphaThreshold && cb.A >= alphaThreshold) return true;
+            }
+        }
+
+        return false;
+    }
+
     public virtual void SetScalesByTargetRectangleSize(float x, float y)
     {
         HScale = x / Size.X;
@@ -83,6 +125,8 @@ public abstract class SpriteBase : IDisposable
     #endregion
 
     #region Properties
+    public abstract Image CurrentImage { get; }
+    
     public float HScale { get; set; }
     public float VScale { get; set; }
     public Color TintColor { get; set; } = Color.White;
@@ -90,7 +134,6 @@ public abstract class SpriteBase : IDisposable
     public float Rotation { get; set; }
     public bool FlipHorizontally { get; set; }
     public bool FlipVertically { get; set; }
-
 
     // ReSharper disable once InconsistentNaming
     protected Vector2? _textureCenter;

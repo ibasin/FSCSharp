@@ -8,11 +8,11 @@ public class Sprite : SpriteBase
     #region Constructors
     public Sprite(Texture2D texture, float scale = 1.0f) : base(scale)
     {
-        Texture = texture;
+        TexturePlus = new Texture2DPlus(texture);
     }
     public override void Dispose()
     {
-        Raylib.UnloadTexture(Texture);
+        TexturePlus.Dispose();
     }
     #endregion
 
@@ -23,14 +23,14 @@ public class Sprite : SpriteBase
 
         if (_sourceRect == null)
         {
-            _sourceRect = new Rectangle(0f, 0f, Texture.Width, Texture.Height);
+            _sourceRect = new Rectangle(0f, 0f, TexturePlus.Texture.Width, TexturePlus.Texture.Height);
             if (FlipHorizontally) _sourceRect = _sourceRect.FlipHorizontally();
             if (FlipVertically) _sourceRect = _sourceRect.FlipVertically();
         }
 
         var destRect = new Rectangle(location, Size);
         _textureCenter ??= Size / 2;
-        Raylib.DrawTexturePro(Texture, _sourceRect!.Value, destRect, _textureCenter.Value, Rotation, TintColor);
+        Raylib.DrawTexturePro(TexturePlus.Texture, _sourceRect!.Value, destRect, _textureCenter.Value, Rotation, TintColor);
 
         return result;
     }
@@ -43,11 +43,12 @@ public class Sprite : SpriteBase
         return result;
     }
 
-    public override Vector2 Size => new(Texture.Width * HScale, Texture.Height * VScale);
+    public override Vector2 Size => new(TexturePlus.Texture.Width * HScale, TexturePlus.Texture.Height * VScale);
     #endregion
 
     #region Properties
-    public Texture2D Texture { get; set; }
+    public Texture2DPlus TexturePlus { get; set; }
     private Rectangle? _sourceRect;
+    public override Image CurrentImage => TexturePlus.Image;
     #endregion
 }

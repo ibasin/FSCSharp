@@ -9,7 +9,7 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
 
     public AnimatedTilesSprite(Texture2D tilesTexture, Vector2[] frameRectCenters, Vector2 frameRectSize, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
-        TilesTexture = tilesTexture;
+        TilesTexturePlus = new Texture2DPlus(tilesTexture);
         
         var frameRects = new Rectangle[frameRectCenters.Length];
         for (var i = 0; i < frameRects.Length; i++)
@@ -21,12 +21,12 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
     }
     public AnimatedTilesSprite(Texture2D tilesTexture, Rectangle[] frameRects, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
-        TilesTexture = tilesTexture;
+        TilesTexturePlus = new Texture2DPlus(tilesTexture);
         FrameRects = frameRects;
     }
     public override void Dispose()
     {
-        Raylib.UnloadTexture(TilesTexture);
+        TilesTexturePlus.Dispose();
     }
     #endregion
 
@@ -88,14 +88,27 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
 
         var destRect = new Rectangle(location, Size);
         _textureCenter ??= Size / 2;
-        Raylib.DrawTexturePro(TilesTexture, sourceRect, destRect, _textureCenter.Value, Rotation, TintColor);
+        Raylib.DrawTexturePro(TilesTexturePlus.Texture, sourceRect, destRect, _textureCenter.Value, Rotation, TintColor);
 
         return result;
     }
     #endregion
 
     #region Properties
-    public Texture2D TilesTexture { get; set; }
+    public Texture2DPlus TilesTexturePlus { get; set; }
     public Rectangle[] FrameRects { get; set; }
+    public override Image CurrentImage
+    {
+        get
+        {
+            // Make a copy so the original isn't modified
+            Image tileImage = Raylib.ImageCopy(TilesTexturePlus.Image);
+
+            // Crop to just the tile
+            Raylib.ImageCrop(ref tileImage, FrameRects[CalculateAnimationFrameIdx()]);
+
+            return tileImage;
+        }
+    }
     #endregion
 }

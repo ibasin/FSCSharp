@@ -2,10 +2,10 @@
 
 namespace FSCSharp;
 
-public class Texture2DAndCachedImage : IDisposable
+public class Texture2DPlus : IDisposable
 {
     #region Constructors
-    public Texture2DAndCachedImage(Texture2D texture)
+    public Texture2DPlus(Texture2D texture)
     {
         Texture = texture;
     }
