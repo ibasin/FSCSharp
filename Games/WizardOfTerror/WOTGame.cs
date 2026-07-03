@@ -30,7 +30,7 @@ public class WOTGame : Game<WOTGame>
                 var x = Random.Shared.NextSingle() * (WindowWidth - 100) + 50;
                 var y = Random.Shared.NextSingle() * (WindowHeight - 100) + 50;
                 
-                if (Math.Abs(x - windowWidthCenter) < 100 && Math.Abs(y - windowHeightCenter) < 100) continue;
+                if (Math.Abs(x - windowWidthCenter) < 200 && Math.Abs(y - windowHeightCenter) < 200) continue;
 
                 rat.Location = new Vector2(x, y);
 
