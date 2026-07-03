@@ -20,7 +20,7 @@ public class WOTGame : Game<WOTGame>
         var windowWidthCenter = WindowWidth / 2;
         var windowHeightCenter = WindowHeight / 2;
 
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < 3; i++)
         {
             var direction = (Go)Random.Shared.Next(4);
             var rat = new Rat(Vector2.Zero, direction) { Priority = 250 };

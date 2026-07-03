@@ -22,6 +22,7 @@ public class Rat : NPCCharacterBase
                 WOTGame.Current.PlaySound("Resources/rat-dying.mp3");
                 WOTGame.Current.GameObjects.Add(new DyingRat(Location, LookingDirection));
                 ToDelete = true;
+                if (WOTGame.Current.GameObjects.Count(x => x is Rat) <= 1) throw new GameOverException("You killed all rats!", 5);
             }
             else
             {
