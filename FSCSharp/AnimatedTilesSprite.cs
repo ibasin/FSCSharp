@@ -6,7 +6,6 @@ namespace FSCSharp;
 public class AnimatedTilesSprite : AnimatedSpriteBase
 {
     #region Constructors
-
     public AnimatedTilesSprite(Texture2D tilesTexture, Vector2[] frameRectCenters, Vector2 frameRectSize, float timePerFrame, float scale = 1.0f) : base(scale, timePerFrame)
     {
         TilesTexturePlus = new Texture2DPlus(tilesTexture);
@@ -26,10 +25,17 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
     {
         TilesTexturePlus = new Texture2DPlus(tilesTexture);
         FrameRects = frameRects;
+
+        _images = new Image[FrameRects.Length];
+        _imageExists = new bool[FrameRects.Length];
     }
     public override void Dispose()
     {
         TilesTexturePlus.Dispose();
+        for (var i = 0; i < _images.Length; i++)
+        {
+            if (_imageExists[i]) Raylib.UnloadImage(_images[i]);
+        }
     }
     #endregion
 
@@ -101,9 +107,11 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
     public Texture2DPlus TilesTexturePlus { get; set; }
     public Rectangle[] FrameRects { get; set; }
     
-    public Image[] _images;
-    public bool[] _imageExists;
-    
+    // ReSharper disable InconsistentNaming
+    public readonly Image[] _images;
+    public readonly bool[] _imageExists;
+    // ReSharper restore InconsistentNaming
+
     public override ref Image CurrentImage
     {
         get
@@ -118,6 +126,8 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
                 Raylib.ImageCrop(ref tileImage, FrameRects[frameIdx]);
 
                 _images[frameIdx] = tileImage;
+
+                //Raylib.UnloadImage(tileImage);
             }
 
             return ref _images[frameIdx];
