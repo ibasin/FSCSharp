@@ -11,6 +11,10 @@ public class WOTGame : Game<WOTGame>
     #region Constructors
     public WOTGame() : base("Wizard of Terror", Field.WidthInTiles*64, Field.HeightInTiles*64, Color.Black)
     {
+        Image icon = Raylib.LoadImage("Resources/icon.png");
+        Raylib.SetWindowIcon(icon);
+        Raylib.UnloadImage(icon);
+
         Hero = new Hero(new Vector2(WindowWidth / 2f, WindowHeight / 2f), Go.Right) { Priority = 300 };
         GameObjects.Add(Hero);
 
