@@ -29,8 +29,16 @@ public class Rat : NPCCharacterBase
             }
             else
             {
+                Go lookingDirection;
+                var locationDelta = hero.Location - Location;
+                if (Math.Abs(locationDelta.X) > Math.Abs(locationDelta.Y)) lookingDirection = locationDelta.X < 0 ? Go.Left : Go.Right;
+                else lookingDirection = locationDelta.Y < 0 ? Go.Up : Go.Down;
+
                 WOTGame.Current.PlaySound("Resources/hero-dying.mp3");
+                WOTGame.Current.GameObjects.Add(new AttackingRat(Location, lookingDirection));
                 WOTGame.Current.GameObjects.Add(new DyingHero(hero.Location, hero.LookingDirection));
+
+                ToDelete = true;
                 hero.ToDelete = true;
                 throw new GameOverException("A rat ate you!", 4);
             }

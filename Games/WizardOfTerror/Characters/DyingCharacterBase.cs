@@ -20,19 +20,19 @@ public abstract class DyingCharacterBase : TangibleGameObject
 
         var size = new Vector2(96, 96);
 
-        //Idle
-        var tilesLeftIdleTexture = Raylib.LoadTexture($"{directoryName}/S_Death.png");
-        BodyLeft = new AnimatedTilesSprite(tilesLeftIdleTexture, frames.ToArray(), size, 0.2f, 2f);
+        //Death
+        var tilesLeftDeathTexture = Raylib.LoadTexture($"{directoryName}/S_Death.png");
+        BodyLeft = new AnimatedTilesSprite(tilesLeftDeathTexture, frames.ToArray(), size, 0.2f, 2f);
 
-        var tilesRightIdleTexture = Raylib.LoadTexture($"{directoryName}/S_Death.png");
-        BodyRight = new AnimatedTilesSprite(tilesRightIdleTexture, frames.ToArray(), size, 0.2f, 2f);
+        var tilesRightDeathTexture = Raylib.LoadTexture($"{directoryName}/S_Death.png");
+        BodyRight = new AnimatedTilesSprite(tilesRightDeathTexture, frames.ToArray(), size, 0.2f, 2f);
         BodyRight.FlipHorizontally = true;
 
-        var tilesUpIdleTexture = Raylib.LoadTexture($"{directoryName}/U_Death.png");
-        BodyUp = new AnimatedTilesSprite(tilesUpIdleTexture, frames.ToArray(), size, 0.2f, 2f);
+        var tilesUpDeathTexture = Raylib.LoadTexture($"{directoryName}/U_Death.png");
+        BodyUp = new AnimatedTilesSprite(tilesUpDeathTexture, frames.ToArray(), size, 0.2f, 2f);
 
-        var tilesDownIdleTexture = Raylib.LoadTexture($"{directoryName}/D_Death.png");
-        BodyDown = new AnimatedTilesSprite(tilesDownIdleTexture, frames.ToArray(), size, 0.2f, 2f);
+        var tilesDownDeathTexture = Raylib.LoadTexture($"{directoryName}/D_Death.png");
+        BodyDown = new AnimatedTilesSprite(tilesDownDeathTexture, frames.ToArray(), size, 0.2f, 2f);
 
         CurrentBody.StartAnimation();
     }
