@@ -1,0 +1,15 @@
+Change this:
+
+<PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+</PropertyGroup>
+
+to:
+
+<PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+</PropertyGroup>
+
+When program is done to get rid of the console window
