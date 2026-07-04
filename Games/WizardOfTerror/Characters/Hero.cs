@@ -78,7 +78,7 @@ public class Hero : CharacterBase
         if (IsAttacking)
         {
             var spearLocation = GetAttackingSpearCoordinates();
-            Raylib.DrawCircle((int)spearLocation.X, (int)spearLocation.Y, 5, Color.Red);
+            Raylib.DrawCircle((int)spearLocation.X, (int)spearLocation.Y, 3, Color.Red);
         }
         base.Draw(delta);
     }
