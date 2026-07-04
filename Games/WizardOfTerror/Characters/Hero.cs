@@ -1,6 +1,8 @@
 ﻿using FSCSharp;
 using Raylib_cs;
+using System.Drawing;
 using System.Numerics;
+using Color = Raylib_cs.Color;
 
 namespace WizardOfTerror.Characters;
 
@@ -61,7 +63,7 @@ public class Hero : CharacterBase
         IsAttacking = Game.KeyboardManager.IsKeyDown(KeyboardKey.Space) && !IsIdle;
         if (!IsIdle)
         {
-            var location = IsAttacking ? Location.Move(LookingDirection, delta * 130f) : Location.Move(LookingDirection, delta * 220f);
+            var location = IsAttacking ? Location.Move(LookingDirection, delta * 150f) : Location.Move(LookingDirection, delta * 220f);
 
             if (location.X < 80 && LookingDirection == Go.Left) location = Location;
             if (location.X > WOTGame.Current.WindowWidth - 80 && LookingDirection == Go.Right) location = Location;
@@ -70,6 +72,15 @@ public class Hero : CharacterBase
 
             Location = location;
         }
+    }
+    public override void Draw(float delta)
+    {
+        if (IsAttacking)
+        {
+            var spearLocation = GetAttackingSpearCoordinates();
+            Raylib.DrawCircle((int)spearLocation.X, (int)spearLocation.Y, 5, Color.Red);
+        }
+        base.Draw(delta);
     }
 
     public override AnimatedTilesSprite CurrentBody
@@ -121,10 +132,10 @@ public class Hero : CharacterBase
 
         switch (LookingDirection)
         {
-            case Go.Up: return Location.Move(Go.Up, 100);
-            case Go.Right: return Location.Move(Go.Right,100);
-            case Go.Down: return Location.Move(Go.Down, 100);
-            case Go.Left: return Location.Move(Go.Left, 100);
+            case Go.Up: return Location.Move(Go.Up, 75).Move(Go.Right, 17);
+            case Go.Right: return Location.Move(Go.Right,85);
+            case Go.Down: return Location.Move(Go.Down, 70).Move(Go.Left, 20); ;
+            case Go.Left: return Location.Move(Go.Left, 85);
             default: throw new Exception("Invalid LookingDirection");
         }
     }
