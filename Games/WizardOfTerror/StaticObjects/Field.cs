@@ -66,9 +66,12 @@ public class Field : TangibleGameObject
             { 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,  26,  3, 37, 37, 37, 37, 37, 37, 37, 37 },
             { 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,  26,  3, 37, 37, 37, 37, 37, 37, 37, 37 },
         };
+
+        HFence = new Sprite(Raylib.LoadTexture("Resources/2 Objects/2 Fence/1.png"));
+        VFence = new Sprite(Raylib.LoadTexture("Resources/2 Objects/2 Fence/7.png"));
     }
     #endregion
-    
+
     #region Overrides
     public override void Update(float delta)
     {
@@ -85,6 +88,18 @@ public class Field : TangibleGameObject
                 TileSetBody.Draw(location, (int)tileType);
             }
         }
+
+        for (var x = HFence.Size.X / 2; x < WOTGame.Current.WindowWidth - HFence.Size.X / 2; x += HFence.Size.X)
+        {
+            HFence.Draw(new Vector2(x, HFence.Size.Y / 2));
+            HFence.Draw(new Vector2(x, WOTGame.Current.WindowHeight - HFence.Size.Y));
+        }
+
+        for (var y = VFence.Size.Y / 2; y < WOTGame.Current.WindowHeight - VFence.Size.Y / 2; y += VFence.Size.Y)
+        {
+            VFence.Draw(new Vector2(VFence.Size.X / 2, y));
+            VFence.Draw(new Vector2(WOTGame.Current.WindowWidth - VFence.Size.X, y));
+        }
     }
     #endregion
 
@@ -94,5 +109,8 @@ public class Field : TangibleGameObject
 
     public int[,] Board { get; }
     public AnimatedTilesSprite TileSetBody { get; set; }
+
+    public Sprite HFence { get; }
+    public Sprite VFence { get; }
     #endregion
 }

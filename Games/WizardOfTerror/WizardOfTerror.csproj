@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -86,6 +86,16 @@
     <None Remove="Resources\1\U_Death.png" />
     <None Remove="Resources\1\U_Run.png" />
     <None Remove="Resources\1\U_Special.png" />
+    <None Remove="Resources\2 Objects\2 Fence\1.png" />
+    <None Remove="Resources\2 Objects\2 Fence\10.png" />
+    <None Remove="Resources\2 Objects\2 Fence\2.png" />
+    <None Remove="Resources\2 Objects\2 Fence\3.png" />
+    <None Remove="Resources\2 Objects\2 Fence\4.png" />
+    <None Remove="Resources\2 Objects\2 Fence\5.png" />
+    <None Remove="Resources\2 Objects\2 Fence\6.png" />
+    <None Remove="Resources\2 Objects\2 Fence\7.png" />
+    <None Remove="Resources\2 Objects\2 Fence\8.png" />
+    <None Remove="Resources\2 Objects\2 Fence\9.png" />
     <None Remove="Resources\2 Objects\8 Camp\1.png" />
     <None Remove="Resources\2 Objects\8 Camp\2.png" />
     <None Remove="Resources\2 Objects\8 Camp\3.png" />
@@ -361,6 +371,36 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\1\U_Special.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\2 Objects\2 Fence\9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\2 Objects\8 Camp\1.png">
