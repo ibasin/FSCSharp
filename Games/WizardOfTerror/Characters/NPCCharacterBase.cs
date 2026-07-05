@@ -14,10 +14,10 @@ public abstract class NPCCharacterBase : CharacterBase
     {
         DirectionDuration -= delta;
 
-        if (Location.X < 50 && LookingDirection == Go.Left) DirectionDuration = 0;
-        if (Location.X > WOTGame.Current.WindowWidth - 50 && LookingDirection == Go.Right) DirectionDuration = 0;
-        if (Location.Y < 50 && LookingDirection == Go.Up) DirectionDuration = 0;
-        if (Location.Y > WOTGame.Current.WindowHeight - 50 && LookingDirection == Go.Down) DirectionDuration = 0;
+        if (Location.X < 75 && LookingDirection == Go.Left) DirectionDuration = 0;
+        if (Location.X > WOTGame.Current.WindowWidth - 75 && LookingDirection == Go.Right) DirectionDuration = 0;
+        if (Location.Y < 75 && LookingDirection == Go.Up) DirectionDuration = 0;
+        if (Location.Y > WOTGame.Current.WindowHeight - 75 && LookingDirection == Go.Down) DirectionDuration = 0;
 
         if (DirectionDuration <= 0)
         {
