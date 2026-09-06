@@ -20,7 +20,7 @@ public class Cactus : TangibleGameObject
     public override void Update(float delta)
     {
         var player = DinosaurGame.Current.Player;
-        if (Body.IsCollidingAtLocation(Location, player.Body, player.Location))
+        if (Body.IsCollidingByPixelAtLocation(Location, player.Body, player.Location))
         {
             throw new GameOverException("You touched a cactus! You suck!");
         }
