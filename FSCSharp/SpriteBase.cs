@@ -32,7 +32,8 @@ public abstract class SpriteBase : IDisposable
 
     public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, Vector2 otherLocation)
     {
-        var imgA = CurrentImage;
+        var imgA = Raylib.ImageCopy(CurrentImage);
+
         try
         {
             var alphaThreshold = 10;
@@ -59,8 +60,8 @@ public abstract class SpriteBase : IDisposable
     }
     public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
-        var imgA = CurrentImage;
-        var imgB = otherSprite.CurrentImage;
+        var imgA = Raylib.ImageCopy(CurrentImage);
+        var imgB = Raylib.ImageCopy(otherSprite.CurrentImage);
 
         try
         {

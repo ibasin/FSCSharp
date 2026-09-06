@@ -49,7 +49,7 @@ public class Sprite : SpriteBase
     #region Properties
     public Texture2D Texture;
     private Image _image;
-    //private bool _imageLoaded;
+    private bool _imageLoaded;
 
     private Rectangle? _sourceRect;
 
@@ -58,11 +58,11 @@ public class Sprite : SpriteBase
         get
         {
             _image = Raylib.LoadImageFromTexture(Texture);
-            //if (!_imageLoaded)
-            //{
-            //    _image = Raylib.LoadImageFromTexture(Texture);
-            //    _imageLoaded = true;
-            //}
+            if (!_imageLoaded)
+            {
+                _image = Raylib.LoadImageFromTexture(Texture);
+                _imageLoaded = true;
+            }
             return ref _image;
         }
     }
