@@ -66,8 +66,10 @@ public abstract class Game : IDisposable
 
     public static KeyboardManager KeyboardManager { get; } = new();
 
+    // ReSharper disable InconsistentNaming
     public readonly Dictionary<string, Sound> SoundsCache = new();
     public readonly Dictionary<string, Music> MusicStreamCache = new();
+    // ReSharper restore InconsistentNaming
 
     public Camera3DGameObject Camera3DGameObject
     {

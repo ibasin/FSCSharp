@@ -1,8 +1,6 @@
 ﻿using FSCSharp;
 using Raylib_cs;
-using System.Drawing;
 using System.Numerics;
-using Color = Raylib_cs.Color;
 
 namespace WizardOfTerror.Characters;
 
@@ -134,7 +132,7 @@ public class Hero : CharacterBase
         {
             case Go.Up: return Location.Move(Go.Up, 75).Move(Go.Right, 17);
             case Go.Right: return Location.Move(Go.Right,85);
-            case Go.Down: return Location.Move(Go.Down, 70).Move(Go.Left, 20); ;
+            case Go.Down: return Location.Move(Go.Down, 70).Move(Go.Left, 20);
             case Go.Left: return Location.Move(Go.Left, 85);
             default: throw new Exception("Invalid LookingDirection");
         }

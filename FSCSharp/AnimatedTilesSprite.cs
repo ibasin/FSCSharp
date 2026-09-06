@@ -101,11 +101,13 @@ public class AnimatedTilesSprite : AnimatedSpriteBase
     #endregion
 
     #region Properties
+    // ReSharper disable once InconsistentNaming
     public Texture2D TilesTexture;
     
     private Image _tilesImage;
     private bool _tilesImageLoaded;
 
+    // ReSharper disable once InconsistentNaming
     public readonly Rectangle[] FrameRects;
     
     public override ref Image CurrentImage

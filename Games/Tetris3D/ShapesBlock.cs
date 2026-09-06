@@ -125,6 +125,7 @@ public class ShapesBlock : Tangible3DGameObject
     #endregion
 
     #region Properties
+    // ReSharper disable once InconsistentNaming
     public readonly Color?[,] Blocks = new Color?[Tetris3DGame.WidthInSquares, Tetris3DGame.HeightInSquares];
     #endregion
 }

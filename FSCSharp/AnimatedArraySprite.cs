@@ -65,6 +65,7 @@ public class AnimatedArraySprite : AnimatedSpriteBase
     #endregion
 
     #region Properties
+    // ReSharper disable once InconsistentNaming
     public readonly Texture2D[] Frames;
 
     public override ref Image CurrentImage // => ref Frames[CalculateAnimationFrameIdx()];

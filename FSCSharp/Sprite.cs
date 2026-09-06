@@ -47,6 +47,7 @@ public class Sprite : SpriteBase
     #endregion
 
     #region Properties
+    // ReSharper disable once InconsistentNaming
     public Texture2D Texture;
     private Image _image;
     private bool _imageLoaded;

@@ -33,8 +33,9 @@ public class Field : TangibleGameObject
         //    }
         //}
 
+        // ReSharper disable RedundantExplicitArraySize
         Board = new int[30, 20]
-        {
+            {
             { 37, 37, 37, 37, 37, 37, 37, 37, 37, 37,  37, 37, 37, 37, 37, 37, 37, 37, 37, 37 },
             { 37, 37, 37, 37, 37, 37, 37, 37, 37, 37,  37, 37, 37, 37, 37, 37, 37, 37, 37, 37 },
             { 37, 37, 37, 37, 37, 37, 37, 37, 37, 37,  37, 37, 37, 37, 37, 37, 37, 37, 37, 37 },
@@ -66,6 +67,7 @@ public class Field : TangibleGameObject
             { 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,  26,  3, 37, 37, 37, 37, 37, 37, 37, 37 },
             { 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,  26,  3, 37, 37, 37, 37, 37, 37, 37, 37 },
         };
+        // ReSharper restore RedundantExplicitArraySize
 
         HFence = new Sprite(Raylib.LoadTexture("Resources/2 Objects/2 Fence/1.png"));
         VFence = new Sprite(Raylib.LoadTexture("Resources/2 Objects/2 Fence/7.png"));
@@ -85,7 +87,7 @@ public class Field : TangibleGameObject
             {
                 var location = new Vector2(32 + x*64, 32 + y*64);
                 var tileType = Board[x, y];
-                TileSetBody.Draw(location, (int)tileType);
+                TileSetBody.Draw(location, tileType);
             }
         }
 
