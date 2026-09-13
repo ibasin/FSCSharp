@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Games/">
+    <Project Path="Games/Breakout/Breakout.csproj" Id="8a12a890-33ce-41f3-8eac-6680456953a9" />
     <Project Path="Games/Car/Car.csproj" Id="e6f7132f-e9dd-4fb4-b804-5130e43821db" />
     <Project Path="Games/Cube/Cube.csproj" />
     <Project Path="Games/Dinosaur/Dinosaur.csproj" Id="db4b371f-9cca-4b22-b5c6-bdba369353ef" />
