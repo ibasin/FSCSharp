@@ -21,7 +21,7 @@ namespace Breakout
         }
         public override void Draw(float delta)
         {
-            Raylib.DrawRectangle((int)Location.X, (int)Location.Y, (int)Size.X, (int)Size.Y, Color);
+            Raylib.DrawRectangle((int)(Location.X - Size.X/2), (int)(Location.Y - Size.Y/2), (int)Size.X, (int)Size.Y, Color);
         }
         #endregion
 

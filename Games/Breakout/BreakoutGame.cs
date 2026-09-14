@@ -27,7 +27,7 @@ namespace Breakout
             for (float y = 100; y < 170; y += Block.Size.Y + margin)
             {
                 rowCount1++;
-                for (float x = margin + Block.Size.X * 0.5f; x < Current.WindowWidth - margin - Block.Size.X * 1.5f; x += Block.Size.X + margin)
+                for (float x = margin + Block.Size.X; x < Current.WindowWidth - margin - Block.Size.X * .5f; x += Block.Size.X + margin)
                 {
                     Color color;
 
@@ -46,7 +46,7 @@ namespace Breakout
             for (float y = 300; y < 430; y += Block.Size.Y + margin)
             {
                 rowCount2++;
-                for (float x = margin + Block.Size.X * .5f; x < Current.WindowWidth - margin - Block.Size.X * 1.5f; x += Block.Size.X + margin)
+                for (float x = margin + Block.Size.X; x < Current.WindowWidth - margin - Block.Size.X * .5f; x += Block.Size.X + margin)
                 {
                     Color color;
 
