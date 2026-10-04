@@ -5,6 +5,13 @@ namespace Breakout
 {
     public class Ball : TangibleGameObject
     {
+        #region Constrcutors
+        public Ball()
+        {
+
+        }
+        #endregion
+        
         #region Overrides
         public override void Update(float delta)
         {

@@ -26,7 +26,7 @@ namespace Breakout
         #endregion
 
         #region Properties
-        public static readonly Vector2 Size = new Vector2(96, 25);
+        public static readonly Vector2 Size = new Vector2(95, 25);
         public Vector2 Location { get; set; }
         public Color Color { get; protected set; }
         #endregion

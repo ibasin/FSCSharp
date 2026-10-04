@@ -6,15 +6,17 @@ namespace Breakout
 {
     public class BreakoutGame : Game<BreakoutGame>
     {
-        public BreakoutGame() : base("Breakout", 540*3, 315*3, Color.Black)
+        #region Constructors
+        public BreakoutGame() : base("Breakout", 1505, 1000, Color.Black)
         {
             //Current.PlaySound("Resources/kalinka.mp3");
             Current.ShowSplashScreen("Resources/splash.png", 2000);
 
-            //GameFinished = false;
+            var paddlePosition = new Vector2(Current.WindowWidth / 2f, Current.WindowHeight - Paddle.Size.Y / 2f - 50);
+            Paddle = new Paddle(paddlePosition);
+            GameObjects.Add(Paddle);
 
-            //var paddlePosition = new Vector2(ScreenSize.X / 2, ScreenSize.Y - Paddle.Size.Y / 2 - 50);
-            //var ballPosition = new Vector2(paddlePosition.X, paddlePosition.Y - Ball.Size.Y);
+            //var ballPosition = paddlePosition with { Y = paddlePosition.Y - Ball.Size.Y };
 
             //Paddle.Start(paddlePosition, Colors.AntiqueWhite);
             //var randomSign = Random.Shared.Next(2) == 0 ? 1 : -1;
@@ -61,5 +63,10 @@ namespace Breakout
                 }
             }
         }
+        #endregion
+
+        #region Proeprties
+        public Paddle Paddle { get; }
+        #endregion
     }
 }
