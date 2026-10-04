@@ -27,14 +27,14 @@ public class Paddle : TangibleGameObject
 
     public override void Draw(float delta)
     {
-        Raylib.DrawRectangle((Location.X - Size.X/2).RoundToInt(), (Location.Y - Size.Y).RoundToInt(), Size.X.RoundToInt(), Size.Y.RoundToInt(), Color.RayWhite);
+        Raylib.DrawRectangle((Location.X - Size.X/2).RoundToInt(), (Location.Y - Size.Y/2).RoundToInt(), Size.X.RoundToInt(), Size.Y.RoundToInt(), Color.RayWhite);
     }
     #endregion
 
     #region Properties
     public Vector2 Location { get; set; }
     
-    public static Vector2 Size { get; } = new(120, 15);
-    public static float PaddleVelocity => 850;
+    public Vector2 Size { get; } = new(120, 15);
+    public float PaddleVelocity => 850;
     #endregion
 }

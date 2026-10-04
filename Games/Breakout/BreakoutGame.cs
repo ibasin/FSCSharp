@@ -12,16 +12,12 @@ namespace Breakout
             //Current.PlaySound("Resources/kalinka.mp3");
             Current.ShowSplashScreen("Resources/splash.png", 2000);
 
-            var paddlePosition = new Vector2(Current.WindowWidth / 2f, Current.WindowHeight - Paddle.Size.Y / 2f - 50);
-            Paddle = new Paddle(paddlePosition);
+            Paddle = new Paddle(Vector2.Zero);
+            Paddle.Location = new Vector2(Current.WindowWidth / 2f, Current.WindowHeight - Paddle.Size.Y / 2f - 50);
             GameObjects.Add(Paddle);
 
-            //var ballPosition = paddlePosition with { Y = paddlePosition.Y - Ball.Size.Y };
-
-            //Paddle.Start(paddlePosition, Colors.AntiqueWhite);
-            //var randomSign = Random.Shared.Next(2) == 0 ? 1 : -1;
-            //var ballVelocity = new Vector2(randomSign * (Random.Shared.Next(50) + 50), -300);
-            //Ball.Start(ballPosition, ballVelocity);
+            Ball = new Ball(Vector2.Zero).InitForServing(Paddle);
+            GameObjects.Add(Ball);
 
             const int margin = 5;
 
@@ -67,6 +63,7 @@ namespace Breakout
 
         #region Proeprties
         public Paddle Paddle { get; }
+        public Ball Ball { get; }
         #endregion
     }
 }
