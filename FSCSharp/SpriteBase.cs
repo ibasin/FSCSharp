@@ -64,6 +64,55 @@ public abstract class SpriteBase : IDisposable
             Raylib.UnloadImage(imgA);
         }
     }
+    public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, Vector2 otherRecCenter, Vector2 otherRecSize)
+    {
+        if (Rotation != 0) throw new NotImplementedException("Collision detection is not currently implemented for rotated sprites.");
+
+        var imgA = Raylib.ImageCopy(CurrentImage);
+        if (FlipHorizontally) Raylib.ImageFlipHorizontal(ref imgA);
+        if (FlipVertically) Raylib.ImageFlipVertical(ref imgA);
+
+        try
+        {
+            var alphaThreshold = 10;
+
+            var myHalfSize = Size / 2;
+            var otherRecHalfSize = otherRecSize / 2;
+            
+            var posA = new Vector2(myLocation.X - myHalfSize.X, myLocation.Y - myHalfSize.Y);
+
+            Raylib.ImageResize(ref imgA, (int)Size.X, (int)Size.Y);
+
+            if (!AreRectanglesColliding(myLocation, Size, otherRecCenter, otherRecSize)) return false;
+
+            Rectangle recA = new(posA.X, posA.Y, imgA.Width, imgA.Height);
+            Rectangle recB = new(otherRecCenter.X - otherRecHalfSize.X, otherRecCenter.Y - otherRecHalfSize.Y, otherRecSize.X, otherRecSize.Y);
+
+            int left = (int)MathF.Max(recA.X, recB.X);
+            int right = (int)MathF.Min(recA.X + recA.Width, recB.X + recB.Width);
+            int top = (int)MathF.Max(recA.Y, recB.Y);
+            int bottom = (int)MathF.Min(recA.Y + recA.Height, recB.Y + recB.Height);
+
+            for (int y = top; y < bottom; y++)
+            {
+                for (int x = left; x < right; x++)
+                {
+                    int ax = x - (int)posA.X;
+                    int ay = y - (int)posA.Y;
+
+                    Color ca = Raylib.GetImageColor(imgA, ax, ay);
+
+                    if (ca.A >= alphaThreshold) return true;
+                }
+            }
+
+            return false;
+        }
+        finally
+        {
+            Raylib.UnloadImage(imgA);
+        }
+    }
     public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
         if (Rotation != 0 || otherSprite.Rotation != 0) throw new NotImplementedException("Collision detection is not currently implemented for rotated sprites.");
