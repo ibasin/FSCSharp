@@ -32,7 +32,7 @@ public abstract class SpriteBase : IDisposable
 
     public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, Vector2 otherLocation)
     {
-        if (Rotation != 0) throw new NotImplementedException("Collision detection is not implemented for rotated sprites.");
+        if (Rotation != 0) throw new NotImplementedException("Collision detection is not currently implemented for rotated sprites.");
 
         var imgA = Raylib.ImageCopy(CurrentImage);
 
@@ -62,7 +62,7 @@ public abstract class SpriteBase : IDisposable
     }
     public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
-        if (Rotation != 0 || otherSprite.Rotation != 0) throw new NotImplementedException("Collision detection is not implemented for rotated sprites.");
+        if (Rotation != 0 || otherSprite.Rotation != 0) throw new NotImplementedException("Collision detection is not currently implemented for rotated sprites.");
 
         var imgA = Raylib.ImageCopy(CurrentImage);
         var imgB = Raylib.ImageCopy(otherSprite.CurrentImage);
@@ -117,7 +117,7 @@ public abstract class SpriteBase : IDisposable
 
     public virtual bool IsCollidingAtLocation(Vector2 myLocation, Vector2 otherLocation)
     {
-        if (Rotation != 0) throw new NotImplementedException("Collision detection is not implemented for rotated sprites.");
+        if (Rotation != 0) throw new NotImplementedException("Collision detection is not currently implemented for rotated sprites.");
 
         var myHalfSize = Size / 2;
 
@@ -136,7 +136,7 @@ public abstract class SpriteBase : IDisposable
     }
     public virtual bool IsCollidingAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
-        if (Rotation != 0 || otherSprite.Rotation != 0) throw new NotImplementedException("Collision detection is not implemented for rotated sprites.");
+        if (Rotation != 0 || otherSprite.Rotation != 0) throw new NotImplementedException("Collision detection is not currently implemented for rotated sprites.");
 
         var myHalfSize = Size / 2;
         var otherHalfSize = otherSprite.Size / 2;

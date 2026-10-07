@@ -47,7 +47,7 @@ public class Sprite : SpriteBase
     {
         get
         {
-            if (Rotation != 0) throw new NotImplementedException("Size is not implemented for rotated sprites.");
+            if (Rotation != 0) throw new NotImplementedException("Size is not currently implemented for rotated sprites.");
             return new(Texture.Width * HScale, Texture.Height * VScale); 
         }
     }
