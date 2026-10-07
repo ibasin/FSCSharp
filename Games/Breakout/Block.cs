@@ -15,21 +15,36 @@ namespace Breakout
         #endregion
 
         #region Overrides
-        //public void OnAreaEntered(Area2D other)
-        //{
-        //    Main.Current.Ball.Speed = new Vector2(Main.Current.Ball.Speed.X, -Main.Current.Ball.Speed.Y);
-        //    if (Input.IsActionPressed("Left")) Main.Current.Ball.Speed = new Vector2(Main.Current.Ball.Speed.X - PaddleVelocity / 12, Main.Current.Ball.Speed.Y);
-        //    if (Input.IsActionPressed("Right")) Main.Current.Ball.Speed = new Vector2(Main.Current.Ball.Speed.X + PaddleVelocity / 12, Main.Current.Ball.Speed.Y);
-
-        //    var positionDelta = Main.Current.Ball.Position.X - Main.Current.Paddle.Position.X;
-        //    Main.Current.Ball.Speed = new Vector2(Main.Current.Ball.Speed.X + positionDelta / 2.5f, Main.Current.Ball.Speed.Y);
-
-        //    Main.Current.PlayBallHitSound();
-        //}
-
         public override void Update(float delta)
         {
-            //do nothing, blocks are static
+            if (Cooldown > 0) Cooldown -= delta;
+
+            var ball = BreakoutGame.Current.Ball;
+            if (Cooldown <= 0 && Sprite.AreCircleAndRectangleColliding(ball.Location, ball.Body.Size.X/2, Location, Size))
+            {
+                if (Sprite.IfCollidingAreCircleAndRectangleCollidingVertically(ball.Location, ball.Body.Size.X / 2, Location, Size)) ball.Velocity = ball.Velocity with { X = -ball.Velocity.X };
+                else if (Sprite.IfCollidingAreCircleAndRectangleCollidingHorizontally(ball.Location, ball.Body.Size.X / 2, Location, Size)) ball.Velocity = ball.Velocity with { Y = -ball.Velocity.Y };
+                else throw new Exception();
+
+                // ReSharper disable UsageOfDefaultStructEquality
+                if (Color.Equals(Color.Red))
+                {
+                    Color = Color.Yellow;
+                }
+                else if (Color.Equals(Color.Yellow))
+                {
+                    Color = Color.Green;
+                }
+                else
+                {
+                    ToDelete = true;
+                    BreakoutGame.Current.Blocks.Remove(this);
+                    if (BreakoutGame.Current.Blocks.Count == 0) throw new GameOverException("You win!");
+                }
+                // ReSharper restore UsageOfDefaultStructEquality
+                BreakoutGame.Current.PlaySound("Resources/ball-hit.mp3");
+                Cooldown = 0.2f;
+            }
         }
         public override void Draw(float delta)
         {
@@ -41,6 +56,8 @@ namespace Breakout
         public static readonly Vector2 Size = new Vector2(95, 25);
         public Vector2 Location { get; set; }
         public Color Color { get; protected set; }
+        
+        protected float Cooldown { get; set; }
         #endregion
     }
 }

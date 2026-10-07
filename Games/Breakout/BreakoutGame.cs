@@ -56,6 +56,7 @@ namespace Breakout
 
                     var block = new Block(new Vector2(x, y), color);
                     Current.GameObjects.Add(block);
+                    Blocks.Add(block);
                 }
             }
         }
@@ -64,6 +65,7 @@ namespace Breakout
         #region Proeprties
         public Paddle Paddle { get; }
         public Ball Ball { get; }
+        public List<Block> Blocks { get; } = new();
         #endregion
     }
 }

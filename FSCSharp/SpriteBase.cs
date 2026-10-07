@@ -231,6 +231,28 @@ public abstract class SpriteBase : IDisposable
         var recB = new Rectangle(recBCenter.X - recBSize.X/2, recBCenter.Y - recBSize.Y/2, recBSize.X, recBSize.Y);
         return Raylib.CheckCollisionRecs(recA, recB);
     }
+    public static bool AreCirclesColliding(Vector2 circleACenter, float circleARadius, Vector2 circleBCenter, float circleBRadius)
+    {
+        return Raylib.CheckCollisionCircles(circleACenter, circleARadius, circleBCenter, circleBRadius);
+    }
+    public static bool AreCircleAndRectangleColliding(Vector2 circleCenter, float circleRadius, Vector2 recCenter, Vector2 recSize)
+    {
+        var halfRecSize = recSize / 2;
+        var rec = new Rectangle(recCenter.X - halfRecSize.X, recCenter.Y - halfRecSize.Y, recSize.X, recSize.Y);
+        return Raylib.CheckCollisionCircleRec(circleCenter, circleRadius, rec);
+    }
+    
+    
+    //public static bool IfCollidingAreCircleAndRectangleCollidingHorizontally(Vector2 circleCenter, float circleRadius, Vector2 recCenter, Vector2 recSize)
+    //{
+    //    var halfRecSize = recSize / 2;
+    //    return circleCenter.Y + circleRadius >= recCenter.Y - halfRecSize.Y && circleCenter.Y - circleRadius <= recCenter.Y + halfRecSize.Y;
+    //}
+    //public static bool IfCollidingAreCircleAndRectangleCollidingVertically(Vector2 circleCenter, float circleRadius, Vector2 recCenter, Vector2 recSize)
+    //{
+    //    var halfRecSize = recSize / 2;
+    //    return circleCenter.X + circleRadius >= recCenter.X - halfRecSize.X && circleCenter.X - circleRadius <= recCenter.X + halfRecSize.X;
+    //}
 
     public virtual void SetScalesByTargetRectangleSize(float x, float y)
     {
