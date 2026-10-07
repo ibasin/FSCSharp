@@ -1,5 +1,5 @@
-﻿using System.Numerics;
-using Raylib_cs;
+﻿using Raylib_cs;
+using System.Numerics;
 
 namespace FSCSharp;
 
@@ -16,6 +16,8 @@ public abstract class SpriteBase : IDisposable
     #region Methods
     public virtual bool IsFullyOnScreenAtLocation(Vector2 location)
     {
+        if (Rotation != 0) throw new NotImplementedException("IsFullyOnScreenAtLocation detection is not currently implemented for rotated sprites.");
+
         // ReSharper disable once ReplaceWithSingleAssignment.True
         var result = true;
 
@@ -35,6 +37,8 @@ public abstract class SpriteBase : IDisposable
         if (Rotation != 0) throw new NotImplementedException("Collision detection is not currently implemented for rotated sprites.");
 
         var imgA = Raylib.ImageCopy(CurrentImage);
+        if (FlipHorizontally) Raylib.ImageFlipHorizontal(ref imgA);
+        if (FlipVertically) Raylib.ImageFlipVertical(ref imgA);
 
         try
         {
@@ -65,7 +69,13 @@ public abstract class SpriteBase : IDisposable
         if (Rotation != 0 || otherSprite.Rotation != 0) throw new NotImplementedException("Collision detection is not currently implemented for rotated sprites.");
 
         var imgA = Raylib.ImageCopy(CurrentImage);
+        if (FlipHorizontally) Raylib.ImageFlipHorizontal(ref imgA);
+        if (FlipVertically) Raylib.ImageFlipVertical(ref imgA);
+
+
         var imgB = Raylib.ImageCopy(otherSprite.CurrentImage);
+        if (otherSprite.FlipHorizontally) Raylib.ImageFlipHorizontal(ref imgB);
+        if (otherSprite.FlipVertically) Raylib.ImageFlipVertical(ref imgB);
 
         try
         {
