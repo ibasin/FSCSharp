@@ -21,7 +21,19 @@ public class Paddle : TangibleGameObject
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right)) velocity = Go.Right.ToVector2() * PaddleVelocity;
 
         Location += velocity * delta;
-        
+
+        var ball = BreakoutGame.Current.Ball;
+        if (ball.Body.IsCollidingByPixelAtLocation(ball.Location, Location, Size))
+        {
+            ball.Velocity = ball.Velocity with { Y = -ball.Velocity.Y };
+
+            if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X - PaddleVelocity/12 };
+            if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X + PaddleVelocity/12 };
+
+            var locationDelta = ball.Location.X - Location.X;
+            ball.Velocity = ball.Velocity with { X = ball.Velocity.X + locationDelta / 2.5f };
+        }
+
         Location = Location with { X = Location.X.Clamp(Size.X / 2, BreakoutGame.Current.WindowWidth - Size.X / 2) };
     }
 
