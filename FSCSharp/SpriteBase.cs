@@ -32,6 +32,8 @@ public abstract class SpriteBase : IDisposable
 
     public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, Vector2 otherLocation)
     {
+        if (Rotation != 0) throw new NotImplementedException("Collision detection is not implemented for rotated sprites.");
+
         var imgA = Raylib.ImageCopy(CurrentImage);
 
         try
@@ -60,6 +62,8 @@ public abstract class SpriteBase : IDisposable
     }
     public virtual bool IsCollidingByPixelAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
+        if (Rotation != 0 || otherSprite.Rotation != 0) throw new NotImplementedException("Collision detection is not implemented for rotated sprites.");
+
         var imgA = Raylib.ImageCopy(CurrentImage);
         var imgB = Raylib.ImageCopy(otherSprite.CurrentImage);
 
@@ -67,16 +71,14 @@ public abstract class SpriteBase : IDisposable
         {
             var alphaThreshold = 10;
 
-            //return IsPixelPerfectCollision(CurrentImage, myLocation, otherSprite.CurrentImage, otherSpriteLocation, 10);
             var myHalfSize = Size / 2;
             var otherHalfSize = otherSprite.Size / 2;
 
             var posA = new Vector2(myLocation.X - myHalfSize.X, myLocation.Y - myHalfSize.Y);
             var posB = new Vector2(otherSpriteLocation.X - otherHalfSize.X, otherSpriteLocation.Y - otherHalfSize.Y);
 
-
-            Raylib.ImageResize(ref imgA, (int)(imgA.Width * HScale), (int)(imgA.Height * VScale));
-            Raylib.ImageResize(ref imgB, (int)(imgB.Width * HScale), (int)(imgB.Height * VScale));
+            Raylib.ImageResize(ref imgA, (int)Size.X, (int)Size.Y);
+            Raylib.ImageResize(ref imgB, (int)otherSprite.Size.X, (int)otherSprite.Size.Y);
 
             Rectangle recA = new(posA.X, posA.Y, imgA.Width, imgA.Height);
             Rectangle recB = new(posB.X, posB.Y, imgB.Width, imgB.Height);
@@ -113,8 +115,10 @@ public abstract class SpriteBase : IDisposable
         }
     }
 
-    public virtual bool IsCollidingAtLocation(Vector2 myLocation, Vector2 vector)
+    public virtual bool IsCollidingAtLocation(Vector2 myLocation, Vector2 otherLocation)
     {
+        if (Rotation != 0) throw new NotImplementedException("Collision detection is not implemented for rotated sprites.");
+
         var myHalfSize = Size / 2;
 
         var myX0 = myLocation.X - myHalfSize.X;
@@ -123,15 +127,17 @@ public abstract class SpriteBase : IDisposable
         var myY1 = myLocation.Y + myHalfSize.Y;
 
         var xIntersect = false;
-        if (myX0 <= vector.X && vector.X <= myX1) xIntersect = true;
+        if (myX0 <= otherLocation.X && otherLocation.X <= myX1) xIntersect = true;
 
         var yIntersect = false;
-        if (myY0 <= vector.Y && vector.Y <= myY1) yIntersect = true;
+        if (myY0 <= otherLocation.Y && otherLocation.Y <= myY1) yIntersect = true;
 
         return xIntersect && yIntersect;
     }
     public virtual bool IsCollidingAtLocation(Vector2 myLocation, SpriteBase otherSprite, Vector2 otherSpriteLocation)
     {
+        if (Rotation != 0 || otherSprite.Rotation != 0) throw new NotImplementedException("Collision detection is not implemented for rotated sprites.");
+
         var myHalfSize = Size / 2;
         var otherHalfSize = otherSprite.Size / 2;
 
@@ -159,35 +165,12 @@ public abstract class SpriteBase : IDisposable
 
         return xIntersect && yIntersect;
     }
-    private bool IsPixelPerfectCollision(Image imgA, Vector2 posA, Image imgB, Vector2 posB, byte alphaThreshold = 1)
+
+    public static bool AreRectanglesColliding(Vector2 recACenter, Vector2 recASize, Vector2 recBCenter, Vector2 recBSize)
     {
-        Rectangle recA = new(posA.X, posA.Y, imgA.Width, imgA.Height);
-        Rectangle recB = new(posB.X, posB.Y, imgB.Width, imgB.Height);
-
-        if (!Raylib.CheckCollisionRecs(recA, recB)) return false;
-
-        int left = (int)MathF.Max(recA.X, recB.X);
-        int right = (int)MathF.Min(recA.X + recA.Width, recB.X + recB.Width);
-        int top = (int)MathF.Max(recA.Y, recB.Y);
-        int bottom = (int)MathF.Min(recA.Y + recA.Height, recB.Y + recB.Height);
-
-        for (int y = top; y < bottom; y++)
-        {
-            for (int x = left; x < right; x++)
-            {
-                int ax = x - (int)posA.X;
-                int ay = y - (int)posA.Y;
-                int bx = x - (int)posB.X;
-                int by = y - (int)posB.Y;
-
-                Color ca = Raylib.GetImageColor(imgA, ax, ay);
-                Color cb = Raylib.GetImageColor(imgB, bx, by);
-
-                if (ca.A >= alphaThreshold && cb.A >= alphaThreshold) return true;
-            }
-        }
-
-        return false;
+        var recA = new Rectangle(recACenter.X - recASize.X/2, recACenter.Y - recASize.Y/2, recASize.X, recASize.Y);
+        var recB = new Rectangle(recBCenter.X - recBSize.X/2, recBCenter.Y - recBSize.Y/2, recBSize.X, recBSize.Y);
+        return Raylib.CheckCollisionRecs(recA, recB);
     }
 
     public virtual void SetScalesByTargetRectangleSize(float x, float y)

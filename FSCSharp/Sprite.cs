@@ -43,7 +43,15 @@ public class Sprite : SpriteBase
         return result;
     }
 
-    public override Vector2 Size => new(Texture.Width * HScale, Texture.Height * VScale);
+    public override Vector2 Size
+    {
+        get
+        {
+            if (Rotation != 0) throw new NotImplementedException("Size is not implemented for rotated sprites.");
+            return new(Texture.Width * HScale, Texture.Height * VScale); 
+        }
+    }
+
     #endregion
 
     #region Properties

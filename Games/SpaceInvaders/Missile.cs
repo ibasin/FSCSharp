@@ -13,7 +13,7 @@ public class Missile : TangibleGameObject
         Speed = 1200;
         Direction = direction;
         Body = new Sprite(Raylib.LoadTexture("Resources/missile.png"), 0.015f);
-        if (Direction == Go.Down) Body.Rotation = 180;
+        if (Direction == Go.Down) Body.FlipVertically = true;
         Priority = 90;
     }
     public override void Dispose()

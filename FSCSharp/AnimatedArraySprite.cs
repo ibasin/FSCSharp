@@ -43,6 +43,7 @@ public class AnimatedArraySprite : AnimatedSpriteBase
     {
         get
         {
+            if (Rotation != 0) throw new NotImplementedException("Size is not implemented for rotated sprites.");
             if (_size == null)
             {
                 var maxX = 0f;

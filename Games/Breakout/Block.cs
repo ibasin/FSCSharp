@@ -13,8 +13,20 @@ namespace Breakout
             Color = color;
         }
         #endregion
-        
+
         #region Overrides
+        //public void OnAreaEntered(Area2D other)
+        //{
+        //    Main.Current.Ball.Speed = new Vector2(Main.Current.Ball.Speed.X, -Main.Current.Ball.Speed.Y);
+        //    if (Input.IsActionPressed("Left")) Main.Current.Ball.Speed = new Vector2(Main.Current.Ball.Speed.X - PaddleVelocity / 12, Main.Current.Ball.Speed.Y);
+        //    if (Input.IsActionPressed("Right")) Main.Current.Ball.Speed = new Vector2(Main.Current.Ball.Speed.X + PaddleVelocity / 12, Main.Current.Ball.Speed.Y);
+
+        //    var positionDelta = Main.Current.Ball.Position.X - Main.Current.Paddle.Position.X;
+        //    Main.Current.Ball.Speed = new Vector2(Main.Current.Ball.Speed.X + positionDelta / 2.5f, Main.Current.Ball.Speed.Y);
+
+        //    Main.Current.PlayBallHitSound();
+        //}
+
         public override void Update(float delta)
         {
             //do nothing, blocks are static
