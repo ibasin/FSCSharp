@@ -19,7 +19,7 @@ public class Ball : TangibleGameObject
     {
         IsServing = true;
         var randomSign = Random.Shared.Next(2) == 0 ? 1 : -1;
-        Velocity= new Vector2(randomSign * Random.Shared.Next(120), -300);
+        Velocity= new Vector2(randomSign * (Random.Shared.Next(120) + 100), -300);
 
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left)) Velocity = Velocity with { X = Velocity.X - BreakoutGame.Current.Paddle.Velocity.X / 12 };
         if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right)) Velocity = Velocity with { X = Velocity.X + BreakoutGame.Current.Paddle.Velocity.X / 12 };
@@ -44,21 +44,33 @@ public class Ball : TangibleGameObject
         }
         else
         {
+            Velocity = Vector2.Normalize(Velocity) * 500;
+
             Location += Velocity * delta;
 
-            if (Location.X <= Body.Size.X / 2 || Location.X >= BreakoutGame.Current.WindowWidth - Body.Size.X / 2)
+            if (Location.X <= Body.Size.X / 2)
             {
-                Velocity = Velocity with { X = -Velocity.X };
+                Velocity = Velocity with { X = MathF.Abs(Velocity.X) };
+                BreakoutGame.Current.PlaySound("Resources/ball-hit.mp3");
+            }
+
+            if (Location.X >= BreakoutGame.Current.WindowWidth - Body.Size.X / 2)
+            {
+                Velocity = Velocity with { X = -MathF.Abs(Velocity.X) };
                 BreakoutGame.Current.PlaySound("Resources/ball-hit.mp3");
             }
 
             if (Location.Y <= Body.Size.Y / 2)
             {
-                Velocity = Velocity with { Y = -Velocity.Y };
+                Velocity = Velocity with { Y = MathF.Abs(Velocity.Y) };
                 BreakoutGame.Current.PlaySound("Resources/ball-hit.mp3");
             }
 
-            if (Location.Y >= BreakoutGame.Current.WindowHeight - Body.Size.Y / 2) throw new GameOverException("Game is lost!");
+            if (Location.Y >= BreakoutGame.Current.WindowHeight - Body.Size.Y / 2)
+            {
+                BreakoutGame.Current.PlaySound("Resources/lost.mp3");
+                throw new GameOverException("Game is lost!");
+            }
         }
     }
     public override void Draw(float delta)

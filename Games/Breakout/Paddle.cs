@@ -33,7 +33,7 @@ public class Paddle : TangibleGameObject
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X + Velocity.X / 12 };
 
             var locationDelta = ball.Location.X - Location.X;
-            ball.Velocity = ball.Velocity with { X = ball.Velocity.X + locationDelta };
+            ball.Velocity = ball.Velocity with { X = ball.Velocity.X + 1.5f*locationDelta };
 
             BreakoutGame.Current.PlaySound("Resources/ball-hit.mp3");
         }
