@@ -44,7 +44,7 @@ public class Ball : TangibleGameObject
         }
         else
         {
-            Velocity = Vector2.Normalize(Velocity) * 500;
+            Velocity = Vector2.Normalize(Velocity) * 450;
 
             Location += Velocity * delta;
 

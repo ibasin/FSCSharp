@@ -44,7 +44,7 @@ public class Block : TangibleGameObject
             }
             // ReSharper restore UsageOfDefaultStructEquality
             BreakoutGame.Current.PlaySound("Resources/ball-hit.mp3");
-            Cooldown = 0.2f;
+            Cooldown = 0.08f;
         }
     }
     public override void Draw(float delta)
