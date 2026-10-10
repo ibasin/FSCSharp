@@ -4,7 +4,15 @@ namespace Breakout.Helpers;
 
 public enum CollisionSide
 {
-    None, Top, Bottom, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight
+    None, 
+    Top,
+    Bottom,
+    Left,
+    Right,
+    TopLeft,
+    TopRight,
+    BottomLeft,
+    BottomRight
 }
 
 public static class MovingCircleStaticRectCollisionResolver
@@ -20,158 +28,180 @@ public static class MovingCircleStaticRectCollisionResolver
         out float collisionTime)
     {
         normal = Vector2.Zero;
-        collisionTime = float.PositiveInfinity;
+        collisionTime = 1f;
 
-        static bool IsFinite(Vector2 v) =>
-            float.IsFinite(v.X) && float.IsFinite(v.Y);
-
-        // Reject invalid input.
+        // Validate inputs.
         if (!IsFinite(circleCenter) ||
             !IsFinite(rectCenter) ||
             !IsFinite(rectSize) ||
             !IsFinite(circleVelocity) ||
-            !float.IsFinite(circleRadius) ||
-            !float.IsFinite(deltaTime) ||
+            float.IsNaN(circleRadius) ||
+            float.IsInfinity(circleRadius) ||
+            float.IsNaN(deltaTime) ||
+            float.IsInfinity(deltaTime) ||
             circleRadius <= 0 ||
+            deltaTime < 0 ||
             rectSize.X <= 0 ||
-            rectSize.Y <= 0 ||
-            deltaTime <= 0)
-            return CollisionSide.None;
-
-        // Calculate everything in double precision.
-        double dx = (double)circleVelocity.X * deltaTime;
-        double dy = (double)circleVelocity.Y * deltaTime;
-
-        double px = (double)circleCenter.X - dx;
-        double py = (double)circleCenter.Y - dy;
-
-        double minX = (double)rectCenter.X - rectSize.X * 0.5;
-        double minY = (double)rectCenter.Y - rectSize.Y * 0.5;
-        double maxX = (double)rectCenter.X + rectSize.X * 0.5;
-        double maxY = (double)rectCenter.Y + rectSize.Y * 0.5;
-
-        double r = circleRadius;
-        double a = dx * dx + dy * dy;
-
-        if (a == 0)
-            return CollisionSide.None;
-
-        double bestTime = double.PositiveInfinity;
-        Vector2 bestNormal = Vector2.Zero;
-        CollisionSide bestSide = CollisionSide.None;
-
-        // Check straight edges.
-        void CheckSide(
-            double t,
-            bool vertical,
-            CollisionSide side,
-            Vector2 candidateNormal)
+            rectSize.Y <= 0)
         {
-            if (!double.IsFinite(t) ||
-                t < 0 || t > 1 || t >= bestTime)
-                return;
-
-            double coord = vertical
-                ? py + dy * t
-                : px + dx * t;
-
-            bool valid = vertical
-                ? coord >= minY && coord <= maxY
-                : coord >= minX && coord <= maxX;
-
-            if (!valid)
-                return;
-
-            bestTime = t;
-            bestSide = side;
-            bestNormal = candidateNormal;
+            return CollisionSide.None;
         }
 
-        if (dx > 0)
-            CheckSide((minX - r - px) / dx,
-                true, CollisionSide.Left, new(-1, 0));
-        else if (dx < 0)
-            CheckSide((maxX + r - px) / dx,
-                true, CollisionSide.Right, new(1, 0));
+        double minX = rectCenter.X - rectSize.X / 2.0;
+        double maxX = rectCenter.X + rectSize.X / 2.0;
+        double minY = rectCenter.Y - rectSize.Y / 2.0;
+        double maxY = rectCenter.Y + rectSize.Y / 2.0;
 
-        if (dy > 0)
-            CheckSide((minY - r - py) / dy,
-                false, CollisionSide.Top, new(0, -1));
-        else if (dy < 0)
-            CheckSide((maxY + r - py) / dy,
-                false, CollisionSide.Bottom, new(0, 1));
+        double moveX = (double)circleVelocity.X * deltaTime;
+        double moveY = (double)circleVelocity.Y * deltaTime;
 
-        // Check rounded corners.
-        void CheckCorner(
-            double cx, double cy,
-            int signX, int signY,
-            CollisionSide side)
+        double startX = circleCenter.X - moveX;
+        double startY = circleCenter.Y - moveY;
+
+        // Small tolerance for floating-point rounding.
+        double radius = circleRadius +
+                        Math.Max(0.00001, circleRadius * 0.000001);
+
+        double radiusSquared = radius * radius;
+
+        // Verify overlap at current position.
+        if (!Overlaps(circleCenter.X, circleCenter.Y,
+                minX, minY, maxX, maxY,
+                radiusSquared))
         {
-            double rx = px - cx;
-            double ry = py - cy;
-
-            double b = rx * dx + ry * dy;
-            double c = rx * rx + ry * ry - r * r;
-
-            double discriminant = b * b - a * c;
-
-            if (!double.IsFinite(discriminant) ||
-                discriminant < 0)
-                return;
-
-            double t = (-b - Math.Sqrt(discriminant)) / a;
-
-            if (!double.IsFinite(t) ||
-                t < 0 || t > 1 || t >= bestTime)
-                return;
-
-            // Circle center relative to corner at impact.
-            double nx = rx + dx * t;
-            double ny = ry + dy * t;
-
-            // Verify correct corner quadrant.
-            if (nx * signX < 0 || ny * signY < 0)
-                return;
-
-            // Normalize in double precision.
-            double length = Math.Sqrt(nx * nx + ny * ny);
-
-            if (length > 0 && double.IsFinite(length))
-            {
-                nx /= length;
-                ny /= length;
-            }
-            else
-            {
-                // Numerical fallback: opposite movement.
-                double movementLength = Math.Sqrt(a);
-                nx = -dx / movementLength;
-                ny = -dy / movementLength;
-            }
-
-            Vector2 candidate = new((float)nx, (float)ny);
-
-            if (!IsFinite(candidate) ||
-                candidate.LengthSquared() == 0)
-                return;
-
-            bestTime = t;
-            bestSide = side;
-            bestNormal = candidate;
+            return CollisionSide.None;
         }
 
-        CheckCorner(minX, minY, -1, -1, CollisionSide.TopLeft);
-        CheckCorner(maxX, minY, 1, -1, CollisionSide.TopRight);
-        CheckCorner(minX, maxY, -1, 1, CollisionSide.BottomLeft);
-        CheckCorner(maxX, maxY, 1, 1, CollisionSide.BottomRight);
+        double impactX;
+        double impactY;
 
-        // Only valid collision results get a normal.
-        if (bestSide == CollisionSide.None)
-            return CollisionSide.None;
+        if (Overlaps(startX, startY,
+                minX, minY, maxX, maxY,
+                radiusSquared))
+        {
+            // Already overlapping at the beginning.
+            collisionTime = 0f;
+            impactX = startX;
+            impactY = startY;
+        }
+        else
+        {
+            // Find the first contact along the movement.
+            double low = 0.0;
+            double high = 1.0;
 
-        normal = bestNormal;
-        collisionTime = (float)bestTime;
+            for (int i = 0; i < 32; i++)
+            {
+                double mid = (low + high) * 0.5;
 
-        return bestSide;
+                double x = startX + moveX * mid;
+                double y = startY + moveY * mid;
+
+                if (Overlaps(x, y,
+                        minX, minY, maxX, maxY,
+                        radiusSquared))
+                {
+                    high = mid;
+                }
+                else
+                {
+                    low = mid;
+                }
+            }
+
+            collisionTime = (float)high;
+
+            impactX = startX + moveX * high;
+            impactY = startY + moveY * high;
+        }
+
+        // Find nearest point on rectangle.
+        double closestX = Math.Max(minX, Math.Min(maxX, impactX));
+        double closestY = Math.Max(minY, Math.Min(maxY, impactY));
+
+        double nx = impactX - closestX;
+        double ny = impactY - closestY;
+
+        double lengthSquared = nx * nx + ny * ny;
+
+        if (lengthSquared > 0)
+        {
+            double length = Math.Sqrt(lengthSquared);
+
+            normal = new Vector2(
+                (float)(nx / length),
+                (float)(ny / length));
+
+            bool left = impactX < minX;
+            bool right = impactX > maxX;
+            bool top = impactY < minY;
+            bool bottom = impactY > maxY;
+
+            if (left && top) return CollisionSide.TopLeft;
+            if (right && top) return CollisionSide.TopRight;
+            if (left && bottom) return CollisionSide.BottomLeft;
+            if (right && bottom) return CollisionSide.BottomRight;
+
+            if (left) return CollisionSide.Left;
+            if (right) return CollisionSide.Right;
+            if (top) return CollisionSide.Top;
+
+            return CollisionSide.Bottom;
+        }
+
+        // Center inside rectangle or exactly on boundary.
+        // Choose nearest edge to obtain a valid unit normal.
+        double leftDist = impactX - minX;
+        double rightDist = maxX - impactX;
+        double topDist = impactY - minY;
+        double bottomDist = maxY - impactY;
+
+        double minDist = Math.Min(
+            Math.Min(leftDist, rightDist),
+            Math.Min(topDist, bottomDist));
+
+        if (Math.Abs(minDist - leftDist) < 0.0001)
+        {
+            normal = new Vector2(-1f, 0f);
+            return CollisionSide.Left;
+        }
+
+        if (Math.Abs(minDist - rightDist) < 0.0001)
+        {
+            normal = new Vector2(1f, 0f);
+            return CollisionSide.Right;
+        }
+
+        if (Math.Abs(minDist - topDist) < 0.0001)
+        {
+            normal = new Vector2(0f, -1f);
+            return CollisionSide.Top;
+        }
+
+        normal = new Vector2(0f, 1f);
+        return CollisionSide.Bottom;
+    }
+
+    private static bool Overlaps(
+        double x, double y,
+        double minX, double minY,
+        double maxX, double maxY,
+        double radiusSquared)
+    {
+        double closestX = Math.Max(minX, Math.Min(maxX, x));
+        double closestY = Math.Max(minY, Math.Min(maxY, y));
+
+        double dx = x - closestX;
+        double dy = y - closestY;
+
+        return dx * dx + dy * dy <= radiusSquared;
+    }
+
+    private static bool IsFinite(Vector2 v)
+    {
+        return !float.IsNaN(v.X) &&
+               !float.IsNaN(v.Y) &&
+               !float.IsInfinity(v.X) &&
+               !float.IsInfinity(v.Y);
     }
 }

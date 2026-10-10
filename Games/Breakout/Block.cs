@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using FSCSharp;
+﻿using FSCSharp;
 using Raylib_cs;
 using System.Numerics;
 using Breakout.Helpers;

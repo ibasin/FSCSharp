@@ -21,8 +21,8 @@ public class Ball : TangibleGameObject
         var randomSign = Random.Shared.Next(2) == 0 ? 1 : -1;
         Velocity= new Vector2(randomSign * Random.Shared.Next(120), -300);
 
-        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left)) Velocity = Velocity with { X = Velocity.X - BreakoutGame.Current.Paddle.Velocity / 12 };
-        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right)) Velocity = Velocity with { X = Velocity.X + BreakoutGame.Current.Paddle.Velocity / 12 };
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left)) Velocity = Velocity with { X = Velocity.X - BreakoutGame.Current.Paddle.Velocity.X / 12 };
+        if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right)) Velocity = Velocity with { X = Velocity.X + BreakoutGame.Current.Paddle.Velocity.X / 12 };
 
         Location = paddle.Location with { Y = paddle.Location.Y - Body.Size.Y / 2 - paddle.Size.Y / 2 };
 
