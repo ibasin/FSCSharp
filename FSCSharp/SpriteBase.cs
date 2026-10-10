@@ -242,7 +242,6 @@ public abstract class SpriteBase : IDisposable
         return Raylib.CheckCollisionCircleRec(circleCenter, circleRadius, rec);
     }
     
-    
     //public static bool IfCollidingAreCircleAndRectangleCollidingHorizontally(Vector2 circleCenter, float circleRadius, Vector2 recCenter, Vector2 recSize)
     //{
     //    var halfRecSize = recSize / 2;

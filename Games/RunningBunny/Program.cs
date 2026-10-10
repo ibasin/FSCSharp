@@ -1,10 +1,9 @@
-﻿namespace RunningBunny
+﻿namespace RunningBunny;
+
+internal class Program
 {
-    internal class Program
+    static void Main()
     {
-        static void Main()
-        {
-            using (new RunningBunnyGame().Run()) { }
-        }
+        using (new RunningBunnyGame().Run()) { }
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace Breakout
+﻿namespace Breakout;
+
+internal class Program
 {
-    internal class Program
+    static void Main()
     {
-        static void Main()
-        {
-            using (new BreakoutGame().Run()) { }
-        }
+        using (new BreakoutGame().Run()) { }
     }
 }
