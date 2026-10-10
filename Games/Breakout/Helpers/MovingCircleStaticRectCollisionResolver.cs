@@ -4,34 +4,21 @@ namespace Breakout.Helpers;
 
 public enum CollisionSide
 {
-    None, 
-    Top,
-    Bottom,
-    Left,
-    Right,
-    TopLeft,
-    TopRight,
-    BottomLeft,
-    BottomRight
+    None, Top, Bottom, Left, Right, TopLeft, TopRight, BottomLeft, BottomRight
 }
 
 public static class MovingCircleStaticRectCollisionResolver
 {
-    public static CollisionSide GetCollisionDetails(
-        Vector2 circleCenter,
-        float circleRadius,
-        Vector2 rectCenter,
-        Vector2 rectSize,
-        Vector2 circleVelocity,
-        float deltaTime,
-        out Vector2 normal,
-        out float collisionTime)
+    public static CollisionSide GetCollisionDetails(Vector2 circleCenter, float circleRadius,
+                                                    Vector2 rectCenter, Vector2 rectSize,
+                                                    Vector2 circleVelocity, float deltaTime,
+                                                    out Vector2 normal, out float collisionTime)
     {
         normal = Vector2.Zero;
         collisionTime = 1f;
 
         // Validate inputs.
-        if (!IsFinite(circleCenter) ||
+        if (!IsFinite(circleCenter) || 
             !IsFinite(rectCenter) ||
             !IsFinite(rectSize) ||
             !IsFinite(circleVelocity) ||
@@ -59,25 +46,17 @@ public static class MovingCircleStaticRectCollisionResolver
         double startY = circleCenter.Y - moveY;
 
         // Small tolerance for floating-point rounding.
-        double radius = circleRadius +
-                        Math.Max(0.00001, circleRadius * 0.000001);
+        double radius = circleRadius + Math.Max(0.00001, circleRadius * 0.000001);
 
         double radiusSquared = radius * radius;
 
         // Verify overlap at current position.
-        if (!Overlaps(circleCenter.X, circleCenter.Y,
-                minX, minY, maxX, maxY,
-                radiusSquared))
-        {
-            return CollisionSide.None;
-        }
+        if (!Overlaps(circleCenter.X, circleCenter.Y, minX, minY, maxX, maxY, radiusSquared)) return CollisionSide.None;
 
         double impactX;
         double impactY;
 
-        if (Overlaps(startX, startY,
-                minX, minY, maxX, maxY,
-                radiusSquared))
+        if (Overlaps(startX, startY, minX, minY, maxX, maxY, radiusSquared))
         {
             // Already overlapping at the beginning.
             collisionTime = 0f;
@@ -97,16 +76,8 @@ public static class MovingCircleStaticRectCollisionResolver
                 double x = startX + moveX * mid;
                 double y = startY + moveY * mid;
 
-                if (Overlaps(x, y,
-                        minX, minY, maxX, maxY,
-                        radiusSquared))
-                {
-                    high = mid;
-                }
-                else
-                {
-                    low = mid;
-                }
+                if (Overlaps(x, y, minX, minY, maxX, maxY, radiusSquared)) high = mid;
+                else low = mid;
             }
 
             collisionTime = (float)high;
@@ -128,9 +99,7 @@ public static class MovingCircleStaticRectCollisionResolver
         {
             double length = Math.Sqrt(lengthSquared);
 
-            normal = new Vector2(
-                (float)(nx / length),
-                (float)(ny / length));
+            normal = new Vector2((float)(nx / length), (float)(ny / length));
 
             bool left = impactX < minX;
             bool right = impactX > maxX;
@@ -156,9 +125,7 @@ public static class MovingCircleStaticRectCollisionResolver
         double topDist = impactY - minY;
         double bottomDist = maxY - impactY;
 
-        double minDist = Math.Min(
-            Math.Min(leftDist, rightDist),
-            Math.Min(topDist, bottomDist));
+        double minDist = Math.Min(Math.Min(leftDist, rightDist), Math.Min(topDist, bottomDist));
 
         if (Math.Abs(minDist - leftDist) < 0.0001)
         {
@@ -182,11 +149,7 @@ public static class MovingCircleStaticRectCollisionResolver
         return CollisionSide.Bottom;
     }
 
-    private static bool Overlaps(
-        double x, double y,
-        double minX, double minY,
-        double maxX, double maxY,
-        double radiusSquared)
+    private static bool Overlaps(double x, double y, double minX, double minY, double maxX, double maxY, double radiusSquared)
     {
         double closestX = Math.Max(minX, Math.Min(maxX, x));
         double closestY = Math.Max(minY, Math.Min(maxY, y));
@@ -199,9 +162,6 @@ public static class MovingCircleStaticRectCollisionResolver
 
     private static bool IsFinite(Vector2 v)
     {
-        return !float.IsNaN(v.X) &&
-               !float.IsNaN(v.Y) &&
-               !float.IsInfinity(v.X) &&
-               !float.IsInfinity(v.Y);
+        return !float.IsNaN(v.X) && !float.IsNaN(v.Y) && !float.IsInfinity(v.X) && !float.IsInfinity(v.Y);
     }
 }
