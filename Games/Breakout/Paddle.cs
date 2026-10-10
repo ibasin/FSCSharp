@@ -1,4 +1,5 @@
-﻿using FSCSharp;
+﻿using Breakout.Helpers;
+using FSCSharp;
 using Raylib_cs;
 using System.Numerics;
 
@@ -25,13 +26,14 @@ public class Paddle : TangibleGameObject
         var ball = BreakoutGame.Current.Ball;
         if (ball.Body.IsCollidingByPixelAtLocation(ball.Location, Location, Size))
         {
-            ball.Velocity = ball.Velocity with { Y = -ball.Velocity.Y };
+            MovingCircleStaticRectCollisionResolver.GetCollisionDetails(ball.Location, ball.Body.Size.X / 2, Location, Size, ball.Velocity, delta, out var normal, out _);
+            ball.Velocity = Vector2.Reflect(ball.Velocity, Vector2.Normalize(normal));
 
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Left)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X - Velocity.X / 12 };
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Right)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X + Velocity.X / 12 };
 
             var locationDelta = ball.Location.X - Location.X;
-            ball.Velocity = ball.Velocity with { X = ball.Velocity.X + locationDelta / 2.5f };
+            ball.Velocity = ball.Velocity with { X = ball.Velocity.X + locationDelta };
 
             BreakoutGame.Current.PlaySound("Resources/ball-hit.mp3");
         }

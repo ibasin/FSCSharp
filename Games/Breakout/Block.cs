@@ -24,11 +24,8 @@ public class Block : TangibleGameObject
         if (Cooldown <= 0 && Sprite.AreCircleAndRectangleColliding(ball.Location, ball.Body.Size.X/2, Location, Size))
         {
             //reflect based on normal vector of collision
-            Console.Write(ball.Velocity);
-            var side = MovingCircleStaticRectCollisionResolver.GetCollisionDetails(ball.Location, ball.Body.Size.X/2, Location, Size, ball.Velocity, delta, out var normal, out _);
-            if (side != CollisionSide.None) ball.Velocity = Vector2.Reflect(ball.Velocity, Vector2.Normalize(normal));
-            Console.Write($" =>({Vector2.Normalize(normal)})=> ");
-            Console.WriteLine(ball.Velocity);
+            MovingCircleStaticRectCollisionResolver.GetCollisionDetails(ball.Location, ball.Body.Size.X/2, Location, Size, ball.Velocity, delta, out var normal, out _);
+            ball.Velocity = Vector2.Reflect(ball.Velocity, Vector2.Normalize(normal));
 
             // ReSharper disable UsageOfDefaultStructEquality
             if (Color.Equals(Color.Red))
