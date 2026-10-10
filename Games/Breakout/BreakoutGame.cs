@@ -1,6 +1,7 @@
 ﻿using FSCSharp;
 using Raylib_cs;
 using System.Numerics;
+using Snake;
 
 namespace Breakout;
 
@@ -59,12 +60,16 @@ public class BreakoutGame : Game<BreakoutGame>
                 Blocks.Add(block);
             }
         }
+
+        ScoreKeeper = new ScoreKeeper();
+        GameObjects.Add(ScoreKeeper);
     }
     #endregion
 
-    #region Proeprties
+    #region Properties
     public Paddle Paddle { get; }
     public Ball Ball { get; }
     public List<Block> Blocks { get; } = new();
+    public ScoreKeeper ScoreKeeper { get; }
     #endregion
 }

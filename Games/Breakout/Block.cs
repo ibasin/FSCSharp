@@ -40,11 +40,13 @@ public class Block : TangibleGameObject
             {
                 ToDelete = true;
                 BreakoutGame.Current.Blocks.Remove(this);
-                if (BreakoutGame.Current.Blocks.Count == 0) throw new GameOverException("You win!");
+                if (BreakoutGame.Current.Blocks.Count == 0) throw new GameOverException($"You win! Score {BreakoutGame.Current.ScoreKeeper.Score++}");
             }
             // ReSharper restore UsageOfDefaultStructEquality
             BreakoutGame.Current.PlaySound("Resources/ball-hit.mp3");
             Cooldown = 0.08f;
+
+            BreakoutGame.Current.ScoreKeeper.Score++;
         }
     }
     public override void Draw(float delta)

@@ -69,7 +69,7 @@ public class Ball : TangibleGameObject
             if (Location.Y >= BreakoutGame.Current.WindowHeight - Body.Size.Y / 2)
             {
                 BreakoutGame.Current.PlaySound("Resources/lost.mp3");
-                throw new GameOverException("Game is lost!");
+                throw new GameOverException($"Game is lost! Score: {BreakoutGame.Current.ScoreKeeper.Score}");
             }
         }
     }
