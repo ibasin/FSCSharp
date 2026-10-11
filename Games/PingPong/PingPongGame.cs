@@ -32,13 +32,18 @@ public class PingPongGame : Game<PingPongGame>
 
         RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
         GameObjects.Add(RightPaddle);
+
+        Ball = new Ball(Vector2.Zero).InitForServing(Random.Shared.Next(2) == 0 ? LeftPaddle : RightPaddle);
+        GameObjects.Add(Ball);
     }
     #endregion
 
     #region Properties
     public Paddle LeftPaddle { get; }
     public Paddle RightPaddle { get; }
-    
+
+    public Ball Ball { get; }
+
     public ScoreKeeper ScoreKeeper { get; }
     #endregion
 }

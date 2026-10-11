@@ -12,8 +12,8 @@ public class LeftPaddle : Paddle
     #region Overrides
     public override void Update(float delta)
     {
-        if (Raylib.IsKeyDown(KeyboardKey.A)) Location = Location with { Y = Location.Y - PaddleVelocity * delta };
-        if (Raylib.IsKeyDown(KeyboardKey.Z)) Location = Location with { Y = Location.Y + PaddleVelocity * delta };
+        if (Raylib.IsKeyDown(KeyboardKey.A)) Location = Location with { Y = Location.Y - Velocity * delta };
+        if (Raylib.IsKeyDown(KeyboardKey.Z)) Location = Location with { Y = Location.Y + Velocity * delta };
 
         base.Update(delta);
     }

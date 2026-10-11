@@ -30,6 +30,6 @@ public abstract class Paddle : TangibleGameObject
     public Color Color { get; }
 
     public static Vector2 Size { get; } = new(15, 120);
-    public static float PaddleVelocity => 850;
+    public static float Velocity => 850;
     #endregion
 }
