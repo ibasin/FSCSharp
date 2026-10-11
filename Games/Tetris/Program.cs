@@ -4,6 +4,7 @@ internal class Program
 {
     static void Main()
     {
-        using (new TetrisGame().Run()) { }
+        using var game = new TetrisGame();
+        game.Run();
     }
 }

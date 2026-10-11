@@ -1,7 +1,7 @@
 ﻿using FSCSharp;
 using Raylib_cs;
 
-namespace Snake;
+namespace Breakout;
 
 public class ScoreKeeper : TangibleGameObject
 {

@@ -4,6 +4,8 @@ internal class Program
 {
     static void Main()
     {
-        using (new BreakoutGame().Run()) { }
+        using var game = new BreakoutGame();
+        game.Run();
+
     }
 }

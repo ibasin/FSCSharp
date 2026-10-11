@@ -6,6 +6,8 @@ public class Program
 
     static void Main()
     {
-        using (new WOTGame().Run()) { }
+        using var game = new WOTGame();
+        game.Run();
+
     }
 }

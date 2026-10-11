@@ -1,7 +1,6 @@
 ﻿using FSCSharp;
 using Raylib_cs;
 using System.Numerics;
-using Snake;
 
 namespace Breakout;
 

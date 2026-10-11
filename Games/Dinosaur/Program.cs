@@ -4,7 +4,8 @@ public class Program
 {
     static void Main()
     {
-        using (new DinosaurGame().Run()) { }
+        using var game = new DinosaurGame();
+        game.Run();
     }
 }
 

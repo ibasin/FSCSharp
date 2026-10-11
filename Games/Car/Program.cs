@@ -4,6 +4,7 @@ public class Program
 {
     static void Main()
     {
-        using (new CarGame().Run()) { }
+        using var game = new CarGame();
+        game.Run();
     }
 }

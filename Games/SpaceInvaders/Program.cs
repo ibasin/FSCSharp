@@ -4,6 +4,7 @@ public class Program
 {
     static void Main()
     {
-        using(new SpaceInvadersGame().Run()) {}
+        using var game = new SpaceInvadersGame();
+        game.Run();
     }
 }

@@ -4,6 +4,7 @@ public class Program
 {
     static void Main()
     {
-        using (new CubeGame().Run()) { }
+        using var game = new CubeGame();
+        game.Run();
     }
 }

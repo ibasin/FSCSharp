@@ -10,6 +10,7 @@
     <Project Path="Games/Tetris/Tetris.csproj" Id="c21889ff-be24-42eb-9ac9-b0534d6319a2" />
     <Project Path="Games/Tetris3D/Tetris3D.csproj" Id="4db7c846-90fe-4066-b93b-9a888266ec76" />
     <Project Path="Games/WizardOfTerror/WizardOfTerror.csproj" Id="337da4a6-eaa7-422f-ad7e-ebfcd8f86c2d" />
+    <Project Path="PingPong/PingPong.csproj" Id="9888b0a4-924e-457c-b887-c738c3318ae9" />
   </Folder>
   <Project Path="FSCSharp/FSCSharp.csproj" />
 </Solution>
