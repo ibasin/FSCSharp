@@ -4,13 +4,13 @@
     <Project Path="Games/Car/Car.csproj" Id="e6f7132f-e9dd-4fb4-b804-5130e43821db" />
     <Project Path="Games/Cube/Cube.csproj" />
     <Project Path="Games/Dinosaur/Dinosaur.csproj" Id="db4b371f-9cca-4b22-b5c6-bdba369353ef" />
+    <Project Path="Games/PingPong/PingPong.csproj" />
     <Project Path="Games/RunningBunny/RunningBunny.csproj" Id="ed5284e0-8314-4f20-804f-22076fe2868a" />
     <Project Path="Games/Snake/Snake.csproj" />
     <Project Path="Games/SpaceInvaders/SpaceInvaders.csproj" />
     <Project Path="Games/Tetris/Tetris.csproj" Id="c21889ff-be24-42eb-9ac9-b0534d6319a2" />
     <Project Path="Games/Tetris3D/Tetris3D.csproj" Id="4db7c846-90fe-4066-b93b-9a888266ec76" />
     <Project Path="Games/WizardOfTerror/WizardOfTerror.csproj" Id="337da4a6-eaa7-422f-ad7e-ebfcd8f86c2d" />
-    <Project Path="PingPong/PingPong.csproj" Id="9888b0a4-924e-457c-b887-c738c3318ae9" />
   </Folder>
   <Project Path="FSCSharp/FSCSharp.csproj" />
 </Solution>
