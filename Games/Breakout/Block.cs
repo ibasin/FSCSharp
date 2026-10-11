@@ -21,7 +21,7 @@ public class Block : TangibleGameObject
         if (Cooldown > 0) Cooldown -= delta;
 
         var ball = BreakoutGame.Current.Ball;
-        if (Cooldown <= 0 && Sprite.AreCircleAndRectangleColliding(ball.Location, ball.Body.Size.X/2, Location, Size))
+        if (Cooldown <= 0 && GLib.AreCircleAndRectangleColliding(ball.Location, ball.Body.Size.X/2, Location, Size))
         {
             //reflect based on normal vector of collision
             MovingCircleStaticRectCollisionResolver.GetCollisionDetails(ball.Location, ball.Body.Size.X/2, Location, Size, ball.Velocity, delta, out var normal, out _);

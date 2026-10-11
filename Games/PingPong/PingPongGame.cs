@@ -11,7 +11,7 @@ public class PingPongGame : Game<PingPongGame>
         Task.Run(() =>
         {
             var delay = 320f;
-            for (var i = 0; i < 8; i++)
+            for (var i = 0; i < 9; i++)
             {
                 Current.PlaySound("Resources/ball-hit.mp3");
                 Thread.Sleep((int)MathF.Round(delay));
@@ -20,14 +20,17 @@ public class PingPongGame : Game<PingPongGame>
         });
         
         Current.ShowSplashScreen("Resources/splash.png", 2500);
+
+        GameObjects.Add(new Table());
+        
+        ScoreKeeper = new ScoreKeeper();
+        GameObjects.Add(ScoreKeeper);
     }
     #endregion
 
     #region Properties
-    //public Paddle LeftPaddle { get; protected set; }
-    //public Paddle RightPaddle { get; protected set; }
-
-    public int LeftScore { get; set; }
-    public int RightScore { get; set; }
+    //public Paddle LeftPaddle { get; }
+    //public Paddle RightPaddle { get; }
+    public ScoreKeeper ScoreKeeper { get; }
     #endregion
 }
