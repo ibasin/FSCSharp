@@ -8,6 +8,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\icon.png" />
+    <None Remove="Resources\splash.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\ball-hit.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ball.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\lost.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\splash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FSCSharp\FSCSharp.csproj" />
   </ItemGroup>
 
