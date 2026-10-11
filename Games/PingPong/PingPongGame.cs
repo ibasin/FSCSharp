@@ -1,4 +1,5 @@
-﻿using FSCSharp;
+﻿using System.Numerics;
+using FSCSharp;
 using Raylib_cs;
 
 namespace PingPong;
@@ -25,12 +26,19 @@ public class PingPongGame : Game<PingPongGame>
         
         ScoreKeeper = new ScoreKeeper();
         GameObjects.Add(ScoreKeeper);
+
+        LeftPaddle = new LeftPaddle(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+        GameObjects.Add(LeftPaddle);
+
+        RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
+        GameObjects.Add(RightPaddle);
     }
     #endregion
 
     #region Properties
-    //public Paddle LeftPaddle { get; }
-    //public Paddle RightPaddle { get; }
+    public Paddle LeftPaddle { get; }
+    public Paddle RightPaddle { get; }
+    
     public ScoreKeeper ScoreKeeper { get; }
     #endregion
 }
