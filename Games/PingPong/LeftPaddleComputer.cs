@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using FSCSharp;
+﻿using FSCSharp;
 using PingPong.Helpers;
 using Raylib_cs;
 
@@ -8,76 +7,76 @@ namespace PingPong;
 using System;
 using System.Numerics;
 
-public class PongAI
-{
-    public void Update(float deltaTime, Vector2 ballPosition, Vector2 ballVelocity, float paddleX, ref float paddleY, float paddleHeight, float ballRadius, float screenHeight)
-    {
-        _decisionTimer -= deltaTime;
+//public class PongAI
+//{
+//    public void Update(float deltaTime, Vector2 ballPosition, Vector2 ballVelocity, float paddleX, ref float paddleY, float paddleHeight, float ballRadius, float screenHeight)
+//    {
+//        _decisionTimer -= deltaTime;
 
-        // Reevaluate periodically, not every frame.
-        if (_decisionTimer <= 0f)
-        {
-            _decisionTimer = ReactionTime;
+//        // Reevaluate periodically, not every frame.
+//        if (_decisionTimer <= 0f)
+//        {
+//            _decisionTimer = ReactionTime;
 
-            if (ballVelocity.X > 0f)
-            {
-                // Predict when ball reaches the paddle.
-                float timeToHit = (paddleX - ballRadius - ballPosition.X) / ballVelocity.X;
+//            if (ballVelocity.X > 0f)
+//            {
+//                // Predict when ball reaches the paddle.
+//                float timeToHit = (paddleX - ballRadius - ballPosition.X) / ballVelocity.X;
 
-                if (timeToHit >= 0f)
-                {
-                    float predictedY = ballPosition.Y + ballVelocity.Y * timeToHit;
+//                if (timeToHit >= 0f)
+//                {
+//                    float predictedY = ballPosition.Y + ballVelocity.Y * timeToHit;
 
-                    // Account for bouncing off walls.
-                    predictedY = ReflectY(predictedY, ballRadius, screenHeight - ballRadius);
+//                    // Account for bouncing off walls.
+//                    predictedY = ReflectY(predictedY, ballRadius, screenHeight - ballRadius);
 
-                    // Imperfect prediction.
-                    float error = (Random.Shared.NextSingle() * 2f - 1f) * AimError;
+//                    // Imperfect prediction.
+//                    float error = (Random.Shared.NextSingle() * 2f - 1f) * AimError;
 
-                    _targetY = predictedY + error;
-                }
-            }
-            else
-            {
-                // Ball moving away: return to center.
-                _targetY = screenHeight / 2f;
-            }
-        }
+//                    _targetY = predictedY + error;
+//                }
+//            }
+//            else
+//            {
+//                // Ball moving away: return to center.
+//                _targetY = screenHeight / 2f;
+//            }
+//        }
 
-        // Move toward target with limited speed.
-        float maxMovement = MaxPaddleSpeed * deltaTime;
+//        // Move toward target with limited speed.
+//        float maxMovement = MaxPaddleSpeed * deltaTime;
 
-        float movement = Math.Clamp(_targetY - paddleY, -maxMovement, maxMovement);
+//        float movement = Math.Clamp(_targetY - paddleY, -maxMovement, maxMovement);
 
-        paddleY += movement;
+//        paddleY += movement;
 
-        // Keep paddle inside screen.
-        paddleY = Math.Clamp(paddleY, paddleHeight / 2f, screenHeight - paddleHeight / 2f);
-    }
+//        // Keep paddle inside screen.
+//        paddleY = Math.Clamp(paddleY, paddleHeight / 2f, screenHeight - paddleHeight / 2f);
+//    }
 
-    private static float ReflectY(float y, float minY, float maxY)
-    {
-        float height = maxY - minY;
-        if (height <= 0f) return minY;
+//    private static float ReflectY(float y, float minY, float maxY)
+//    {
+//        float height = maxY - minY;
+//        if (height <= 0f) return minY;
 
-        float period = 2f * height;
-        float offset = (y - minY) % period;
+//        float period = 2f * height;
+//        float offset = (y - minY) % period;
 
-        if (offset < 0f) offset += period;
+//        if (offset < 0f) offset += period;
 
-        return minY + (offset <= height ? offset : period - offset);
-    }
+//        return minY + (offset <= height ? offset : period - offset);
+//    }
 
-    #region Properties
-    private float _decisionTimer;
-    private float _targetY;
+//    #region Properties
+//    private float _decisionTimer;
+//    private float _targetY;
 
-    // Difficulty settings
-    public const float MaxPaddleSpeed = 270f; // pixels/second
-    public const float ReactionTime = 0.20f;   // seconds
-    public const float AimError = 55f;        // pixels
-    #endregion
-}
+//    // Difficulty settings
+//    public const float MaxPaddleSpeed = 270f; // pixels/second
+//    public const float ReactionTime = 0.20f;   // seconds
+//    public const float AimError = 55f;        // pixels
+//    #endregion
+//}
 
 
 public class LeftPaddleComputer : LeftPaddle
@@ -120,20 +119,56 @@ public class LeftPaddleComputer : LeftPaddle
         DecisionCooldown -= delta;
         if (DecisionCooldown <= 0)
         {
-            DecisionCooldown = (ball.Location.X - 50) / 10000;
+            DecisionCooldown = 0.15f + (ball.Location.X - 50f) / 3750f;
             if (ball.Velocity.X > 0)
             {
                 YTarget = PingPongGame.Current.WindowHeight / 2f;
                 return;
             }
 
+            // Predict when ball reaches the paddle.
+            float timeToHit = (50 - ball.Body.Size.X/2f - ball.Location.X) / ball.Velocity.X;
+
+            if (timeToHit >= 0f)
+            {
+                float predictedY = ball.Location.Y + ball.Velocity.Y * timeToHit;
+
+                // Account for bouncing off walls.
+                predictedY = ReflectY(predictedY);
+
+                // Imperfect prediction.
+                float error = (Random.Shared.NextSingle() * 2f - 1f) * AimError;
+
+                YTarget = predictedY + error;
+            }
 
         }
     }
+    private static float ReflectY(float y)
+    {
+        var ballRadius = PingPongGame.Current.Ball.Body.Size.Y;
+
+        var minY = ballRadius;
+        var maxY = PingPongGame.Current.WindowHeight - ballRadius;
+
+        float height = maxY - minY;
+        if (height <= 0f) return minY;
+
+        float period = 2f * height;
+        float offset = (y - minY) % period;
+
+        if (offset < 0f) offset += period;
+
+        return minY + (offset <= height ? offset : period - offset);
+    }
+
     #endregion
 
     #region Properties
     public float YTarget { get; set; }
     public float DecisionCooldown { get; set; }
+
+    public const float ReactionTime = 0.20f;   // seconds
+    public const float AimError = 100f;        // pixels
     #endregion
 }
