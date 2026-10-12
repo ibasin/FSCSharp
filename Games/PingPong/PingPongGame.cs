@@ -22,13 +22,33 @@ public class PingPongGame : Game<PingPongGame>
         
         Current.ShowSplashScreen("Resources/splash.png", 2500);
 
+        Console.WriteLine("Welcome to Ping Pong!");
+
         GameObjects.Add(new Table());
-        
+
         ScoreKeeper = new ScoreKeeper();
         GameObjects.Add(ScoreKeeper);
 
-        LeftPaddle = new LeftPaddle(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+        Console.Clear();
+        CLib.Focus();
+        while (true)
+        {
+            Console.Write("Single player or multiplayer? (s/m): ");
+            var input = Console.ReadLine()?.Trim().ToLower();
+            if (input == "s")
+            {
+                LeftPaddle = new LeftPaddleComputer(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+                break;
+            }
+            if (input == "m")
+            {
+                LeftPaddle = new LeftPaddle(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+                break;
+            }
+            Console.Write("Invalid Input. ");
+        }
         GameObjects.Add(LeftPaddle);
+        CLib.Unfocus();
 
         RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
         GameObjects.Add(RightPaddle);
