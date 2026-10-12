@@ -33,7 +33,7 @@ public class Ball : TangibleGameObject
             Velocity = new Vector2(300, randomSign * (Random.Shared.Next(120) + 100));
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.A)) Velocity = Velocity with { X = Velocity.Y - Paddle.Velocity / 12 };
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Z)) Velocity = Velocity with { X = Velocity.X + Paddle.Velocity / 12 };
-            Location = paddle.Location with { X = paddle.Location.X + Body.Size.X / 2 - Paddle.Size.X / 2 };
+            Location = paddle.Location with { X = paddle.Location.X + Body.Size.X / 2 + Paddle.Size.X / 2 };
         }
         else
         {
@@ -69,14 +69,18 @@ public class Ball : TangibleGameObject
 
             if (Location.X <= Body.Size.X / 2)
             {
-                Velocity = Velocity with { X = MathF.Abs(Velocity.X) };
-                PingPongGame.Current.PlaySound("Resources/ball-hit.mp3");
+                //Velocity = Velocity with { X = MathF.Abs(Velocity.X) };
+                InitForServing(PingPongGame.Current.LeftPaddle);
+                PingPongGame.Current.ScoreKeeper.RightScore++;
+                PingPongGame.Current.PlaySound("Resources/lost.mp3", 0.1f);
             }
 
             if (Location.X >= PingPongGame.Current.WindowWidth - Body.Size.X / 2)
             {
                 Velocity = Velocity with { X = -MathF.Abs(Velocity.X) };
-                PingPongGame.Current.PlaySound("Resources/ball-hit.mp3");
+                InitForServing(PingPongGame.Current.RightPaddle);
+                PingPongGame.Current.ScoreKeeper.LeftScore++;
+                PingPongGame.Current.PlaySound("Resources/lost.mp3", 0.1f);
             }
 
             if (Location.Y <= Body.Size.Y / 2)

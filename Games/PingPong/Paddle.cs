@@ -29,6 +29,8 @@ public abstract class Paddle : TangibleGameObject
     public Vector2 Location { get; set; }
     public Color Color { get; }
 
+    protected float Cooldown { get; set; }
+
     public static Vector2 Size { get; } = new(15, 120);
     public static float Velocity => 850;
     #endregion

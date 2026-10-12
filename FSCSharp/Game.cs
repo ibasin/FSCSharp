@@ -30,17 +30,21 @@ public abstract class Game : IDisposable
     #endregion
 
     #region Methods
-    public virtual void PlaySound(string soundPath)
+    public virtual void PlaySound(string soundPath, float volume = 1.0f)
     {
         if (!SoundsCache.ContainsKey(soundPath)) SoundsCache[soundPath] = Raylib.LoadSound(soundPath);
+        Raylib.SetSoundVolume(SoundsCache[soundPath], volume);
         Raylib.PlaySound(SoundsCache[soundPath]);
+        //Raylib.SetSoundVolume(SoundsCache[soundPath], 1.0f);
     }
 
-    public virtual void PlayMusicStream(string musicPath, bool looping)
+    public virtual void PlayMusicStream(string musicPath, bool looping, float volume = 1.0f)
     {
         if (!MusicStreamCache.ContainsKey(musicPath)) MusicStreamCache[musicPath] = Raylib.LoadMusicStream(musicPath);
         MusicStreamCache[musicPath] = MusicStreamCache[musicPath] with { Looping = looping };
+        Raylib.SetMusicVolume(MusicStreamCache[musicPath], volume);
         Raylib.PlayMusicStream(MusicStreamCache[musicPath]);
+        //Raylib.SetMusicVolume(MusicStreamCache[musicPath], 1.0f);
     }
 
     public virtual void BeginMode3D()
