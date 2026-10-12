@@ -30,14 +30,14 @@ public class Ball : TangibleGameObject
         var randomSign = Random.Shared.Next(2) == 0 ? 1 : -1;
         if (isLeft)
         {
-            Velocity = new Vector2(300, randomSign * (Random.Shared.Next(120) + 100));
+            Velocity = new Vector2(400, randomSign * (Random.Shared.Next(120) + 100));
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.A)) Velocity = Velocity with { X = Velocity.Y - Paddle.Velocity / 12 };
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Z)) Velocity = Velocity with { X = Velocity.X + Paddle.Velocity / 12 };
             Location = paddle.Location with { X = paddle.Location.X + Body.Size.X / 2 + Paddle.Size.X / 2 };
         }
         else
         {
-            Velocity = new Vector2(-300, randomSign * (Random.Shared.Next(120) + 100));
+            Velocity = new Vector2(-400, randomSign * (Random.Shared.Next(120) + 100));
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Up)) Velocity = Velocity with { X = Velocity.Y - Paddle.Velocity / 12 };
             if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Down)) Velocity = Velocity with { X = Velocity.X + Paddle.Velocity / 12 };
             Location = paddle.Location with { X = paddle.Location.X - Body.Size.X / 2 - Paddle.Size.X / 2 };
