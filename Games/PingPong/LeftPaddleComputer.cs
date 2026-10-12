@@ -19,8 +19,8 @@ public class LeftPaddleComputer : LeftPaddle
         if (Cooldown > 0) Cooldown -= delta;
 
         PredictBallYTargetImperfectly(delta);
-        var isUp = Location.Y > YTarget;
-        var isDown = Location.Y < YTarget;
+        var isUp = Location.Y - YTarget > 10;
+        var isDown = Location.Y - YTarget < -10;
 
         if (isUp) Location = Location with { Y = Location.Y - Velocity * delta };
         if (isDown) Location = Location with { Y = Location.Y + Velocity * delta };
@@ -31,11 +31,14 @@ public class LeftPaddleComputer : LeftPaddle
             MovingCircleStaticRectCollisionResolver.GetCollisionDetails(ball.Location, ball.Body.Size.X / 2, Location, Size, ball.Velocity, delta, out var normal, out _);
             ball.Velocity = Vector2.Reflect(ball.Velocity, Vector2.Normalize(normal));
 
-            if (isUp) ball.Velocity = ball.Velocity with { X = ball.Velocity.X - Velocity / 12 };
-            if (isDown) ball.Velocity = ball.Velocity with { X = ball.Velocity.X + Velocity / 12 };
+            if (isUp) ball.Velocity = ball.Velocity with { X = ball.Velocity.X - Velocity / 10 };
+            if (isDown) ball.Velocity = ball.Velocity with { X = ball.Velocity.X + Velocity / 10 };
 
             var locationDelta = ball.Location.X - Location.X;
-            ball.Velocity = ball.Velocity with { X = ball.Velocity.X + 1.5f * locationDelta };
+            ball.Velocity = ball.Velocity with { X = ball.Velocity.X + 2.5f * locationDelta };
+
+            if (ball.Velocity.X is >= 0 and < 250) ball.Velocity = ball.Velocity with { X = 250 };
+            if (ball.Velocity.X is < 0 and > -250) ball.Velocity = ball.Velocity with { X = -250 };
 
             PingPongGame.Current.PlaySound("Resources/ball-hit.mp3");
             Cooldown = 0.1f;
@@ -50,7 +53,7 @@ public class LeftPaddleComputer : LeftPaddle
         DecisionCooldown -= delta;
         if (DecisionCooldown <= 0)
         {
-            DecisionCooldown = 0.16f + (ball.Location.X - 50f) / 3750f;
+            DecisionCooldown = 0.2f + (ball.Location.X - 50f) / 3750f;
             if (ball.Velocity.X > 0)
             {
                 YTarget = PingPongGame.Current.WindowHeight / 2f;
@@ -68,7 +71,7 @@ public class LeftPaddleComputer : LeftPaddle
                 predictedY = ReflectY(predictedY);
 
                 // Imperfect prediction.
-                float error = (Random.Shared.NextSingle() * 2f - 1f) * AimError;
+                float error = (Random.Shared.NextSingle() * 2f - 1f) * (AimError + Math.Abs(ball.Velocity.Y) / 50f);
 
                 YTarget = predictedY + error;
             }
@@ -99,6 +102,6 @@ public class LeftPaddleComputer : LeftPaddle
     public float YTarget { get; set; }
     public float DecisionCooldown { get; set; }
 
-    public const float AimError = 100f;        // pixels
+    public const float AimError = 60f;        // pixels
     #endregion
 }
