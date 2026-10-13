@@ -16,35 +16,10 @@ public class LeftPaddleComputer : LeftPaddle
     #region Overrides
     public override void Update(float delta)
     {
-        if (Cooldown > 0) Cooldown -= delta;
-
         PredictBallYTargetImperfectly(delta);
         var isUp = Location.Y - YTarget > 10;
         var isDown = Location.Y - YTarget < -10;
-
-        if (isUp) Location = Location with { Y = Location.Y - Velocity * delta };
-        if (isDown) Location = Location with { Y = Location.Y + Velocity * delta };
-
-        var ball = PingPongGame.Current.Ball;
-        if (Cooldown <= 0 && ball.Body.IsCollidingByPixelAtLocation(ball.Location, Location, Size))
-        {
-            MovingCircleStaticRectCollisionResolver.GetCollisionDetails(ball.Location, ball.Body.Size.X / 2, Location, Size, ball.Velocity, delta, out var normal, out _);
-            ball.Velocity = Vector2.Reflect(ball.Velocity, Vector2.Normalize(normal));
-
-            if (isUp) ball.Velocity = ball.Velocity with { X = ball.Velocity.X - Velocity / 5 };
-            if (isDown) ball.Velocity = ball.Velocity with { X = ball.Velocity.X + Velocity / 5 };
-
-            var locationDelta = ball.Location.X - Location.X;
-            ball.Velocity = ball.Velocity with { X = ball.Velocity.X + 2.5f * locationDelta };
-
-            if (ball.Velocity.X is >= 0 and < 250) ball.Velocity = ball.Velocity with { X = 250 };
-            if (ball.Velocity.X is < 0 and > -250) ball.Velocity = ball.Velocity with { X = -250 };
-
-            PingPongGame.Current.PlaySound("Resources/ball-hit.mp3");
-            Cooldown = 0.1f;
-        }
-
-        Location = Location with { Y = Math.Clamp(Location.Y, Size.Y / 2, PingPongGame.Current.WindowHeight - Size.Y / 2) };
+        UpdateInternal(delta, isUp, isDown);
     }
 
     private void PredictBallYTargetImperfectly(float delta)
