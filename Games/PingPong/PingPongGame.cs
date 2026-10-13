@@ -12,7 +12,7 @@ public class PingPongGame : Game<PingPongGame>
         Task.Run(() =>
         {
             var delay = 320f;
-            for (var i = 0; i < 9; i++)
+            for (var i = 0; i < 11; i++)
             {
                 Current.PlaySound("Resources/ball-hit.mp3");
                 Thread.Sleep((int)MathF.Round(delay));

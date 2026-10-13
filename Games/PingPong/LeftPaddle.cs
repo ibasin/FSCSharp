@@ -25,8 +25,8 @@ public class LeftPaddle : Paddle
             MovingCircleStaticRectCollisionResolver.GetCollisionDetails(ball.Location, ball.Body.Size.X / 2, Location, Size, ball.Velocity, delta, out var normal, out _);
             ball.Velocity = Vector2.Reflect(ball.Velocity, Vector2.Normalize(normal));
 
-            if (Game.KeyboardManager.IsKeyDown(KeyboardKey.A)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X - Velocity / 10 };
-            if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Z)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X + Velocity / 10 };
+            if (Game.KeyboardManager.IsKeyDown(KeyboardKey.A)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X - Velocity / 5 };
+            if (Game.KeyboardManager.IsKeyDown(KeyboardKey.Z)) ball.Velocity = ball.Velocity with { X = ball.Velocity.X + Velocity / 5 };
 
             var locationDelta = ball.Location.X - Location.X;
             ball.Velocity = ball.Velocity with { X = ball.Velocity.X + 2.5f * locationDelta };
