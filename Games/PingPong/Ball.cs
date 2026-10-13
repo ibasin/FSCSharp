@@ -55,7 +55,12 @@ public class Ball : TangibleGameObject
             if (ServingState == Serving.Left) InitForServing(PingPongGame.Current.LeftPaddle);
             else InitForServing(PingPongGame.Current.RightPaddle);
 
-            if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Space))
+            if (PingPongGame.Current.LeftPaddle is IComputerPaddle && PingPongGame.Current.RightPaddle is IComputerPaddle && Random.Shared.Next(180) == 0)
+            {
+                ServingState = Serving.None;
+                PingPongGame.Current.PlaySound("Resources/ball-hit.mp3");
+            }   
+            else if (Game.KeyboardManager.IsKeyPressed(KeyboardKey.Space))
             {
                 ServingState = Serving.None;
                 PingPongGame.Current.PlaySound("Resources/ball-hit.mp3");
@@ -70,7 +75,7 @@ public class Ball : TangibleGameObject
             if (Location.X <= Body.Size.X / 2)
             {
                 //Velocity = Velocity with { X = MathF.Abs(Velocity.X) };
-                InitForServing(PingPongGame.Current.LeftPaddle);
+                InitForServing(PingPongGame.Current.RightPaddle);
                 PingPongGame.Current.ScoreKeeper.RightScore++;
                 PingPongGame.Current.PlaySound("Resources/lost.mp3", 0.1f);
             }
@@ -78,7 +83,7 @@ public class Ball : TangibleGameObject
             if (Location.X >= PingPongGame.Current.WindowWidth - Body.Size.X / 2)
             {
                 Velocity = Velocity with { X = -MathF.Abs(Velocity.X) };
-                InitForServing(PingPongGame.Current.RightPaddle);
+                InitForServing(PingPongGame.Current.LeftPaddle);
                 PingPongGame.Current.ScoreKeeper.LeftScore++;
                 PingPongGame.Current.PlaySound("Resources/lost.mp3", 0.1f);
             }

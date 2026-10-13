@@ -45,7 +45,7 @@ public interface IComputerPaddle
                     yTarget = PingPongGame.Current.WindowHeight / 2f;
                     return;
                 }
-                timeToHit = (50 - ball.Body.Size.X / 2f - ball.Location.X) / ball.Velocity.X;
+                timeToHit = (PingPongGame.Current.WindowWidth - ball.Body.Size.X / 2f - 50 - ball.Location.X) / ball.Velocity.X;
             }
 
             if (timeToHit >= 0f)

@@ -22,7 +22,5 @@ public class LeftPaddleComputer : LeftPaddle, IComputerPaddle
     #region Properties
     public float YTarget;
     public float DecisionCooldown;
-
-    public const float AimError = 60f; //in pixels
     #endregion
 }

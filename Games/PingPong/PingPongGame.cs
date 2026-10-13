@@ -33,25 +33,32 @@ public class PingPongGame : Game<PingPongGame>
         CLib.Focus();
         while (true)
         {
-            Console.Write("Single player or multiplayer? (s/m): ");
+            Console.Write("Single player, multiplayer or demo? (s/m/d): ");
             var input = Console.ReadLine()?.Trim().ToLower();
             if (input == "s")
             {
                 LeftPaddle = new LeftPaddleComputer(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+                RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
                 break;
             }
             if (input == "m")
             {
                 LeftPaddle = new LeftPaddle(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+                RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
+                break;
+            }
+            if (input == "d")
+            {
+                LeftPaddle = new LeftPaddleComputer(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+                RightPaddle = new RightPaddleComputer(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
                 break;
             }
             Console.Write("Invalid Input. ");
         }
         GameObjects.Add(LeftPaddle);
-        CLib.Unfocus();
-
-        RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
         GameObjects.Add(RightPaddle);
+
+        CLib.Unfocus();
 
         Ball = new Ball(Vector2.Zero).InitForServing(Random.Shared.Next(2) == 0 ? LeftPaddle : RightPaddle);
         GameObjects.Add(Ball);
