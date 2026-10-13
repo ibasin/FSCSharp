@@ -26,6 +26,8 @@ public abstract class Paddle : TangibleGameObject
     #endregion
 
     #region Properties
+    public Keyboard
+    
     public Vector2 Location { get; set; }
     public Color Color { get; }
 
