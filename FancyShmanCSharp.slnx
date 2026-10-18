@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Frameworks/">
+    <Project Path="Frameworks/Supermodel.Presentation/WebMonk/Supermodel.Presentation.WebMonk/Supermodel.Presentation.WebMonk.csproj" />
+  </Folder>
   <Folder Name="/Games/">
     <Project Path="Games/Breakout/Breakout.csproj" Id="8a12a890-33ce-41f3-8eac-6680456953a9" />
     <Project Path="Games/Car/Car.csproj" Id="e6f7132f-e9dd-4fb4-b804-5130e43821db" />

@@ -28,7 +28,7 @@ public interface IComputerPaddle
         {
             decisionCooldown = 0.2f + (ball.Location.X - 50f) / 3750f;
 
-            float timeToHit = 0f;
+            float timeToHit;
             if (isLeftPaddle)
             {
                 if (ball.Velocity.X > 0)

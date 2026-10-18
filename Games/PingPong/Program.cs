@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace PingPong;
+﻿namespace PingPong;
 
 public class Program
 {
