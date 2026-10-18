@@ -1,6 +1,13 @@
 <Solution>
   <Folder Name="/Frameworks/">
+    <Project Path="Frameworks/BrowserEmulator/BrowserEmulator.csproj" />
+    <Project Path="Frameworks/Supermodel.DataAnnotations/Supermodel.DataAnnotations.csproj" />
+    <Project Path="Frameworks/Supermodel.Encryptor/Supermodel.Encryptor.csproj" />
+    <Project Path="Frameworks/Supermodel.Persistence/Supermodel.Persistence/Supermodel.Persistence.csproj" />
     <Project Path="Frameworks/Supermodel.Presentation/WebMonk/Supermodel.Presentation.WebMonk/Supermodel.Presentation.WebMonk.csproj" />
+    <Project Path="Frameworks/Supermodel.ReflectionMapper/Supermodel.ReflectionMapper.csproj" />
+    <Project Path="Frameworks/WebMonk/WebMonk.RazorSharp/WebMonk.RazorSharp.csproj" />
+    <Project Path="Frameworks/WebMonk/WebMonk/WebMonk.csproj" />
   </Folder>
   <Folder Name="/Games/">
     <Project Path="Games/Breakout/Breakout.csproj" Id="8a12a890-33ce-41f3-8eac-6680456953a9" />

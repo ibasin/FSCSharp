@@ -1,6 +1,9 @@
-﻿using System.Numerics;
-using FSCSharp;
+﻿using FSCSharp;
 using Raylib_cs;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Numerics;
 
 namespace PingPong;
 
@@ -33,7 +36,7 @@ public class PingPongGame : Game<PingPongGame>
         CLib.Focus();
         while (true)
         {
-            Console.Write("Single player, multiplayer or demo? (s/m/d): ");
+            Console.Write("Single player, multiplayer, demo, two computer multiplayer? (s/m/d/m2): ");
             var input = Console.ReadLine()?.Trim().ToLower();
             if (input == "s")
             {
@@ -53,6 +56,17 @@ public class PingPongGame : Game<PingPongGame>
                 RightPaddle = new RightPaddleComputer(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
                 break;
             }
+            if (input == "m2")
+            {
+                CheckNetworkConnection();
+                var webServer = new WebMonk.WebServer(54548, "http://localhost:54548/")
+                {
+                    //LoginUrl = "/Banana/Login",
+                    //DefaultLayout = new MasterMvcLayout(),
+                    //SessionTimeoutMinutes = 120
+                };
+
+            }
             Console.Write("Invalid Input. ");
         }
         GameObjects.Add(LeftPaddle);
@@ -62,6 +76,37 @@ public class PingPongGame : Game<PingPongGame>
 
         Ball = new Ball(Vector2.Zero).InitForServing(Random.Shared.Next(2) == 0 ? LeftPaddle : RightPaddle);
         GameObjects.Add(Ball);
+    }
+    #endregion
+
+    #region Methods
+    public void CheckNetworkConnection()
+    {
+        if (!NetworkInterface.GetIsNetworkAvailable())
+        {
+            CLib.Unfocus();
+
+            // ReSharper disable once VirtualMemberCallInConstructor
+            ShowMessage("Network is not available", Color.White);
+
+            while (!Raylib.WindowShouldClose())
+            {
+                Raylib.PollInputEvents();
+            }
+            Environment.Exit(0);
+        }
+    }
+    public static string GetLocalIpAddress()
+    {
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        throw new Exception("No network adapters with an IPv4 address in the system!");
     }
     #endregion
 
