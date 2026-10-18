@@ -59,13 +59,12 @@ public class PingPongGame : Game<PingPongGame>
             if (input == "m2")
             {
                 CheckNetworkConnection();
-                var webServer = new WebMonk.WebServer(54548, "http://localhost:54548/")
-                {
-                    //LoginUrl = "/Banana/Login",
-                    //DefaultLayout = new MasterMvcLayout(),
-                    //SessionTimeoutMinutes = 120
-                };
+                Console.WriteLine($"Your IP is: {GetLocalIpAddress()}");
+                Console.Write("Please enter other player's IP: ");
+                var otherPlayerIp = Console.ReadLine()!.Trim();
 
+                var webServer = new WebMonk.WebServer(54548, "http://localhost:55555/");
+                break;
             }
             Console.Write("Invalid Input. ");
         }
