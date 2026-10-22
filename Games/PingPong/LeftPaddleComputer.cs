@@ -20,7 +20,9 @@ public class LeftPaddleComputer : LeftPaddle, IComputerPaddle
     #endregion
 
     #region Properties
+    // ReSharper disable InconsistentNaming
     public float YTarget;
     public float DecisionCooldown;
+    // ReSharper restore InconsistentNaming
     #endregion
 }

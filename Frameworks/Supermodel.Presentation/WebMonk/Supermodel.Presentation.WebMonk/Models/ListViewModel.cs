@@ -21,6 +21,7 @@ public class ListViewModel<TViewModelForEntity, TEntity> : List<TViewModelForEnt
         foreach (var entity in entityList.ToList())
         {
             var mvcModel = new TViewModelForEntity();
+            // ReSharper disable once SuspiciousTypeConversion.Global
             if (mvcModel is IAsyncInit iAsyncInit && !iAsyncInit.AsyncInitialized) await iAsyncInit.InitAsync().ConfigureAwait(false);
             mvcModel = await mvcModel.MapFromAsync(entity).ConfigureAwait(false);
             Add(mvcModel);
