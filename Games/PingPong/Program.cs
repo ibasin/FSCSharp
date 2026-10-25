@@ -32,6 +32,7 @@ public class Program
             {
                 Console.WriteLine($"Found peer: {peer}");
             }
+            _ = cts.CancelAsync();
             Console.ReadLine();
         }
 

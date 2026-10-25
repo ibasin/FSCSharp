@@ -37,9 +37,9 @@ public sealed class LanDiscovery : IDisposable
             }
 
             string message = Encoding.UTF8.GetString(result.Buffer);
-            if (message == DiscoveryMsg)
+            if (message.StartsWith(DiscoveryMsg))
             {
-                byte[] reply = Encoding.UTF8.GetBytes(ResponseMsg);
+                byte[] reply = Encoding.UTF8.GetBytes(ResponseMsg + message.Substring(DiscoveryMsg.Length));
                 await Udp.SendAsync(reply, result.RemoteEndPoint, ct);
             }
         }
@@ -51,7 +51,8 @@ public sealed class LanDiscovery : IDisposable
         using var client = new UdpClient(0);
         client.EnableBroadcast = true;
 
-        byte[] request = Encoding.UTF8.GetBytes(DiscoveryMsg);
+        var guid = Guid.NewGuid();
+        byte[] request = Encoding.UTF8.GetBytes(DiscoveryMsg + guid);
 
         await client.SendAsync(request, new IPEndPoint(IPAddress.Broadcast, Port)); 
 
@@ -66,7 +67,7 @@ public sealed class LanDiscovery : IDisposable
             {
                 var result = await client.ReceiveAsync(cts.Token);
                 string message = Encoding.UTF8.GetString(result.Buffer);
-                if (message == ResponseMsg) peers.Add(result.RemoteEndPoint.Address);
+                if (message == ResponseMsg + guid) peers.Add(result.RemoteEndPoint.Address);
                 Console.Write(".");
             }
             catch (OperationCanceledException)
@@ -103,8 +104,8 @@ public sealed class LanDiscovery : IDisposable
 
     #region Constants and Fields
     private const int Port = 50000;
-    private const string DiscoveryMsg = "DISCOVER_PING_PONG_MSG";
-    private const string ResponseMsg = "RESPONSE_PING_PONG_MSG";
+    private const string DiscoveryMsg = "DISCOVER_PING_PONG_MSG_";
+    private const string ResponseMsg = "RESPONSE_PING_PONG_MSG_";
 
     private UdpClient Udp { get; }
     #endregion
