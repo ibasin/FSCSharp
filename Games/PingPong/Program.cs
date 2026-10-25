@@ -23,7 +23,7 @@ public class Program
             Console.Write("Press enter when ready to find LAN games...");
             Console.ReadLine();
 
-            Peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(10));
+            Peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(2));
             for (var i = 0; i < Peers.Count; i++)
             {
                 Console.WriteLine($"[{i + 1}] Found peer: {Peers[i]}");
