@@ -45,37 +45,80 @@ public sealed class LanDiscovery : IDisposable
         }
     }
 
+    //static async Task BroadcastDiscoveryAsync(byte[] request, int port)
+    //{
+    //    foreach (var (local, broadcast) in GetBroadcastAddresses())
+    //    {
+    //        using var client = new UdpClient(new IPEndPoint(local, 0));
+
+    //        client.EnableBroadcast = true;
+
+    //        await client.SendAsync(request, new IPEndPoint(broadcast, port));
+
+    //        Console.WriteLine($"Broadcast: {local} -> {broadcast}");
+    //    }
+    //}
+
+    static IEnumerable<(IPAddress Local, IPAddress Broadcast)> GetBroadcastAddresses()
+    {
+        foreach (var nic in NetworkInterface.GetAllNetworkInterfaces())
+        {
+            if (nic.OperationalStatus != OperationalStatus.Up) continue;
+
+            if (nic.NetworkInterfaceType == NetworkInterfaceType.Loopback) continue;
+
+            foreach (var info in nic.GetIPProperties().UnicastAddresses)
+            {
+                if (info.Address.AddressFamily != AddressFamily.InterNetwork) continue;
+
+                //if (info.IPv4Mask == null) continue;
+
+                byte[] ip = info.Address.GetAddressBytes();
+                byte[] mask = info.IPv4Mask.GetAddressBytes();
+                byte[] broadcast = new byte[4];
+
+                for (int i = 0; i < 4; i++)
+                {
+                    broadcast[i] = (byte)(ip[i] | ~mask[i]);
+                }
+
+                yield return (info.Address, new IPAddress(broadcast));
+            }
+        }
+    }
+
     // Discover other computers running the program
     public async Task<List<IPAddress>> FindPeersAsync(TimeSpan timeout)
     {
-        using var client = new UdpClient(0);
-        client.EnableBroadcast = true;
-
-        byte[] request = Encoding.UTF8.GetBytes(DiscoveryMsg + Guid);
-
-        await client.SendAsync(request, new IPEndPoint(IPAddress.Broadcast, Port)); 
-
-        var peers = new HashSet<IPAddress>();
-
-        using var cts = new CancellationTokenSource(timeout);
-
         Console.Write("Discovering peers...");
-        while (!cts.IsCancellationRequested)
+        var peers = new HashSet<IPAddress>();
+        foreach (var (local, _) in GetBroadcastAddresses())
         {
-            try
+            using var client = new UdpClient(new IPEndPoint(local, 0));
+            client.EnableBroadcast = true;
+
+            byte[] request = Encoding.UTF8.GetBytes(DiscoveryMsg + Guid);
+
+            await client.SendAsync(request, new IPEndPoint(IPAddress.Broadcast, Port));
+
+            using var cts = new CancellationTokenSource(timeout);
+
+            while (!cts.IsCancellationRequested)
             {
-                var result = await client.ReceiveAsync(cts.Token);
-                string message = Encoding.UTF8.GetString(result.Buffer);
-                if (message.StartsWith(ResponseMsg) && message != ResponseMsg + Guid) peers.Add(result.RemoteEndPoint.Address);
-                Console.Write(".");
-            }
-            catch (OperationCanceledException)
-            {
-                break;
+                try
+                {
+                    var result = await client.ReceiveAsync(cts.Token);
+                    string message = Encoding.UTF8.GetString(result.Buffer);
+                    if (message.StartsWith(ResponseMsg) && message != ResponseMsg + Guid) peers.Add(result.RemoteEndPoint.Address);
+                    Console.Write(".");
+                }
+                catch (OperationCanceledException)
+                {
+                    break;
+                }
             }
         }
         Console.WriteLine();
-
         return peers.ToList();
     }
 
@@ -108,7 +151,6 @@ public sealed class LanDiscovery : IDisposable
 
     private UdpClient Udp { get; }
     private Guid Guid { get; } = Guid.NewGuid();
-
     #endregion
 }
 

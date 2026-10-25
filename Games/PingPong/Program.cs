@@ -1,9 +1,5 @@
-﻿using FSCSharp;
-using PingPong.Networking;
-using Raylib_cs;
+﻿using PingPong.Networking;
 using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
 
 namespace PingPong;
 
@@ -17,7 +13,7 @@ public class Program
         if (gameMode == "m2")
         {
             LanDiscovery.CheckNetworkConnection();
-            Console.WriteLine($"Your IP is: {LanDiscovery.GetLocalIpAddress()}. Listening for connections.");
+            Console.WriteLine($"Your IP is: {LanDiscovery.GetLocalIpAddress()}");
 
             using var discovery = new LanDiscovery();
             using var cts = new CancellationTokenSource();
@@ -28,9 +24,9 @@ public class Program
             Console.ReadLine();
 
             Peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(10));
-            for(var i = 0; i < Peers.Count; i++)
+            foreach (var peer in Peers)
             {
-                Console.WriteLine($"[{i + 1}] Found peer: {Peers[i]}");
+                Console.WriteLine($"Found peer: {peer}");
             }
             _ = cts.CancelAsync();
             Console.ReadLine();
