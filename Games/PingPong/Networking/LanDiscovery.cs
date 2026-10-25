@@ -74,6 +74,7 @@ public sealed class LanDiscovery : IDisposable
                 break;
             }
         }
+        Console.WriteLine();
 
         return peers.ToList();
     }
