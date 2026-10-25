@@ -10,7 +10,7 @@ namespace PingPong;
 public class PingPongGame : Game<PingPongGame>
 {
     #region Constructors
-    public PingPongGame() : base("Ping Pong", 1500, 1000, Color.Black)
+    public PingPongGame(string gameMode) : base("Ping Pong", 1500, 1000, Color.Black)
     {
         Task.Run(() =>
         {
@@ -36,36 +36,34 @@ public class PingPongGame : Game<PingPongGame>
         CLib.Focus();
         while (true)
         {
-            Console.Write("Single player, multiplayer, demo, two computer multiplayer? (s/m/d/m2): ");
-            var input = Console.ReadLine()?.Trim().ToLower();
-            if (input == "s")
+            if (gameMode == "s")
             {
                 LeftPaddle = new LeftPaddleComputer(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
                 RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
                 break;
             }
-            if (input == "m")
+            if (gameMode == "m")
             {
                 LeftPaddle = new LeftPaddle(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
                 RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
                 break;
             }
-            if (input == "d")
+            if (gameMode == "d")
             {
                 LeftPaddle = new LeftPaddleComputer(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
                 RightPaddle = new RightPaddleComputer(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
                 break;
             }
-            if (input == "m2")
-            {
-                CheckNetworkConnection();
-                Console.WriteLine($"Your IP is: {GetLocalIpAddress()}");
-                Console.Write("Please enter other player's IP: ");
-                var otherPlayerIp = Console.ReadLine()!.Trim();
+            //if (gameMode == "m2")
+            //{
+            //    CheckNetworkConnection();
+            //    Console.WriteLine($"Your IP is: {GetLocalIpAddress()}");
+            //    Console.Write("Please enter other player's IP: ");
+            //    var otherPlayerIp = Console.ReadLine()!.Trim();
 
-                var webServer = new WebMonk.WebServer(54548, "http://localhost:55555/");
-                break;
-            }
+            //    var webServer = new WebMonk.WebServer(54548, "http://localhost:55555/");
+            //    break;
+            //}
             Console.Write("Invalid Input. ");
         }
         GameObjects.Add(LeftPaddle);
