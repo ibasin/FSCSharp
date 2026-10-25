@@ -17,7 +17,7 @@ public class Program
         if (gameMode == "m2")
         {
             LanDiscovery.CheckNetworkConnection();
-            Console.WriteLine($"Your IP is: {LanDiscovery.GetLocalIpAddress()}");
+            Console.WriteLine($"Your IP is: {LanDiscovery.GetLocalIpAddress()}. Listening for connections.");
 
             using var discovery = new LanDiscovery();
             using var cts = new CancellationTokenSource();
