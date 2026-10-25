@@ -66,7 +66,7 @@ public sealed class LanDiscovery : IDisposable
             {
                 var result = await client.ReceiveAsync(cts.Token);
                 string message = Encoding.UTF8.GetString(result.Buffer);
-                if (message.StartsWith(ResponseMsg) && message != message + Guid) peers.Add(result.RemoteEndPoint.Address);
+                if (message.StartsWith(ResponseMsg) && message != ResponseMsg + Guid) peers.Add(result.RemoteEndPoint.Address);
                 Console.Write(".");
             }
             catch (OperationCanceledException)

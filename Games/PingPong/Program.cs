@@ -22,7 +22,7 @@ public class Program
             using var discovery = new LanDiscovery();
             using var cts = new CancellationTokenSource();
 
-            Task listener = discovery.ListenAsync(cts.Token);
+            _ = discovery.ListenAsync(cts.Token);
 
             Console.Write("Press enter when ready to find LAN games...");
             Console.ReadLine();
