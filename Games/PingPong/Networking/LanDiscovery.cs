@@ -1,6 +1,7 @@
 ﻿namespace PingPong.Networking;
 
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 
@@ -58,6 +59,7 @@ public sealed class LanDiscovery : IDisposable
 
         using var cts = new CancellationTokenSource(timeout);
 
+        Console.Write("Discovering peers.");
         while (!cts.IsCancellationRequested)
         {
             try
@@ -65,6 +67,7 @@ public sealed class LanDiscovery : IDisposable
                 var result = await client.ReceiveAsync(cts.Token);
                 string message = Encoding.UTF8.GetString(result.Buffer);
                 if (message == ResponseMsg) peers.Add(result.RemoteEndPoint.Address);
+                Console.Write(".");
             }
             catch (OperationCanceledException)
             {
@@ -73,6 +76,27 @@ public sealed class LanDiscovery : IDisposable
         }
 
         return peers.ToList();
+    }
+
+    public static void CheckNetworkConnection()
+    {
+        if (!NetworkInterface.GetIsNetworkAvailable())
+        {
+            Console.WriteLine("Network is not available");
+            Environment.Exit(0);
+        }
+    }
+    public static string GetLocalIpAddress()
+    {
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        throw new Exception("No network adapters with an IPv4 address in the system!");
     }
     #endregion
 

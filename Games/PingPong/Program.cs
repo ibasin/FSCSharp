@@ -1,5 +1,9 @@
-﻿using System.Net;
+﻿using FSCSharp;
 using PingPong.Networking;
+using Raylib_cs;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace PingPong;
 
@@ -12,6 +16,9 @@ public class Program
 
         if (gameMode == "m2")
         {
+            LanDiscovery.CheckNetworkConnection();
+            Console.WriteLine($"Your IP is: {LanDiscovery.GetLocalIpAddress()}");
+
             using var discovery = new LanDiscovery();
             using var cts = new CancellationTokenSource();
 
@@ -20,7 +27,7 @@ public class Program
             Console.WriteLine("Press enter when ready to find LAN games...");
             Console.ReadLine();
 
-            Peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(2));
+            Peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(10));
             foreach (var peer in Peers)
             {
                 Console.WriteLine($"Found peer: {peer}");

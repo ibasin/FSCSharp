@@ -76,37 +76,6 @@ public class PingPongGame : Game<PingPongGame>
     }
     #endregion
 
-    #region Methods
-    public void CheckNetworkConnection()
-    {
-        if (!NetworkInterface.GetIsNetworkAvailable())
-        {
-            CLib.Unfocus();
-
-            // ReSharper disable once VirtualMemberCallInConstructor
-            ShowMessage("Network is not available", Color.White);
-
-            while (!Raylib.WindowShouldClose())
-            {
-                Raylib.PollInputEvents();
-            }
-            Environment.Exit(0);
-        }
-    }
-    public static string GetLocalIpAddress()
-    {
-        var host = Dns.GetHostEntry(Dns.GetHostName());
-        foreach (var ip in host.AddressList)
-        {
-            if (ip.AddressFamily == AddressFamily.InterNetwork)
-            {
-                return ip.ToString();
-            }
-        }
-        throw new Exception("No network adapters with an IPv4 address in the system!");
-    }
-    #endregion
-
     #region Properties
     public Paddle LeftPaddle { get; }
     public Paddle RightPaddle { get; }
