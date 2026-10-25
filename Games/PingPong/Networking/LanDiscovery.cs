@@ -59,7 +59,7 @@ public sealed class LanDiscovery : IDisposable
 
         using var cts = new CancellationTokenSource(timeout);
 
-        Console.Write("Discovering peers.");
+        Console.Write("Discovering peers...");
         while (!cts.IsCancellationRequested)
         {
             try

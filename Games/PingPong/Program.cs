@@ -24,7 +24,7 @@ public class Program
 
             Task listener = discovery.ListenAsync(cts.Token);
 
-            Console.WriteLine("Press enter when ready to find LAN games...");
+            Console.Write("Press enter when ready to find LAN games...");
             Console.ReadLine();
 
             Peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(10));
