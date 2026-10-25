@@ -25,6 +25,7 @@ public class Program
             {
                 Console.WriteLine($"Found peer: {peer}");
             }
+            Console.ReadLine();
         }
 
         using var game = new PingPongGame(gameMode);
