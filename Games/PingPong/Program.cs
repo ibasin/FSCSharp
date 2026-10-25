@@ -28,9 +28,9 @@ public class Program
             Console.ReadLine();
 
             Peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(10));
-            foreach (var peer in Peers)
+            for(var i = 0; i < Peers.Count; i++)
             {
-                Console.WriteLine($"Found peer: {peer}");
+                Console.WriteLine($"[{i + 1}] Found peer: {Peers[i]}");
             }
             _ = cts.CancelAsync();
             Console.ReadLine();
