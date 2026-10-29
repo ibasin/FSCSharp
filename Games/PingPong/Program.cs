@@ -1,4 +1,5 @@
-﻿using PingPong.ApiClient;
+﻿using System.Numerics;
+using PingPong.ApiClient;
 using PingPong.Networking;
 using Supermodel.ApiClient.Models;
 using WebMonk;
@@ -96,9 +97,9 @@ public static class Program
             {
                 _ = webApiDataContext.TokenAsync(new TokenInput
                 {
-                    BallLocation = PingPongGame.Current.Ball.Location,
-                    BallVelocity = PingPongGame.Current.Ball.Velocity,
-                    PaddleLocation = PingPongGame.Current.LeftPaddle.Location
+                    BallLocation = Vector2.Zero,
+                    BallVelocity = Vector2.Zero,
+                    PaddleLocation = Vector2.Zero
                 });
             }
         }
