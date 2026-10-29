@@ -1,42 +1,52 @@
-﻿namespace PingPong.Networking;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
+
+namespace PingPong.Networking;
 
 public static class Firewall
 {
-    public static void OpenPort(int port, bool udp = false)
+    public static void OpenPort(int port)
     {
-        if (port < 1 || port > 65535) throw new ArgumentOutOfRangeException(nameof(port));
+        var psi = new ProcessStartInfo("netsh")
+        {
+            UseShellExecute = true,
+            Verb = "runas",
+            Arguments =
+                $"advfirewall firewall add rule " +
+                $"name=\"MyApp TCP {port}\" " +
+                $"dir=in action=allow protocol=TCP " +
+                $"localport={port} profile=any"
+        };
 
-        Type policyType = Type.GetTypeFromProgID("HNetCfg.FwPolicy2", throwOnError: true)!;
+        using var process = Process.Start(psi) ?? throw new InvalidOperationException("Could not start netsh.");
 
-        Type ruleType = Type.GetTypeFromProgID("HNetCfg.FWRule", throwOnError: true)!;
+        process.WaitForExit();
 
-        dynamic policy = Activator.CreateInstance(policyType)!;
-        dynamic rule = Activator.CreateInstance(ruleType)!;
-
-        rule.Name = $"MyApp {(udp ? "UDP" : "TCP")} {port}";
-        rule.Description = "Allow incoming connections for MyApp";
-
-        rule.Protocol = udp ? 17 : 6;  // UDP = 17, TCP = 6
-        rule.LocalPorts = port.ToString();
-
-        rule.Direction = 1;           // Inbound
-        rule.Action = 1;              // Allow
-        rule.Enabled = true;
-
-        rule.Profiles = 2;            // Private networks only
-        rule.RemoteAddresses = "LocalSubnet";
-
-        policy.Rules.Add(rule);
+        if (process.ExitCode != 0) throw new Exception("Failed to configure Windows Firewall.");
     }
 
-    public static void ClosePort(int port, bool udp = false)
+    public static bool IsPortOpen(int port)
     {
         Type policyType = Type.GetTypeFromProgID("HNetCfg.FwPolicy2", throwOnError: true)!;
 
         dynamic policy = Activator.CreateInstance(policyType)!;
 
-        string name = $"MyApp {(udp ? "UDP" : "TCP")} {port}";
+        string name = $"MyApp TCP {port}";
 
-        policy.Rules.Remove(name);
+        try
+        {
+            dynamic rule = policy.Rules.Item(name);
+
+            return (bool)rule.Enabled
+                   && (int)rule.Action == 1        // Allow
+                   && (int)rule.Direction == 1     // Inbound
+                   && (int)rule.Protocol == 6
+                   && (string)rule.LocalPorts == port.ToString()
+                   && ((int)rule.Profiles & (int)policy.CurrentProfileTypes) != 0;
+        }
+        catch (COMException ex) when ((uint)ex.HResult == 0x80070002)
+        {
+            return false; // Rule doesn't exist
+        }
     }
 }

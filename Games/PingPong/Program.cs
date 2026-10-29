@@ -18,7 +18,7 @@ public static class Program
             var myIp = LanDiscovery.GetLocalIpAddress();
             Console.WriteLine($"\nYour IP is: {myIp}");
 
-            Firewall.OpenPort(HttpPort);
+            if (!Firewall.IsPortOpen(HttpPort)) Firewall.OpenPort(HttpPort);
             var webServer = new WebServer(HttpPort, $"http://{myIp}:{HttpPort}");
             _ = webServer.RunAsync();
 
