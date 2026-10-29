@@ -71,23 +71,35 @@ public static class Program
                         Console.WriteLine($"Connecting to {peers[index]}...");
                         Peer = peers[index].ToString();
                         _ = cts.CancelAsync();
-                        
-                        var webApiDataContext = new PingPongWebApiDataContext();
-                        var handshakeOutput = await webApiDataContext.HandshakeAsync(new HandshakeInput { RequestIP = myIp });
-                        if (handshakeOutput.ResponseIP == Peer)
+
+                        await using (var webApiDataContext = new PingPongWebApiDataContext())
                         {
-                            Console.WriteLine($"Handshake with {Peer} successful!");
-                            IsPlayingLeft = true;
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Handshake failed. Expected {Peer}, but got {handshakeOutput.ResponseIP}. Exiting...");
-                            return;
+                            var handshakeOutput = await webApiDataContext.HandshakeAsync(new HandshakeInput { RequestIP = myIp });
+                            if (handshakeOutput.ResponseIP == Peer)
+                            {
+                                Console.WriteLine($"Handshake with {Peer} successful!");
+                                IsPlayingLeft = true;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Handshake failed. Expected {Peer}, but got {handshakeOutput.ResponseIP}. Exiting...");
+                                return;
+                            }
                         }
                     }
                 }
                 Console.Write("Invalid selection. Try again: ");
+            }
+
+            await using (var webApiDataContext = new PingPongWebApiDataContext())
+            {
+                _ = webApiDataContext.TokenAsync(new TokenInput
+                {
+                    BallLocation = PingPongGame.Current.Ball.Location,
+                    BallVelocity = PingPongGame.Current.Ball.Velocity,
+                    PaddleLocation = PingPongGame.Current.LeftPaddle.Location
+                });
             }
         }
 

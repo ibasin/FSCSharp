@@ -1,0 +1,4 @@
+[*.cs]
+dotnet_diagnostic.IDE0063.severity = suggestion
+
+csharp_prefer_simple_using_statement = suggestion
