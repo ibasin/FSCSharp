@@ -36,8 +36,4 @@
     <ProjectReference Include="..\..\FSCSharp\FSCSharp.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ApiClient\" />
-  </ItemGroup>
-
 </Project>

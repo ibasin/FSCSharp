@@ -1,7 +1,7 @@
 ﻿using PingPong.Networking;
 using Supermodel.Presentation.WebMonk.Controllers.Api;
 
-namespace PingPong.Api;
+namespace PingPong.ApiServer;
 
 public class HandshakeInput
 {

@@ -1,4 +1,6 @@
-﻿using PingPong.Networking;
+﻿using PingPong.ApiClient;
+using PingPong.Networking;
+using Supermodel.ApiClient.Models;
 using WebMonk;
 
 namespace PingPong;
@@ -42,6 +44,13 @@ public static class Program
             while (true)
             {
                 await Task.Delay(100, cts.Token);
+
+                if (Peer != null)
+                {
+                    Console.WriteLine($"Handshake with {Peer} successful!");
+                    break;
+                }
+
                 var keyInfo = Console.ReadKey(true);
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
@@ -59,7 +68,19 @@ public static class Program
                         Console.WriteLine($"Connecting to {peers[index]}...");
                         Peer = peers[index].ToString();
                         _ = cts.CancelAsync();
-                        break;
+                        
+                        var webApiDataContext = new PingPongWebApiDataContext();
+                        var handshakeOutput = await webApiDataContext.HandshakeAsync(new HandshakeInput { RequestIP = myIp });
+                        if (handshakeOutput.ResponseIP == Peer)
+                        {
+                            Console.WriteLine($"Handshake with {Peer} successful!");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Handshake failed. Expected {Peer}, but got {handshakeOutput.ResponseIP}. Exiting...");
+                            return;
+                        }
                     }
                 }
                 Console.Write("Invalid selection. Try again: ");
