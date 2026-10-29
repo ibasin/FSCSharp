@@ -1,5 +1,6 @@
-﻿using PingPong.Networking;
-using System.Net;
+﻿using System.Net;
+using PingPong.Networking;
+using WebMonk;
 
 namespace PingPong;
 
@@ -13,7 +14,11 @@ public class Program
         if (gameMode == "m2")
         {
             LanDiscovery.CheckNetworkConnection();
-            Console.WriteLine($"Your IP is: {LanDiscovery.GetLocalIpAddress()}");
+            var myIp = LanDiscovery.GetLocalIpAddress();
+            Console.WriteLine($"\nYour IP is: {myIp}");
+
+            var webServer = new WebServer(HttpPort, $"http://{myIp}:{HttpPort}");
+            _ = webServer.RunAsync();
 
             using var discovery = new LanDiscovery();
             using var cts = new CancellationTokenSource();
@@ -23,12 +28,47 @@ public class Program
             Console.Write("Press enter when ready to find LAN games...");
             Console.ReadLine();
 
-            Peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(2));
-            for (var i = 0; i < Peers.Count; i++)
+            var peers = await discovery.FindPeersAsync(TimeSpan.FromSeconds(2));
+            if (peers.Count == 0)
             {
-                Console.WriteLine($"[{i + 1}] Found peer: {Peers[i]}");
+                Console.WriteLine("No peers found. Press enter to exit.");
+                Console.ReadLine();
+                return;
             }
-            _ = cts.CancelAsync();
+            for (var i = 0; i < peers.Count; i++)
+            {
+                Console.WriteLine($"[{i + 1}] Found peer: {peers[i]}");
+            }
+            Console.Write("Pick a peer by entering its number: ");
+            while (true)
+            {
+                await Task.Delay(100, cts.Token);
+                var keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.Escape)
+                {
+                    Console.WriteLine("\nEscape pressed. Exiting...");
+                    return;
+                }
+
+                var ch = keyInfo.KeyChar;
+                Console.WriteLine(ch);
+                if (char.IsDigit(ch))
+                {
+                    var index = int.Parse(ch.ToString()) - 1;
+                    if (index >= 0 && index < peers.Count)
+                    {
+                        Console.WriteLine($"Connecting to {peers[index]}...");
+                        Peer = peers[index];
+                        _ = cts.CancelAsync();
+                        break;
+                    }
+                }
+                Console.Write("Invalid selection. Try again: ");
+            }
+
+            //handshake
+            
+
             Console.ReadLine();
         }
 
@@ -36,5 +76,6 @@ public class Program
         game.Run();
     }
 
-    public static List<IPAddress> Peers { get; private set; } = new();
+    public static IPAddress? Peer { get; private set; }
+    public const int HttpPort = 50001;
 }
