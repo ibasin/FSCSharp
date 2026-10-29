@@ -89,11 +89,6 @@ public static class Program
                 }
                 Console.Write("Invalid selection. Try again: ");
             }
-
-            //handshake
-            
-
-            Console.ReadLine();
         }
 
         using var game = new PingPongGame(gameMode);
