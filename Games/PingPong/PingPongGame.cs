@@ -51,16 +51,21 @@ public class PingPongGame : Game<PingPongGame>
                 RightPaddle = new RightPaddleComputer(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
                 break;
             }
-            //if (gameMode == "m2")
-            //{
-            //    CheckNetworkConnection();
-            //    Console.WriteLine($"Your IP is: {GetLocalIpAddress()}");
-            //    Console.Write("Please enter other player's IP: ");
-            //    var otherPlayerIp = Console.ReadLine()!.Trim();
-
-            //    var webServer = new WebMonk.WebServer(54548, "http://localhost:55555/");
-            //    break;
-            //}
+            if (gameMode == "m2")
+            {
+                if (Program.IsPlayingLeft)
+                {
+                    LeftPaddle = new LeftPaddle(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+                    RightPaddle = new RightPaddleRemoteComputer(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
+                    break;
+                }
+                else
+                {
+                    LeftPaddle = new LeftPaddleRemoteComputer(new Vector2(50, Current.WindowHeight / 2f), Color.Green);
+                    RightPaddle = new RightPaddle(new Vector2(Current.WindowWidth - 50, Current.WindowHeight / 2f), Color.Red);
+                    break;
+                }
+            }
             Console.Write("Invalid Input. ");
         }
         GameObjects.Add(LeftPaddle);

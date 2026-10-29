@@ -49,6 +49,7 @@ public static class Program
                 if (Peer != null)
                 {
                     Console.WriteLine($"\nHandshake with {Peer} successful!");
+                    IsPlayingLeft = false;
                     break;
                 }
                 if (!Console.KeyAvailable) continue;
@@ -76,6 +77,7 @@ public static class Program
                         if (handshakeOutput.ResponseIP == Peer)
                         {
                             Console.WriteLine($"Handshake with {Peer} successful!");
+                            IsPlayingLeft = true;
                             break;
                         }
                         else
@@ -100,4 +102,5 @@ public static class Program
 
     public static string? Peer { get; set; }
     public const int HttpPort = 50001;
+    public static bool IsPlayingLeft { get; set; }
 }
