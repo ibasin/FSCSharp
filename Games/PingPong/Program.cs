@@ -95,7 +95,7 @@ public static class Program
 
             await using (var webApiDataContext = new PingPongWebApiDataContext())
             {
-                _ = webApiDataContext.TokenAsync(new TokenInput
+                var output = await webApiDataContext.TokenAsync(new TokenInput
                 {
                     BallLocation = Vector2.Zero,
                     BallVelocity = Vector2.Zero,
