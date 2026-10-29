@@ -112,6 +112,7 @@ public abstract class EnhancedCRUDController<TEntity, TDetailMvcModel, TListMvcM
     protected virtual async Task<TSearchMvcModel> GetSearchByUsingTryUpdateAsync(bool isInline)
     {
         var searchBy = new TSearchMvcModel();
+        // ReSharper disable once SuspiciousTypeConversion.Global
         if (searchBy is IAsyncInit iAsyncInit && !iAsyncInit.AsyncInitialized) await iAsyncInit.InitAsync();
         try
         {

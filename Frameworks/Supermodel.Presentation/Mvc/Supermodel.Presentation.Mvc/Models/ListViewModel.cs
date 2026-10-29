@@ -21,6 +21,7 @@ public class ListViewModel<TViewModelForEntity, TEntity> : List<TViewModelForEnt
         foreach (var entity in entityList.ToList())
         {
             var mvcModel = new TViewModelForEntity();
+            // ReSharper disable once SuspiciousTypeConversion.Global
             if (mvcModel is IAsyncInit iAsyncInit && !iAsyncInit.AsyncInitialized) await iAsyncInit.InitAsync();
             mvcModel = await mvcModel.MapFromAsync(entity);
             Add(mvcModel);
@@ -72,6 +73,7 @@ public class ListViewModel<TViewModelForEntity, TEntity> : List<TViewModelForEnt
             
         foreach (var viewModelForEntity in this)
         {
+            // ReSharper disable once SuspiciousTypeConversion.Global
             if (viewModelForEntity is IAsyncInit iAsyncInit && !iAsyncInit.AsyncInitialized) await iAsyncInit.InitAsync();
         }
 

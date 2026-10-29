@@ -282,7 +282,7 @@ public class ModelGen
 
                 if (property.PropertyType == typeof(string)) sb.Append(" = \"\";");
 
-                sb.AppendLine("");                
+                sb.AppendLine("");
             }
             else if (property.PropertyType.IsEnum || property.PropertyType.IsValueType)
             {

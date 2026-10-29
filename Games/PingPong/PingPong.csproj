@@ -31,8 +31,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frameworks\Supermodel.Client\Supermodel.Client.Backend\Supermodel.Client.Backend.csproj" />
     <ProjectReference Include="..\..\Frameworks\Supermodel.Presentation\WebMonk\Supermodel.Presentation.WebMonk\Supermodel.Presentation.WebMonk.csproj" />
     <ProjectReference Include="..\..\FSCSharp\FSCSharp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ApiClient\" />
   </ItemGroup>
 
 </Project>

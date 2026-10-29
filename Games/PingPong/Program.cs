@@ -1,10 +1,9 @@
-﻿using System.Net;
-using PingPong.Networking;
+﻿using PingPong.Networking;
 using WebMonk;
 
 namespace PingPong;
 
-public class Program
+public static class Program
 {
     static async Task Main()
     {
@@ -58,7 +57,7 @@ public class Program
                     if (index >= 0 && index < peers.Count)
                     {
                         Console.WriteLine($"Connecting to {peers[index]}...");
-                        Peer = peers[index];
+                        Peer = peers[index].ToString();
                         _ = cts.CancelAsync();
                         break;
                     }
@@ -76,6 +75,6 @@ public class Program
         game.Run();
     }
 
-    public static IPAddress? Peer { get; private set; }
+    public static string? Peer { get; set; }
     public const int HttpPort = 50001;
 }

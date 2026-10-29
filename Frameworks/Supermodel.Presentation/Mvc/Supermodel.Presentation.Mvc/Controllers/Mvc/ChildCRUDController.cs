@@ -52,6 +52,7 @@ public abstract class ChildCRUDController<TChildEntity, TChildDetailMvcModel, TP
                 mvcModelItem = new TChildDetailMvcModel { ParentId = parentId }; //We set parentID twice, in case we may need it during MapFromObject
                     
                 //Init mvc model is it requires async initialization
+                // ReSharper disable once SuspiciousTypeConversion.Global
                 if (mvcModelItem is IAsyncInit iai && !iai.AsyncInitialized) await iai.InitAsync();
                     
                 mvcModelItem = await mvcModelItem.MapFromAsync(new TChildEntity());
@@ -64,6 +65,7 @@ public abstract class ChildCRUDController<TChildEntity, TChildDetailMvcModel, TP
             mvcModelItem = new TChildDetailMvcModel();
                 
             //Init mvc model is it requires async initialization
+            // ReSharper disable once SuspiciousTypeConversion.Global
             if (mvcModelItem is IAsyncInit iAsyncInit && !iAsyncInit.AsyncInitialized) await iAsyncInit.InitAsync();
                 
             mvcModelItem = await mvcModelItem.MapFromAsync(entityItem);

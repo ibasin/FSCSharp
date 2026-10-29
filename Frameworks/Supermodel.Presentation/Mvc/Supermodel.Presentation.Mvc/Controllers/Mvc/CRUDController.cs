@@ -71,6 +71,7 @@ public abstract class CRUDController<TEntity, TDetailMvcModel, TListMvcModel, TD
             var mvcModelItem = new TDetailMvcModel();
 
             //Init mvc model if it requires async initialization
+            // ReSharper disable once SuspiciousTypeConversion.Global
             if (mvcModelItem is IAsyncInit iAsyncInit && !iAsyncInit.AsyncInitialized) await iAsyncInit.InitAsync();
 
             if (id == 0) 
@@ -279,6 +280,7 @@ public abstract class CRUDController<TEntity, TDetailMvcModel, TListMvcModel, TD
     protected virtual async Task<Tuple<TEntity, TDetailMvcModel>> TryUpdateEntityAsync(TEntity entityItem, string prefix)
     {
         var mvcModelItem = new TDetailMvcModel();
+        // ReSharper disable once SuspiciousTypeConversion.Global
         if (mvcModelItem is IAsyncInit iAsyncInit && !iAsyncInit.AsyncInitialized) await iAsyncInit.InitAsync();
         mvcModelItem = await mvcModelItem.MapFromAsync(entityItem);
 

@@ -1,9 +1,12 @@
 <Solution>
   <Folder Name="/Frameworks/">
     <Project Path="Frameworks/BrowserEmulator/BrowserEmulator.csproj" />
+    <Project Path="Frameworks/Supermodel.Client/Supermodel.Client.Backend/Supermodel.Client.Backend.csproj" />
+    <Project Path="Frameworks/Supermodel.Client/Supermodel.Client.CodeGen/Supermodel.Client.CodeGen.csproj" />
     <Project Path="Frameworks/Supermodel.DataAnnotations/Supermodel.DataAnnotations.csproj" />
     <Project Path="Frameworks/Supermodel.Encryptor/Supermodel.Encryptor.csproj" />
     <Project Path="Frameworks/Supermodel.Persistence/Supermodel.Persistence/Supermodel.Persistence.csproj" />
+    <Project Path="Frameworks/Supermodel.Presentation/Mvc/Supermodel.Presentation.Mvc/Supermodel.Presentation.Mvc.csproj" />
     <Project Path="Frameworks/Supermodel.Presentation/WebMonk/Supermodel.Presentation.WebMonk/Supermodel.Presentation.WebMonk.csproj" />
     <Project Path="Frameworks/Supermodel.ReflectionMapper/Supermodel.ReflectionMapper.csproj" />
     <Project Path="Frameworks/WebMonk/WebMonk.RazorSharp/WebMonk.RazorSharp.csproj" />
@@ -21,6 +24,9 @@
     <Project Path="Games/Tetris/Tetris.csproj" Id="c21889ff-be24-42eb-9ac9-b0534d6319a2" />
     <Project Path="Games/Tetris3D/Tetris3D.csproj" Id="4db7c846-90fe-4066-b93b-9a888266ec76" />
     <Project Path="Games/WizardOfTerror/WizardOfTerror.csproj" Id="337da4a6-eaa7-422f-ad7e-ebfcd8f86c2d" />
+  </Folder>
+  <Folder Name="/Games/Utils/">
+    <Project Path="Games/Utils/PingPongModelGenerator/PingPongModelGenerator.csproj" />
   </Folder>
   <Project Path="FSCSharp/FSCSharp.csproj" />
 </Solution>
