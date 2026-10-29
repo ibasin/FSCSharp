@@ -50,6 +50,7 @@ public static class Program
                     Console.WriteLine($"Handshake with {Peer} successful!");
                     break;
                 }
+                if (!Console.KeyAvailable) continue;
 
                 var keyInfo = Console.ReadKey(true);
                 if (keyInfo.Key == ConsoleKey.Escape)
