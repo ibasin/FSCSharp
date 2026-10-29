@@ -44,7 +44,7 @@ public static class Firewall
                    && (string)rule.LocalPorts == port.ToString()
                    && ((int)rule.Profiles & (int)policy.CurrentProfileTypes) != 0;
         }
-        catch (COMException ex) when ((uint)ex.HResult == 0x80070002)
+        catch (FileNotFoundException ex) when ((uint)ex.HResult == 0x80070002)
         {
             return false; // Rule doesn't exist
         }
