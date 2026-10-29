@@ -5,6 +5,8 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 
+using System;
+
 public sealed class LanDiscovery : IDisposable
 {
     #region Constructors
