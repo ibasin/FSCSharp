@@ -47,7 +47,7 @@ public static class Program
 
                 if (Peer != null)
                 {
-                    Console.WriteLine($"Handshake with {Peer} successful!");
+                    Console.WriteLine($"\nHandshake with {Peer} successful!");
                     break;
                 }
                 if (!Console.KeyAvailable) continue;
