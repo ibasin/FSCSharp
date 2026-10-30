@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace PingPong;
 
-public abstract class Paddle : TangibleGameObject
+public abstract class Paddle : VisibleGameObject
 {
     #region Constructors
     protected Paddle(Vector2 location, Color color, KeyboardKey upKey, KeyboardKey downKey)

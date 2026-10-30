@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace WizardOfTerror.StaticObjects;
 
-public class Field : TangibleGameObject
+public class Field : VisibleGameObject
 {
     #region Constructors
     public Field()

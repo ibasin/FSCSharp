@@ -3,7 +3,7 @@ using FSCSharp;
 
 namespace Snake;
 
-public class Apple : TangibleGameObject
+public class Apple : VisibleGameObject
 {
     #region Constrcutors
     public Apple()

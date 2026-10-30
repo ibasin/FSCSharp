@@ -5,7 +5,7 @@ using Breakout.Helpers;
 
 namespace Breakout;
 
-public class Block : TangibleGameObject
+public class Block : VisibleGameObject
 {
     #region Constructors
     public Block(Vector2 location, Color color)

@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace WizardOfTerror.Characters;
 
-public class AttackingRat : TangibleGameObject
+public class AttackingRat : VisibleGameObject
 {
     #region Constrcutors
     public AttackingRat(Vector2 location, Go lookingDirection)

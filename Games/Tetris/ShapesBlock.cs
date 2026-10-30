@@ -5,7 +5,7 @@ using Raylib_cs;
 
 namespace Tetris;
 
-public class ShapesBlock : TangibleGameObject
+public class ShapesBlock : VisibleGameObject
 {
     #region Methods
     public int RemoveFullLines()

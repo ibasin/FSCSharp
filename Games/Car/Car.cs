@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Car;
 
-public class Car : Tangible3DGameObject
+public class Car : Visible3DGameObject
 {
     #region Constructors
     public Car(Vector3 location)

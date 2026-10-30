@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace WizardOfTerror.AnimatedObjects;
 
-public abstract class AnimatedObject : TangibleGameObject
+public abstract class AnimatedObject : VisibleGameObject
 {
     #region Constrcutors
     protected AnimatedObject(Vector2 location, string textureFile, Vector2 size, int count)

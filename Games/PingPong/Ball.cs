@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace PingPong;
 
-public class Ball : TangibleGameObject
+public class Ball : VisibleGameObject
 {
     #region Embedded Types
     public enum Serving

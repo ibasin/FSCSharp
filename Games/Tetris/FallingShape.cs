@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Tetris;
 
-public class FallingShape : TangibleGameObject
+public class FallingShape : VisibleGameObject
 {
     #region Embedded Types
     public struct Rect

@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace Snake;
 
-public class Snake : TangibleGameObject
+public class Snake : VisibleGameObject
 {
     #region Constructors
     public Snake()

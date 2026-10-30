@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace WizardOfTerror.Characters;
 
-public abstract class CharacterBase : TangibleGameObject
+public abstract class CharacterBase : VisibleGameObject
 {
     #region Constrcutors
     protected CharacterBase(Vector2 location, Go lookingDirection, string directoryName)
