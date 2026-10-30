@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Dinosaur;
 
-public class Player : TangibleGameObject
+public class Player : VisibleGameObject
 {
     #region Constructor
     public Player()

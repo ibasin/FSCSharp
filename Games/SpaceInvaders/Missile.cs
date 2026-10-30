@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace SpaceInvaders;
 
-public class Missile : TangibleGameObject
+public class Missile : VisibleGameObject
 {
     #region Constructors
     public Missile(Vector2 location, Go direction)

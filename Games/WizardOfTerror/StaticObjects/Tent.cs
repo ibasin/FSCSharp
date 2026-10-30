@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace WizardOfTerror.StaticObjects;
 
-public class Tent : TangibleGameObject
+public class Tent : VisibleGameObject
 {
     #region Constrcutors
     public Tent(Vector2 location)

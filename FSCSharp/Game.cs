@@ -247,7 +247,7 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
             {
                 foreach (var gameObject in gameObjectsArr)
                 {
-                    var tangibleGameObject = gameObject as Tangible3DGameObject;
+                    var tangibleGameObject = gameObject as Visible3DGameObject;
                     tangibleGameObject?.Draw();
                 }
             }
@@ -260,9 +260,9 @@ public abstract class Game<TGame> : Game where TGame : Game<TGame>
         //Round-robin draw 2D tangible game objects
         foreach (var gameObject in gameObjectsArr)
         {
-            if (gameObject is Tangible3DGameObject) continue;
+            if (gameObject is Visible3DGameObject) continue;
 
-            var tangibleGameObject = gameObject as TangibleGameObject;
+            var tangibleGameObject = gameObject as VisibleGameObject;
             tangibleGameObject?.Draw(delta);
         }
 

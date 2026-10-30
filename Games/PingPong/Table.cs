@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace PingPong;
 
-public class Table : TangibleGameObject
+public class Table : VisibleGameObject
 {
     #region Overrides
     public override void Update(float delta)

@@ -4,7 +4,7 @@ using Raylib_cs;
 
 namespace SpaceInvaders;
 
-public class PlayerShip : TangibleGameObject
+public class PlayerShip : VisibleGameObject
 {
     #region Constructors
     public PlayerShip(Vector2 location)

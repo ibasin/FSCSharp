@@ -3,7 +3,7 @@ using Raylib_cs;
 
 namespace Tetris;
 
-public class Grid : TangibleGameObject
+public class Grid : VisibleGameObject
 {
     #region Overrides
     public override void Update(float delta)

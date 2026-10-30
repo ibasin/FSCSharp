@@ -4,7 +4,7 @@ using FSCSharp;
 
 namespace Cube;
 
-public class Cube : Tangible3DGameObject
+public class Cube : Visible3DGameObject
 {
     #region Cnstrcutors
     public Cube(Vector3 location)

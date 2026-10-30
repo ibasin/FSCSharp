@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace RunningBunny;
 
-public class RunningBunny : TangibleGameObject
+public class RunningBunny : VisibleGameObject
 {
     #region Constructor
     public RunningBunny(Vector2 location)

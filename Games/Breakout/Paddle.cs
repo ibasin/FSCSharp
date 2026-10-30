@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace Breakout;
 
-public class Paddle : TangibleGameObject
+public class Paddle : VisibleGameObject
 {
     #region Constructotrs
     public Paddle(Vector2 location)

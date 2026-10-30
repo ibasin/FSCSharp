@@ -5,7 +5,7 @@ using System.Numerics;
 
 namespace Tetris3D;
 
-public class ShapesBlock : Tangible3DGameObject
+public class ShapesBlock : Visible3DGameObject
 {
     #region Methods
     public int RemoveFullLines()

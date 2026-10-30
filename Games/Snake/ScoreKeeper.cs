@@ -3,7 +3,7 @@ using Raylib_cs;
 
 namespace Snake;
 
-public class ScoreKeeper : TangibleGameObject
+public class ScoreKeeper : VisibleGameObject
 {
     #region Overrides
     public override void Update(float delta)

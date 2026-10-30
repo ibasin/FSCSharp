@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Breakout;
 
-public class Ball : TangibleGameObject
+public class Ball : VisibleGameObject
 {
     #region Constrcutors
     public Ball(Vector2 location)

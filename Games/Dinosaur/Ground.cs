@@ -3,7 +3,7 @@ using Raylib_cs;
 
 namespace Dinosaur;
 
-public class Ground : TangibleGameObject
+public class Ground : VisibleGameObject
 {
     #region Constructors
     public Ground()

@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace Dinosaur;
 
-public class Cactus : TangibleGameObject
+public class Cactus : VisibleGameObject
 {
     #region Constructors
     public Cactus()
