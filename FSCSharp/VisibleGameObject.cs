@@ -1,6 +1,6 @@
 ﻿namespace FSCSharp;
 
-public abstract class TangibleGameObject : GameObject
+public abstract class VisibleGameObject : GameObject
 {
     #region Methods
     public abstract void Draw(float delta);
