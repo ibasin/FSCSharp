@@ -19,7 +19,7 @@ public class Ground : VisibleGameObject
     }
     public override void Draw(float delta)
     {
-        Raylib.DrawRectangle(0, GroundY, DinosaurGame.Current.WindowWidth, DinosaurGame.Current.WindowHeight, Color.DarkGreen);
+        Raylib.DrawRectangle(0, GroundY, DinosaurGame.Current.WindowWidth, (int)(DinosaurGame.Current.WindowHeight * 0.2f), Color.DarkGreen);
     }
     #endregion
 
