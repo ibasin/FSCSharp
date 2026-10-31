@@ -13,7 +13,7 @@ public class Player : VisibleGameObject
         Body = new Sprite(texture, 0.5f);
 
         GroundZeroY = DinosaurGame.Current.Ground.GroundY - Body.Size.Y / 2;
-        Location = Location = new Vector2(DinosaurGame.Current.WindowWidth * 0.10f, GroundZeroY);
+        Location = new Vector2(DinosaurGame.Current.WindowWidth * 0.10f, GroundZeroY);
     }
     #endregion
     
