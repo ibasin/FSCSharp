@@ -1,7 +1,7 @@
 ﻿using PingPong.ApiClient;
 using Raylib_cs;
-using System.Numerics;
 using Supermodel.ApiClient.Models;
+using System.Numerics;
 
 namespace PingPong;
 
@@ -21,9 +21,9 @@ public class LeftPaddleRemoteComputer : LeftPaddle, IComputerPaddle
         var webApiDataContext = new PingPongWebApiDataContext();
         _ = webApiDataContext.TokenAsync(new TokenInput
         {
-            BallLocation = PingPongGame.Current.Ball.Location,
-            BallVelocity = PingPongGame.Current.Ball.Velocity,
-            PaddleLocation = PingPongGame.Current.RightPaddle.Location
+            BallLocation = PingPongGame.Current.Ball.Location.ToVector2AsClass(),
+            BallVelocity = PingPongGame.Current.Ball.Velocity.ToVector2AsClass(),,
+            PaddleLocation = PingPongGame.Current.RightPaddle.Location.ToVector2AsClass(),
         });
     }
     #endregion
