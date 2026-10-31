@@ -15,7 +15,7 @@ using Supermodel.DataAnnotations.Attributes;
 // ReSharper restore RedundantUsingDirective
 
 // ReSharper disable once CheckNamespace
-namespace Supermodel.ApiClient.Models;
+namespace PingPong.Api.ApiClient;
 
 #region HandshakeApiController
 //Extension method for Handshake command

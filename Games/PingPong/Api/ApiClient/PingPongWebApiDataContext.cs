@@ -1,6 +1,6 @@
 ﻿using Supermodel.Client.Backend.DataContext.WebApi;
 
-namespace PingPong.ApiClient;
+namespace PingPong.Api.ApiClient;
 
 public class PingPongWebApiDataContext : WebApiDataContext
 {

@@ -1,7 +1,7 @@
 ﻿using Supermodel.Presentation.WebMonk.Controllers.Api;
 using System.Numerics;
 
-namespace PingPong.ApiServer;
+namespace PingPong.Api.ApiServer;
 
 public class TokenInput
 {

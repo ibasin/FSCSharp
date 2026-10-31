@@ -1,7 +1,7 @@
-﻿using PingPong.ApiClient;
-using Raylib_cs;
-using Supermodel.ApiClient.Models;
+﻿using Raylib_cs;
 using System.Numerics;
+using PingPong.Api;
+using PingPong.Api.ApiClient;
 
 namespace PingPong;
 
